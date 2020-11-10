@@ -1,0 +1,6 @@
+{
+  "arrowParens": "avoid",
+  "trailingComma": "none",
+  "singleQuote": false,
+  "quoteProps": "as-needed"
+}
