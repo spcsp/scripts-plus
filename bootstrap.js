@@ -95,6 +95,7 @@ function bootstrap(ROOT, config) {
     toast: require("toast"),
     alert: require("alert"),
     utils: require("utils"),
+    popup: require("popup"),
     macros: require("macros"),
     window: require("window"),
     system: require("system"),
@@ -137,15 +138,21 @@ function bootstrap(ROOT, config) {
     }
   }
   
-  return {
+  const ScriptyStrokes = {
     apps,
     require,
     ...stdlib,
+    popupCallback: [],
+    store: StringStore,
     events: new EventEmitter(),
     core: {
       getRoot: () => ROOT,
-      getConstant: key => StringStore(key),
       getSettings: () => sp.GetStoredObject("SCRIPTY_SETTINGS")
-    }
+    },
+    test: () => stdlib.alert("yus!")
   };
+  
+  ScriptyStrokes.events.on("OPEN_SETTINGS", () => sp.OpenSettings());
+  
+  return ScriptyStrokes;
 }
