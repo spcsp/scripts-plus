@@ -13,13 +13,13 @@ var notesUncPath = `${setupFolder}/${noteFileName}`;
 toast(notesUncPath, `Opening notes for ${mastercam.filenameNoExt}`);
 
 if (!fs.exists(notesUncPath)) {
-    var contents = `/ Program: ${mastercam.filename}
-\\ Path: ${mastercam.currentPath} 
+    var contents = `Program: ${mastercam.filename}
+Path: ${mastercam.currentPath} 
 
 
 > ${date.datestamp()}
 Program ran fine, no issues.
--Shaggy`;
+-`;
 
     fs.writeFile(notesUncPath, contents);
 }

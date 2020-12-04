@@ -2,13 +2,13 @@ class AppFactory {
   constructor(stdlib) {
     this._stdlib = stdlib;
   }
+    
+  using(fn) {
+    return fn(this._stdlib);
+  }
   
   require(module) {
     return this._stdlib[module];
-  }
-  
-  stdlibProvider(fn) {
-    return fn(this._stdlib);
   }
   
   create(exe) {

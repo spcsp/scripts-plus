@@ -1,0 +1,12 @@
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugins\ScriptyStrokes\bin\Debug\ScriptyStrokesPlugIn.dll
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugins\ScriptyStrokes\bin\Debug\ScriptyStrokesPlugIn.pdb
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugins\ScriptyStrokes\obj\Debug\ScriptyStrokes.csprojAssemblyReference.cache
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugins\ScriptyStrokes\obj\Debug\ScriptyStrokes.csproj.CoreCompileInputs.cache
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugins\ScriptyStrokes\obj\Debug\ScriptyStrokesPlugIn.dll
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugins\ScriptyStrokes\obj\Debug\ScriptyStrokesPlugIn.pdb
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\bin\Debug\ScriptyStrokesPlugIn.dll
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\bin\Debug\ScriptyStrokesPlugIn.pdb
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokes.csprojAssemblyReference.cache
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokes.csproj.CoreCompileInputs.cache
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokesPlugIn.dll
+Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokesPlugIn.pdb

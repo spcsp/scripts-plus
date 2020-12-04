@@ -1,16 +1,17 @@
 var { apps, alert, balloon, keyboard, toast } = ScriptyStrokes();
 var { mastercam } = apps;
 
-var wait = () => sp.Sleep(10);
+var wait = () => sp.Sleep(50);
 
-sp.SendKeys("^a");
+//sp.SendKeys("^a");
+keyboard.ctrl("a").type();
 wait();
-sp.SendString(mastercam.filenameNoExt);
+keyboard.string(mastercam.filenameNoExt);
 wait();
-keyboard.tab();
+keyboard.tab().type();
 wait();
-sp.SendKeys("^a");
+keyboard.ctrl("a").type();
 wait();
-sp.SendString(mastercam.currentPath.replace(/\//g, "\\"));
+keyboard.string(mastercam.currentPath.replace(/\//g, "\\"));
 
 toast("Updated Title, Path, and Post", mastercam.filename);

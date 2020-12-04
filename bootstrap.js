@@ -64,7 +64,7 @@ function bootstrap(ROOT, config) {
       ${file.data}
       
       module.exports["__MODULE_ID"] = "${moduleId}";
-      module.exports["__MODULE_SRC"] = "${file.abspath}";
+      module.exports["__MODULE_SRC"] = String.raw\`${file.abspath}\`;
       
       return module;
     }`;
@@ -80,10 +80,6 @@ function bootstrap(ROOT, config) {
     value: ScriptyPath,
     writable: false
   });
-   
-  const core = {
-    
-  };
 
   /**
    * Build up the StdLib
@@ -126,14 +122,30 @@ function bootstrap(ROOT, config) {
     mastercam: appLoader("mastercam")
   };
 
+  class EventEmitter {
+    constructor(events = []) {
+      this.events = new Map(events);
+    }
+
+    on(name, cb) {
+      this.events.set(name, [...(this.events.get(name) || []), cb])
+      return () => this.events.set(name, this.events.get(name).filter(fn => fn !== cb))
+    }
+
+    emit(name, ...args) {
+      return this.events.has(name) && this.events.get(name).map(fn => fn(...args))
+    }
+  }
+  
   return {
     apps,
     require,
     ...stdlib,
+    events: new EventEmitter(),
     core: {
       getRoot: () => ROOT,
       getConstant: key => StringStore(key),
       getSettings: () => sp.GetStoredObject("SCRIPTY_SETTINGS")
-    },
+    }
   };
 }
