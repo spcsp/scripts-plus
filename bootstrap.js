@@ -144,7 +144,6 @@ function bootstrap(ROOT, config) {
     apps,
     require,
     ...stdlib,
-    popupCallback: [],
     store: StringStore,
     events: new EventEmitter(),
     core: {
@@ -154,6 +153,7 @@ function bootstrap(ROOT, config) {
   };
   
   ScriptyStrokes.events.on("OPEN_SETTINGS", () => sp.OpenSettings());
-  
+  ScriptyStrokes.popupSelection = (id) => ScriptyStrokes.events.emit("POPUP_SELECTION", id);
+    
   return ScriptyStrokes;
 }

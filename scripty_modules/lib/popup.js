@@ -1,18 +1,11 @@
-function popup(callback, menuItems = []) {
-    var menu = new PopupMenuInfo();
+function popup(action, menuItems = []) {
+  const menu = new PopupMenuInfo();
 
-    menu.Callback = `$.popupCallback['${callback}']`;
-    
-    menuItems.forEach(menuItem => {
-      menu.Items.Add(Array.isArray(menuItem) ? menuItem[1] : "-");
-    });
-
-
-    return (action) => {
-      menu.Location = action.End;
-      
-      return sp.ShowPopupMenu(menu);
-    }
+  menu.Callback = `$.popupSelection`;
+  menuItems.forEach(t => menu.Items.Add(t));
+  menu.Location = action.End;
+  
+  sp.ShowPopupMenu(menu);
 }
 
 module.exports = popup;
