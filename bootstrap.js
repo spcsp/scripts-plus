@@ -1,6 +1,7 @@
 function bootstrap(ROOT, config) {
   const { Directory, File, Path } = clr.System.IO;
   const { GetFolderPath, SpecialFolder } = clr.System.Environment;
+  
   const StringStore = key => sp.GetStoredString(key);
     StringStore.set = (key, val) => sp.StoreString(key, val);
     
@@ -94,6 +95,7 @@ function bootstrap(ROOT, config) {
     date: require("date"),
     toast: require("toast"),
     alert: require("alert"),
+    timer: require("timer"),
     utils: require("utils"),
     popup: require("popup"),
     macros: require("macros"),

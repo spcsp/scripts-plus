@@ -1,1 +1,0 @@
-sp.CreateTimer('test', 1000, -1, String.raw`sp.MessageBox('Test', 'Timer');sp.DeleteTimer('test');`);
