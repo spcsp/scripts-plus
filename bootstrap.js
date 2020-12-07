@@ -1,4 +1,4 @@
-function bootstrap(ROOT, config) {
+function bootstrap(config = {}) {
   const { Directory, File, Path } = clr.System.IO;
   const { GetFolderPath, SpecialFolder } = clr.System.Environment;
   
@@ -12,15 +12,14 @@ function bootstrap(ROOT, config) {
     }
   };
     
-  StringStore.set("SCRIPTY_ROOT", ROOT);
-  StringStore.set("SCRIPTY_APPS", `${ROOT}/scripty_apps`);
-  StringStore.set("SCRIPTY_MACROS", `${ROOT}/scripty_macros`);
-  StringStore.set("SCRIPTY_MODULES", `${ROOT}/scripty_modules`);
+  StringStore.set("SCRIPTY_APPS", `${StringStore("SCRIPTY_ROOT")}/scripty_apps`);
+  StringStore.set("SCRIPTY_MACROS", `${StringStore("SCRIPTY_ROOT")}/scripty_macros`);
+  StringStore.set("SCRIPTY_MODULES", `${StringStore("SCRIPTY_ROOT")}/scripty_modules`);
   StringStore.set("SCRIPTY_CORE", `${StringStore("SCRIPTY_MODULES")}/core`);
   StringStore.set("SCRIPTY_LIB", `${StringStore("SCRIPTY_MODULES")}/lib`);
   StringStore.set("SCRIPTY_USER", `${GetFolderPath(SpecialFolder.UserProfile)}/scripty_strokes`);
   
-  sp.StoreObject("SCRIPTY_SETTINGS", Object.assign(defaults, config));    
+sp.StoreObject("SCRIPTY_SETTINGS", Object.assign({}, defaults, config));    
   
   function __eval(root, moduleId) {
     try {
@@ -125,35 +124,25 @@ function bootstrap(ROOT, config) {
     mastercam: appLoader("mastercam")
   };
 
-  class EventEmitter {
-    constructor(events = []) {
-      this.events = new Map(events);
-    }
+  const createEmitter = loaders.core("event-emitter");
 
-    on(name, cb) {
-      this.events.set(name, [...(this.events.get(name) || []), cb])
-      return () => this.events.set(name, this.events.get(name).filter(fn => fn !== cb))
-    }
-
-    emit(name, ...args) {
-      return this.events.has(name) && this.events.get(name).map(fn => fn(...args))
-    }
-  }
-  
   const ScriptyStrokes = {
     apps,
     require,
     ...stdlib,
-    store: StringStore,
-    events: new EventEmitter(),
+    events: createEmitter(),
     core: {
+      require: loaders.core,
       getRoot: () => ROOT,
       getSettings: () => sp.GetStoredObject("SCRIPTY_SETTINGS")
     }
   };
   
   ScriptyStrokes.events.on("OPEN_SETTINGS", () => sp.OpenSettings());
-  ScriptyStrokes.popupSelection = (id) => ScriptyStrokes.events.emit("POPUP_SELECTION", id);
+  ScriptyStrokes.popupSelection = (id) => {
+    const label = sp.GetStoredString(`__POPUP_ITEM_${id}`);
+    ScriptyStrokes.events.emit("POPUP_SELECTION", { id, label });
+  };
     
   return ScriptyStrokes;
 }

@@ -12,8 +12,15 @@ const foreground = {
   }
 };
 
+function titleMatcher(title, { Match, NoMatch }) {
+  const match = Match || function(){};
+  const nomatch = NoMatch || function(){};
+  return sp.ForegroundWindow().Title === title ? match() : nomatch();
+}
+
 module.exports = {
   foreground,
+  titleMatcher,
   getAppWindows,
   getAppWindowTitle
 }

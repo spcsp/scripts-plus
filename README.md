@@ -10,39 +10,29 @@ I like the `require()` function used in CommonJs to load other modules, so I put
 Under `Global Action`, pick the `Load/Unload` tab, and check the box to enable the load script.
 Replace the path with the absolute path to the cloned repository.
 ```
-function ScriptyStrokes() {
-    var ROOT = String.raw`<PATH_TO_REPO>`;
-    return eval("("+File.ReadAllText(`${ROOT}/bootstrap.js`)+")")(ROOT);
-}
+sp.StoreString("SCRIPTY_ROOT", String.raw`C:\Users\Me\Downloads\scripty-strokes`);
+const $ = eval("("+File.ReadAllText(`${sp.GetStoredString("SCRIPTY_ROOT")}/bootstrap.js`)+")");
 ```
 
 The bootstrapper takes care of providing a rich standard library that wraps many common `sp.xxxx` methods with simple APIs.
 
 ## Examples
 ```javascript
-var { alert } = ScriptyStrokes();
-
-alert("Hello World");
+$.alert("Hello World");
 ```
 
 ```javascript
-var { toast } = ScriptyStrokes();
-
-toast("Hello World");
+$.toast("Hello World");
 ```
 
 ```javascript
-var { toast } = ScriptyStrokes();
-
-var toaster = toast.factory("My Toaster is Fancy");
+var toaster = $.toast.factory("My Toaster is Fancy");
 
 toaster("I MAKE TOAST!");
 ```
 
 ```javascript
-var { balloon } = ScriptyStrokes();
-
-balloon("Hello World!", { title: "Custom Title" });
+$.balloon("Hello World!", { title: "Custom Title" });
 ```
 
 These are just a few of the many modules that come included. Check out the [stdlib](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/lib) modules as well as [application specific modules](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/apps) too.
@@ -114,9 +104,7 @@ module.exports = { queryString, request };
 
 With the simple StrokesPlus.net actions usage:
 ```javascript
-var { request } = ScriptyStrokes();
-
-var stackExchange = request({ baseUrl: "https://api.stackexchange.com/2.2/" });
+var stackExchange = $.request({ baseUrl: "https://api.stackexchange.com/2.2/" });
 
 var res = stackExchange("answers", {
   order: "desc",
