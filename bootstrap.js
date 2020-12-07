@@ -150,8 +150,7 @@ function bootstrap(ROOT, config) {
     core: {
       getRoot: () => ROOT,
       getSettings: () => sp.GetStoredObject("SCRIPTY_SETTINGS")
-    },
-    test: () => stdlib.alert("yus!")
+    }
   };
   
   ScriptyStrokes.events.on("OPEN_SETTINGS", () => sp.OpenSettings());
