@@ -1,6 +1,4 @@
-var { apps, fs, toast } = ScriptyStrokes();
-
-var { explorer, mastercam } = apps;
+var { explorer, mastercam } = $.apps;
 
 var setupFolder = mastercam.currentDir + "/SETUP_INFO";
 
@@ -25,15 +23,15 @@ sp.SendKeys("{ESC}");
 sp.Sleep(200);
 
 if (clip.ContainsImage()) {
-    fs.mkdir(setupFolder);
+    $.fs.mkdir(setupFolder);
 
     var screenshot = getFilename();
 
     clip.GetImage().Save(screenshot);
 
-    toast(screenshot, "Screenshot Saved");
+    $.toast(screenshot, "Screenshot Saved");
 
     explorer.open(setupFolder);
 } else {
-    toast("There was an error taking the screenshot");
+    $.toast("There was an error taking the screenshot");
 }

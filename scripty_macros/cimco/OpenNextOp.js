@@ -1,5 +1,4 @@
-var { apps, alert, balloon, toast, window } = ScriptyStrokes();
-var { cimco } = apps;
+var { cimco } = $.apps;
 
 var opNum = cimco.abspath.match(/_OP([1-9])/); 
 
@@ -8,7 +7,7 @@ if (typeof opNum[1] !== "undefined") {
   var nextOp = currOp + 1;
   var nextOpAbspath = cimco.abspath.replace(`OP${currOp}`, `OP${nextOp}`);
   
-  toast(nextOpAbspath, `Opening OP${nextOp}`); 
+  $.toast(nextOpAbspath, `Opening OP${nextOp}`); 
   
   sp.Sleep(500);
   sp.SendKeys("^o");
@@ -17,5 +16,5 @@ if (typeof opNum[1] !== "undefined") {
   sp.Sleep(200);
   sp.SendKeys("{ENTER}");
 } else {
-  toast("Could not parse an operation number", "Error");  
+  $.toast("Could not parse an operation number", "Error");  
 }

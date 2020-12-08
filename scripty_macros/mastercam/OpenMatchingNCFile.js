@@ -1,5 +1,4 @@
-var { apps, toast } = ScriptyStrokes();
-var { cimco, mastercam } = apps;
+var { cimco, mastercam } = $.apps;
 
 var path = mastercam.abspath.replace(/\.[^\/.]+$/, ".NC")
 

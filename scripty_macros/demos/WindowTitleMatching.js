@@ -1,19 +1,17 @@
-var { alert, apps, fp } = ScriptyStrokes();
+var activeWindowIsCalc = $.fp.createForegroundWindowTitleMatcher("Calculator");
 
-var { calc } = apps;
-
-var activeWindowIsCalc = fp.createForegroundWindowTitleMatcher("Calculator");
-
-activeWindowIsCalc({
+var handlers = {
   True: () => alert(`yes`),
   False: () => alert(`no`),
-});
+};
 
-calc.open();
+// This will check after calc opens
+$.timers.setTimeout(`
+  activeWindowIsCalc(handlers);
+`, 2000);
 
-sp.Sleep(500);
+// Check before calc opens
+activeWindowIsCalc(handlers);
 
-activeWindowIsCalc({
-  True: () => alert(`yes`),
-  False: () => alert(`no`),
-});
+// Open calc
+$.apps.calc.open();

@@ -1,8 +1,6 @@
-var { apps, exec, toast } = ScriptyStrokes();
+var { abspath, filename } = $.apps.cimco;
 
-var { abspath, filename } = apps.cimco;
-
-var xcopy = exec.create("xcopy");
+var xcopy = $.exec.create("xcopy");
 
 var stagingPath = String.raw`\\fpc27536s1\importcam`;
 
@@ -16,4 +14,4 @@ xcopy([
     stagingPath
 ]);
 
-toast(`${stagingPath}\\${filename}`, "Staged in Fastems for Import");
+$.toast(`${stagingPath}\\${filename}`, "Staged in Fastems for Import");

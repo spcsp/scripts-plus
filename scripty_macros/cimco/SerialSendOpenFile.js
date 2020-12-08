@@ -1,5 +1,4 @@
-var { apps, alert, balloon, keyboard, toast } = ScriptyStrokes();
-var { cimco, explorer } = apps;
+var { cimco, explorer } = $.apps;
 
 var comNum = 2;
 var mapped = explorer.mapUNCpath(cimco.abspath);
@@ -21,4 +20,4 @@ sp.RunProgram(
   true
 );
 
-toast("was sent to the machine", cimco.abspath);
+$.toast("was sent to the machine", cimco.abspath);

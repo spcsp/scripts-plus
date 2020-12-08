@@ -1,6 +1,4 @@
-var { apps, toast, utils } = ScriptyStrokes();
-
-var { explorer, mastercam } = apps;
+var { explorer, mastercam } = $.apps;
 
 toast(mastercam.currentPath, `Opening Job Folder for ${mastercam.partNumber}`);
 
