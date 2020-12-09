@@ -6,21 +6,19 @@ function getAppWindowTitle(app) {
   return getAppWindows(app)[0].Title;
 }
 
-const foreground = {
-  get title() {
-    return sp.ForegroundWindow().Title;
-  }
-};
+function getActive() {
+  return sp.ForegroundWindow()
+}
 
 function titleMatcher(title, { Match, NoMatch }) {
   const match = Match || function(){};
   const nomatch = NoMatch || function(){};
-  return sp.ForegroundWindow().Title === title ? match() : nomatch();
+  return getActive().Title === title ? match() : nomatch();
 }
 
 module.exports = {
-  foreground,
+  getActive,
   titleMatcher,
   getAppWindows,
-  getAppWindowTitle
+  getAppWindowTitle,
 }

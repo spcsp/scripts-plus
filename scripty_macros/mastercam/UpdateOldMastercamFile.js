@@ -3,7 +3,7 @@ var { mastercam } = $.apps;
 var wait = () => sp.Sleep(50);
 
 //sp.SendKeys("^a");
-keyboard.ctrl("a").type();
+$.keyboard.ctrl("a").type();
 wait();
 $.keyboard.string(mastercam.filenameNoExt);
 wait();

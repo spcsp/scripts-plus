@@ -10,8 +10,13 @@ I like the `require()` function used in CommonJs to load other modules, so I put
 Under `Global Action`, pick the `Load/Unload` tab, and check the box to enable the load script.
 Replace the path with the absolute path to the cloned repository.
 ```
-sp.StoreString("SCRIPTY_ROOT", String.raw`C:\Users\Me\Downloads\scripty-strokes`);
-const $ = eval("("+File.ReadAllText(`${sp.GetStoredString("SCRIPTY_ROOT")}/bootstrap.js`)+")");
+sp.StoreString("SCRIPTY_ROOT", String.raw`C:\Wherever\I\May\Roam\RootOfFramework`);
+const $ = eval("("+File.ReadAllText(`${sp.GetStoredString("SCRIPTY_ROOT")}/bootstrap.js`)+")")({
+    toast: {
+        textColor: "cyan",
+        backgroundColor: "black"
+    }
+});
 ```
 
 The bootstrapper takes care of providing a rich standard library that wraps many common `sp.xxxx` methods with simple APIs.
