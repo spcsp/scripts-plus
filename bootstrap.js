@@ -1,148 +1,178 @@
 function bootstrap(config = {}) {
-  const { Directory, File, Path } = clr.System.IO;
-  const { GetFolderPath, SpecialFolder } = clr.System.Environment;
-  
-  const StringStore = key => sp.GetStoredString(key);
-    StringStore.set = (key, val) => sp.StoreString(key, val);
-    
-  const defaults = {
+  const configDefaults = {
     toast: {
       textColor: "yellow",
       backgroundColor: "black"
     }
   };
+  
+  function init(__dirname, { env, mem }) {    
+    const { Directory, File, Path } = clr.System.IO;
+    const { GetFolderPath, SpecialFolder } = clr.System.Environment;
     
-  StringStore.set("SCRIPTY_APPS", `${StringStore("SCRIPTY_ROOT")}/scripty_apps`);
-  StringStore.set("SCRIPTY_MACROS", `${StringStore("SCRIPTY_ROOT")}/scripty_macros`);
-  StringStore.set("SCRIPTY_MODULES", `${StringStore("SCRIPTY_ROOT")}/scripty_modules`);
-  StringStore.set("SCRIPTY_CORE", `${StringStore("SCRIPTY_MODULES")}/core`);
-  StringStore.set("SCRIPTY_LIB", `${StringStore("SCRIPTY_MODULES")}/lib`);
-  StringStore.set("SCRIPTY_USER", `${GetFolderPath(SpecialFolder.UserProfile)}/scripty_strokes`);
-  
-sp.StoreObject("SCRIPTY_SETTINGS", Object.assign({}, defaults, config));    
-  
-  function __eval(root, moduleId) {
-    try {
-      const contents = File.ReadAllText(Path.Combine(root, `${moduleId}.js`));
-      
-      if (contents.startsWith("(")) {
-        return eval(contents);
-      } else {
-        return eval(`(${contents})`);
-      }
-    } catch (err) {
-      sp.MessageBox(`ERROR: ${err}`, "ScriptyStrokes __eval() Error");
-    }    
-  }  
-  
-  const ScriptyPath = [
-    StringStore("SCRIPTY_CORE"),
-    StringStore("SCRIPTY_LIB"),
-    StringStore("SCRIPTY_USER"),
-    StringStore("SCRIPTY_APPS")
-  ];
-  
-  const loaders = {
-    lib: moduleId => __eval(StringStore("SCRIPTY_LIB"), moduleId),
-    app: moduleId => __eval(StringStore("SCRIPTY_APPS"), moduleId),
-    core: moduleId => __eval(StringStore("SCRIPTY_CORE"), moduleId),
-    user: moduleId => __eval(StringStore("SCRIPTY_USER"), moduleId)
-  };
-  
-  const resolve = loaders.core("resolve");
-  
-  function require(moduleId, dependencies = {}) {
-    const file = resolve(moduleId);
-        
-    if (file.error) {
-      return sp.MessageBox(`${moduleId} failed to load.`, "ScriptyStrokes require() ERROR");
+    mem.set("SETTINGS", {...configDefaults, ...config});    
+    
+    env.set("ROOT", __dirname);
+    env.set("APPS_PATH", `${__dirname}/scripty_apps`);
+    env.set("MACROS_PATH", `${__dirname}/scripty_macros`);
+    env.set("MODULES_PATH", `${__dirname}/scripty_modules`);
+    env.set("USER_MODULES_PATH", `${GetFolderPath(SpecialFolder.UserProfile)}/scripty_strokes`);
+    
+    function evalFactory(root) {
+      return (moduleId) => {
+        try {
+          const contents = File.ReadAllText(Path.Combine(root, `${moduleId}.js`));
+          
+          if (contents.startsWith("(")) {
+            return eval(contents);
+          } else {
+            return eval(`(${contents})`);
+          }
+        } catch (err) {
+          sp.MessageBox(`ERROR: ${err}`, "ScriptyStrokes __eval() Error");
+        }
+      }      
     }
-  
-    const SRC = `function moduleLoader(stdlib) {
-      const module = { exports: {} };
+    
+    function resolve(moduleId) {
+      this.PATH = [
+        env.get("APPS_PATH"),
+        env.get("MODULES_PATH"),
+        env.get("USER_MODULES_PATH")
+      ];
       
-      ${file.data}
-      
-      module.exports["__MODULE_ID"] = "${moduleId}";
-      module.exports["__MODULE_SRC"] = String.raw\`${file.abspath}\`;
-      
-      return module;
-    }`;
+      for (const dir of this.PATH) {
+        //const abspath = Path.Combine(dir, `${moduleId}.js`).replace(/\\/g, "/").replace(/\//g, "\\\\");
+        const abspath = Path.Combine(dir, `${moduleId}.js`);
         
-    var newModule = eval("("+SRC+")")(dependencies);
+        //sp.MessageBox(abspath,"");
         
-    return newModule.exports;
+        if (File.Exists(abspath)) {
+          const data = File.ReadAllText(abspath);
+          
+          if (data) {
+            return { data, abspath, error: false };
+          }
+        }
+      }
+      
+      sp.MessageBox(
+        `"${moduleId}" was not found in the ScriptyPath.\n\n${this.PATH.join("\n")}`,
+        "ScriptyStrokes __resolve() ERROR"
+      );
+      
+      return {
+        error: `"${moduleId}" was not found in the ScriptyPath.\n\n${this.PATH.join("\n")}`
+      };
+    }
+    
+    function require(moduleId, dependencies = {}) {
+      const file = resolve(moduleId);
+          
+      if (file.error) {
+        return sp.MessageBox(file.error, "ScriptyStrokes require() ERROR");
+      }
+    
+      const SRC = `(function moduleLoader(stdlib) {
+        const module = { exports: {} };
+        
+        ${file.data}
+        
+        module.exports["__MODULE_ID"] = "${moduleId}";
+        module.exports["__MODULE_SRC"] = String.raw\`${file.abspath}\`;
+        
+        return module;
+      })`;
+      
+      var newModule = eval(SRC)(dependencies);
+          
+      return newModule.exports;
+    }
+        
+    /**
+     * Build up the StdLib
+     */
+    const stdlib = [
+      "fs",
+      "fp",
+      "os",
+      "env",
+      "exec",
+      "path",
+      "date",
+      "toast",
+      "alert",
+      "timer",
+      "utils",
+      "popup",
+      "window",
+      "system",
+      "balloon",
+      "regedit",
+      "request",
+      "keyboard",
+      "inspector",
+      "formation"
+    ].reduce((modules, module) => {
+      modules[module] = require(module);
+      
+      return modules;
+    }, {});
+    
+    /**
+     * Macro Runner
+     */
+    function runMacro(macroFile) {
+      const abspath = Path.Combine(env.get("MACROS_PATH"), `${macroFile}.js`);
+      
+      return eval(File.ReadAllText(abspath));
+    }
+    
+    /**
+     * Load Apps with stdlib dependencies
+     */
+    const appLoader = moduleId => require(moduleId, stdlib);
+    const apps = {
+      git: appLoader("gfw"),
+      cimco: appLoader("cimco"),
+      chrome: appLoader("chrome"),
+      calc: appLoader("calculator"),
+      factory: appLoader("factory"),
+      "np++": appLoader("notepad++"),
+      explorer: appLoader("explorer"),
+      jsdelivr: appLoader("jsdelivr"),
+      mastercam: appLoader("mastercam")
+    };
+/*
+    const createEmitter = require("core/event-emitter");
+    stdlib.alert(createEmitter.__MODULE_SRC);
+    createEmitter();
+*/  
+    const ScriptyStrokes = {
+      app: appLoader,
+      appFactory: appLoader("factory"),
+      resolve,
+      require,
+      ...stdlib,
+      macro: runMacro,
+      //events: createEmitter(),
+      getRoot: () => env.get("ROOT"),
+      getSettings: () => mem.get("SETTINGS"),
+      apps,
+    };
+    
+    return ScriptyStrokes;
   }
   
-  require.resolve = moduleId => resolve(moduleId).abspath || undefined;
-  
-  Object.defineProperty(require, "PATH", {
-    value: ScriptyPath,
-    writable: false
-  });
-
-  /**
-   * Build up the StdLib
-   */
-  const stdlib = {
-    fs: require("fs"),
-    fp: require("fp"),
-    os: require("os"),
-    env: require("env"),
-    exec: require("exec"),
-    path: require("path"),
-    date: require("date"),
-    toast: require("toast"),
-    alert: require("alert"),
-    timer: require("timer"),
-    utils: require("utils"),
-    popup: require("popup"),
-    macros: require("macros"),
-    window: require("window"),
-    system: require("system"),
-    balloon: require("balloon"),
-    regedit: require("regedit"),
-    request: require("request"),
-    keyboard: require("keyboard"),
-    inspector: require("inspector"),
-    formation: require("formation")
-  };
-    
-  /**
-   * Load Apps with stdlib dependencies
-   */
-  const appLoader = moduleId => require(moduleId, stdlib);
-  const apps = {
-    git: appLoader("gfw"),
-    cimco: appLoader("cimco"),
-    chrome: appLoader("chrome"),
-    calc: appLoader("calculator"),
-    factory: appLoader("factory"),
-    "np++": appLoader("notepad++"),
-    explorer: appLoader("explorer"),
-    jsdelivr: appLoader("jsdelivr"),
-    mastercam: appLoader("mastercam")
-  };
-
-  const createEmitter = loaders.core("event-emitter");
-
-  const ScriptyStrokes = {
-    apps,
-    require,
-    ...stdlib,
-    events: createEmitter(),
-    core: {
-      require: loaders.core,
-      getRoot: () => ROOT,
-      getSettings: () => sp.GetStoredObject("SCRIPTY_SETTINGS")
-    }
+  const env = {
+    get: (k) => sp.GetStoredString(`SCRIPTY_${k}`),
+    set: (k, v) => sp.StoreString(`SCRIPTY_${k}`, v)
   };
   
-  ScriptyStrokes.events.on("OPEN_SETTINGS", () => sp.OpenSettings());
-  ScriptyStrokes.popupSelection = (id) => {
-    const label = sp.GetStoredString(`__POPUP_ITEM_${id}`);
-    ScriptyStrokes.events.emit("POPUP_SELECTION", { id, label });
+  const mem = {
+    get: (k) => sp.GetStoredObject(`SCRIPTY_${k}`),
+    set: (k, v) => sp.StoreObject(`SCRIPTY_${k}`, v)
   };
-    
-  return ScriptyStrokes;
+  
+  return init(env.get("ROOT"), { env, mem });
 }

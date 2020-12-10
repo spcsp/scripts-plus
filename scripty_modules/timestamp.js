@@ -14,3 +14,5 @@ function timestamp() {
 
     return date.getFullYear() + "-" + t + "-" + g + " " + n + ":" + a + ":" + r
 }
+
+module.exports = timestamp;

@@ -6,9 +6,9 @@ var addToMainMenu = $.popup.addToMenu(popup);
 var mastercam = menuItem("Mastercam");
 var addToDemo = $.popup.addToSubMenu(mastercam);
 
-addToDemo(menuItem("Copy Folder", `$.macros.run("mastercam/CurrentFolderPathToClipboard")`));
-addToDemo(menuItem("Copy Filename", `$.macros.run("mastercam/CurrentFilenameToClipboard")`));
-addToDemo(menuItem("Copy Part Number", `$.macros.run("mastercam/CurrentPartNumberToClipboard")`));
+addToDemo(menuItem("Copy Folder", `$.macro("mastercam/CurrentFolderPathToClipboard")`));
+addToDemo(menuItem("Copy Filename", `$.macro("mastercam/CurrentFilenameToClipboard")`));
+addToDemo(menuItem("Copy Part Number", `$.macro("mastercam/CurrentPartNumberToClipboard")`));
 
 addToMainMenu(mastercam);
 addToMainMenu($.popup.spacer);

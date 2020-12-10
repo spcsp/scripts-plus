@@ -16,7 +16,10 @@ function titleMatcher(title, { Match, NoMatch }) {
   return getActive().Title === title ? match() : nomatch();
 }
 
+const center = (action) => action.Window.Center();
+
 module.exports = {
+  center,
   getActive,
   titleMatcher,
   getAppWindows,
