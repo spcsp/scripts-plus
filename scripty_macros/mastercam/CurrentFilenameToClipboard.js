@@ -1,5 +1,4 @@
 var { filenameNoExt } = $.apps.mastercam;
 
-clip.SetText(filenameNoExt);
-
+$.toClipboard(filenameNoExt);
 $.toast(filenameNoExt, "Copied To Clipboard");

@@ -2,7 +2,7 @@ var { cimco, mastercam } = $.apps;
 
 var path = mastercam.abspath.replace(/\.[^\/.]+$/, ".NC")
 
-toast(path, "Opening NC file");
+$.toast(path, "Opening NC file");
 
 cimco.activate();
 

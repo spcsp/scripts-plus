@@ -1,5 +1,4 @@
 var { currentPath } = $.apps.mastercam;
 
-clip.SetText(currentPath);
-
+$.toClipboard(currentPath);
 $.toast(currentPath, "Copied To Clipboard");

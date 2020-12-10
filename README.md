@@ -19,7 +19,9 @@ const $ = eval("("+File.ReadAllText(`${sp.GetStoredString("SCRIPTY_ROOT")}/boots
 });
 ```
 
-The bootstrapper takes care of providing a rich standard library that wraps many common `sp.xxxx` methods with simple APIs.
+The bootstrapper takes care of providing a rich standard library, inspired a bit by jQuery,
+but with no affiliation. This framework wraps many common `sp.xxxx` methods with functions
+to enhance the scripting capabilities to the user of StrokesPlus.net
 
 ## Examples
 ```javascript
@@ -30,18 +32,23 @@ $.alert("Hello World");
 $.toast("Hello World");
 ```
 
+I like functional programming, so sometimes there are fp interfaces too.
+
 ```javascript
 var toaster = $.toast.factory("My Toaster is Fancy");
 
 toaster("I MAKE TOAST!");
 ```
 
+Some have configuration available on the method call.
+
 ```javascript
 $.balloon("Hello World!", { title: "Custom Title" });
 ```
 
-These are just a few of the many modules that come included. Check out the [stdlib](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/lib) modules as well as [application specific modules](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/apps) too.
-
+These are just a few of the many modules that come included.
+Check out the [stdlib](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/lib)
+modules as well as [application specific modules](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/apps) too.
 
 # Writing Modules
 Scripty Modules look just like CJS modules, with a defined `module.exports` containing what you want to export from the module.
@@ -117,5 +124,5 @@ var res = stackExchange("answers", {
   site: "stackoverflow"
 });
 
-clip.SetText(res);
+$.toClipboard(res);
 ```

@@ -1,5 +1,4 @@
 var { partNumber } = $.apps.mastercam;
 
-clip.SetText(partNumber);
-
+$.toClipboard(partNumber);
 $.toast(partNumber, "Copied To Clipboard");

@@ -1,5 +1,4 @@
 var { mastercam } = $.apps;
-
 var wait = () => sp.Sleep(50);
 
 //sp.SendKeys("^a");
