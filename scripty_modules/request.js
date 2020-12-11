@@ -1,4 +1,10 @@
-function getClientHandler() {
+function queryString(obj) {
+  return Object.keys(obj)
+    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`)
+    .join("&");
+}
+
+function clientRequest(baseUrl, uri, params) {
   var httpHandler = new HttpClientHandler();
   
   httpHandler.AutomaticDecompression = host.flags(
@@ -6,19 +12,13 @@ function getClientHandler() {
     DecompressionMethods.Deflate
   );
   
-  return httpHandler;
-}
-
-function queryString(obj) {
-  return Object.keys(obj)
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`)
-    .join("&");
-}
-
-function request(url, params) {
-  var httpHandler = getClientHandler();
   var client = new HttpClient(httpHandler);
-  var endpoint = params ? `${url}?${queryString(params)}` : url;
+  
+  if (baseUrl) {
+    client.BaseAddress = new Uri(baseUrl);    
+  }
+  
+  var endpoint = params ? `${uri}?${queryString(params)}` : uri;
   var response = client.GetAsync(endpoint).Result;
   var result = response.Content.ReadAsStringAsync().Result;
 
@@ -28,22 +28,10 @@ function request(url, params) {
   return result;
 }
 
-request.factory = baseUrl => {
-  var httpHandler = getClientHandler();
-  var client = new HttpClient(httpHandler);
-  
-  client.BaseAddress = new Uri(baseUrl);
-
-  return (url, params) => {
-    var endpoint = params ? `${url}?${queryString(params)}` : url;
-    var response = client.GetAsync(endpoint).Result;
-    var result = response.Content.ReadAsStringAsync().Result;
-
-    httpHandler.Dispose();
-    client.Dispose();
-
-    return result;
-  };
+function request(uri, params) {  
+  return clientRequest(null, uri, params);
 }
+
+request.factory = baseUrl => (uri, params) => clientRequest(baseUrl, uri, params);
   
 module.exports = request;

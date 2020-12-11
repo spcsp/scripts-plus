@@ -1,12 +1,19 @@
-class Keyboard { 
-
+class Keyboard {
   constructor() {
     this._alt = "#";
     this._ctrl = "^";
     this._shift = "+";
-    this._tab = "{TAB}";
-    this._buffer = "";
+    
+    this._buffers = {
+      main: ""
+    };
   } 
+  
+  _push(input, buffer = "main") {
+    this._buffers[buffer] += input;
+    //sp.MessageBox(input, ""); //This is for debugging
+    return this;
+  }
   
   keys(input) {
     return sp.SendKeys(input);
@@ -16,14 +23,20 @@ class Keyboard {
     return sp.SendString(input);
   }
   
+  enter() {
+    return this.type("{ENTER}");
+  }
+  
   //Space
   _(input) {
     return this._push(" ");
     if (input) this._push(input);
+    return this;
   }  
   
-  tab() {
-    return this._push(this._tab);
+  tab(count = 1) {
+    return this.type(`\{TAB ${count}\}`);
+    return this;
   }  
   
   ctrl(input) {
@@ -46,19 +59,33 @@ class Keyboard {
   
   type(input) {
     if (input) this._push(input);
-    const copy = this.buffer;
-    this.buffer = "";
-    this._send(copy);
+    this.keys(this._buffers["main"]);
+    this.reset();
+  }
+  
+  selectAll() {
+    this.ctrl().type("a");
     return this;
   }
   
-  _push(input) {
-    this.buffer += input;
+  copy() {
+    this.ctrl().type("c");
+    return clip.GetText();
+  }
+  
+  cut() {
+    this.ctrl().type("x");
+    return clip.GetText();
+  }
+  
+  undo() {
+    this.ctrl().type("z");
     return this;
   }
   
-  _send(input) {
-    sp.SendKeys(input);
+  reset() {
+    this._buffers["main"] = "";
+    return this;    
   }
 }
 

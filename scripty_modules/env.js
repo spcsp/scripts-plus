@@ -9,6 +9,10 @@ class Environment {
     return sp.GetStoredString("USER_PROFILE");
   }
 
+  get HOSTNAME() {
+    return this.expand("%COMPUTERNAME%");
+  }
+
   get userModules() {
     return sp.GetStoredString("SCRIPTY_USER_MODULES").replace(/\\/g, "/");
   }
