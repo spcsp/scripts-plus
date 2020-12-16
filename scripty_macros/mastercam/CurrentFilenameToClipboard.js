@@ -1,4 +1,4 @@
 var { filenameNoExt } = $.apps.mastercam;
 
-$.toClipboard(filenameNoExt);
+$.toClip(filenameNoExt);
 $.toast(filenameNoExt, "Copied To Clipboard");

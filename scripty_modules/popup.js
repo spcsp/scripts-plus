@@ -1,56 +1,14 @@
-class Popup {
-  constructor() {
-    this._mousePoint = sp.GetCurrentMousePoint();
-    this._menu = new PopupMenuInfoEx(this._mousePoint);
-  }
+function popup(menuItems) {
+  const menu = new PopupMenuInfoEx(sp.GetCurrentMousePoint());
   
-  getInstance() {
-    return this._menu;
-  }
+  menuItems.forEach(m => menu.MenuItems.Add(m));
   
-  entry(text, script = "") {
-    return new PopupMenuItem(text, script = "");
-  }
-    
-  addEntry(item) {
-    this._menu.MenuItems.Add(item);
-  }
-   
-  subMenu() {
-    //
-  }
+  return sp.ShowPopupMenuEx(menu);
 }
 
-function popup(action, menuItems) {
-  const menu = new PopupMenuInfo();
-  let id = 1;
+popup.spacer = new PopupMenuItem("-");
 
-  menu.Location = action.End;
-  menu.Callback = `$.popupSelection`;
-  menuItems.forEach((item) => {
-    menu.Items.Add(item[0]);
-    
-    if (item[0] !== "-") {
-      sp.StoreString(`__POPUP_ITEM_${id++}`, item[0]);
-    }
-  });
-  
-  menu.Items.Add("-");
-  menu.Items.Add("Cancel");
-  return sp.ShowPopupMenu(menu);
-}
-
-popup.handler = (menuEntries) => {
-  return ({ id, label }) => {
-    menuEntries.forEach(entry => {
-      if (entry[0] === label) {
-        entry[1](id, label);
-      }
-    });
-  };
-};
-
-popup.create = () => new PopupMenuInfoEx(sp.GetCurrentMousePoint());
+popup.cancel = new PopupMenuItem("Cancel");
 
 popup.menuItem = (...args) => new PopupMenuItem(...args);
 
@@ -58,11 +16,7 @@ popup.addToMenu = (menu) => (item) => menu.MenuItems.Add(item);
 
 popup.addToSubMenu = (menu) => (item) => menu.SubMenuItems.Add(item);
 
-popup.show = (popup) => sp.ShowPopupMenuEx(popup);
-
-popup.spacer = new PopupMenuItem("-");
-
-popup.cancel = new PopupMenuItem("Cancel");
+//popup.show = (popup) => sp.ShowPopupMenuEx(popup);
 
 popup.subMenu = (text, items) => {
   const menu = popup.menuItem(text);
@@ -72,7 +26,5 @@ popup.subMenu = (text, items) => {
   
   return menu;
 };
-
-popup.Popup = Popup;
 
 module.exports = popup;

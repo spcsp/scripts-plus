@@ -1,10 +1,28 @@
 class Mastercam {  
-  TITLE_PARTIAL = "Mastercam";
-
-  constructor({ exec, utils, window }) {
+  constructor({ exec, fs, utils, window }) {
+    this.TITLE_PARTIAL = "Mastercam";
+    this.EXE_PATH = String.raw`C:\Program Files\Mcam2019\Mastercam.exe`;
+    
+    this._fs = fs;
     this._exec = exec;   
     this._utils = utils;
     this._window = window;   
+  }
+  
+  _getExt(str) {
+    return str.split(".").pop().toUpperCase();
+  }
+  
+  get pathFiles() {
+    return [...$.fs.readdir(this.currentPath)];
+  }
+  
+  get camFiles() {
+    return this.pathFiles.filter(f => this._getExt(f).startsWith("M"));
+  }
+
+  get ncFiles() {
+    return this.pathFiles.filter(f => this._getExt(f) === "NC");
   }
   
   get windows() {
@@ -45,6 +63,20 @@ class Mastercam {
   
   get partNumber() {
     return this._utils.stripOpNum(this.filenameNoExt);
+  }
+  
+  activate() {
+    return sp.RunOrActivate(this.EXE_PATH);
+  }
+  
+  open(path) {   
+    this.activate();
+    sp.Sleep(200);
+    sp.SendKeys("^o");
+    sp.Sleep(200);
+    sp.SendString(path);
+    sp.Sleep(20);
+    sp.SendKeys("{ENTER}");
   }
 }
 

@@ -53,6 +53,16 @@ class Cimco {
   activate() {
     return sp.RunOrActivate(this.EXE_PATH);
   }
+  
+  open(path) {   
+    this.activate();
+    sp.Sleep(200);
+    sp.SendKeys("^o");
+    sp.Sleep(200);
+    sp.SendString(path);
+    sp.Sleep(20);
+    sp.SendKeys("{ENTER}");
+  }
 }
 
 module.exports = new Cimco(stdlib);

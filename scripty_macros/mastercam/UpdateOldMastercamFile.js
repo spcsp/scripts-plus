@@ -1,5 +1,5 @@
 var { mastercam } = $.apps;
-var paths = $.core.mem("POST_PATHS");
+var paths = $.core.mem("POSTS");
 var wait = (x = 50) => sp.Sleep(x);
 
 $.toast(`Updating ${mastercam.filename}`, "Setting Title, Post and Project Paths", );

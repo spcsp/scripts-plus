@@ -108,9 +108,9 @@ function bootstrap(config = {}) {
     /**
      * Macro Runner
      */
-    function runMacro(macroFile) {
+    function runMacro(macroFile, payload) {
       const abspath = Path.Combine(env("MACROS_PATH"), `${macroFile}.js`);
-      return eval(File.ReadAllText(abspath));
+      (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
     }
     
     /**
@@ -118,6 +118,7 @@ function bootstrap(config = {}) {
      */
     const appLoader = moduleId => require(moduleId, stdlib);
     const apps = {
+      //menu: appLoader("supermenu"),
       //git: appLoader("gfw"),
       cimco: appLoader("cimco"),
       chrome: appLoader("chrome"),

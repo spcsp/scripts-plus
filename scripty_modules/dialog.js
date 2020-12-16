@@ -72,7 +72,11 @@ class Dialog {
     }
     
     if (this.form.ShowDialog() == this.OK) {
-      onSubmit(this.textBox.Text);
+      const text = this.textBox.Text;
+      
+      this.textBox.Text = "";
+      
+      onSubmit(text);
     }
   }
 }

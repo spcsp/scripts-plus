@@ -1,4 +1,4 @@
 var { currentPath } = $.apps.mastercam;
 
-$.toClipboard(currentPath);
+$.toClip(currentPath);
 $.toast(currentPath, "Copied To Clipboard");
