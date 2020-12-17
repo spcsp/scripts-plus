@@ -22,11 +22,11 @@ class Explorer {
   }
  
   open(dir) {
-    const pathExplored = this._utils.backslash(dir ? dir : this.USER_PROFILE);
+    //const pathExplored = this._utils.backslash(dir ? dir : this.USER_PROFILE);
     
-    this._exec.run("explorer", [ pathExplored ]);
+    $.exec.run("explorer", [ dir ]);
     
-    return pathExplored;
+    //return pathExplored;
   }
 }
 

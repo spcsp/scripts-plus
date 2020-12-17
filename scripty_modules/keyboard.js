@@ -14,7 +14,7 @@ class Keyboard {
     //sp.MessageBox(input, ""); //This is for debugging
     return this;
   }
-  
+    
   keys(input) {
     return sp.SendKeys(input);
   } 

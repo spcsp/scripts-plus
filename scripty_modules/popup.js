@@ -6,9 +6,9 @@ function popup(menuItems) {
   return sp.ShowPopupMenuEx(menu);
 }
 
-popup.spacer = new PopupMenuItem("-");
+popup.spacer = () => new PopupMenuItem("-");
 
-popup.cancel = new PopupMenuItem("Cancel");
+popup.cancel = () => new PopupMenuItem("Cancel");
 
 popup.menuItem = (...args) => new PopupMenuItem(...args);
 

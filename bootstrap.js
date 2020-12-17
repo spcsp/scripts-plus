@@ -85,10 +85,10 @@ function bootstrap(config = {}) {
     
   function init(__dirname) {
     env("ROOT", __dirname);
-    env("APPS_PATH", `${__dirname}/scripty_apps`);
-    env("MACROS_PATH", `${__dirname}/scripty_macros`);
-    env("MODULES_PATH", `${__dirname}/scripty_modules`);
-    env("USER_MODULES_PATH", `${GetFolderPath(SpecialFolder.UserProfile)}/scripty_strokes`);   
+    env("APPS_PATH", `${__dirname}\\scripty_apps`);
+    env("MACROS_PATH", `${__dirname}\\scripty_macros`);
+    env("MODULES_PATH", `${__dirname}\\scripty_modules`);
+    env("USER_MODULES_PATH", `${GetFolderPath(SpecialFolder.UserProfile)}\\scripty_strokes`);   
     
     mem("SETTINGS", {...configDefaults, ...config});    
         
