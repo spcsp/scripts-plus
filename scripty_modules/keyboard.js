@@ -9,6 +9,10 @@ class Keyboard {
     };
   } 
   
+  hook(cb) {
+    return KeyboardHook.OnKeyboardHookEventAsync.connect(cb);
+  }
+  
   _push(input, buffer = "main") {
     this._buffers[buffer] += input;
     //sp.MessageBox(input, ""); //This is for debugging
