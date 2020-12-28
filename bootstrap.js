@@ -10,7 +10,7 @@ function bootstrap(config = {}) {
     }
   };
 
-  const getFilename = (filepath) => filepath.split(/[\\/]/g).pop().split('.')[0];
+  const getFilename = f => f.split(/[\\/]/g).pop().split('.')[0];
 
   const env = (k, v) => {
     if (typeof v === "undefined") {
@@ -87,13 +87,9 @@ function bootstrap(config = {}) {
   function Container() {
     eval(File.ReadAllText(Path.Combine(__dirname, `awilix.js`)));
 
-    const container = Awilix.createContainer();
+    const getDirContents = dir => Array.from(Directory.GetFiles(dir));
 
-    const addValue = (id, val) => { 
-      container.register(id, Awilix.asValue(val));
-      
-      return container;
-    };
+    const container = Awilix.createContainer();
 
     const addModule = (id) => {
       const module = naiveRequire(id);
@@ -103,18 +99,43 @@ function bootstrap(config = {}) {
       return container;
     };
 
-    const addClass = (id) => {
-      const module = naiveRequire(id);
+    const addValue = (id, val) => { 
+      container.register(id, Awilix.asValue(val));
       
-      container.register(id, Awilix.asClass(module));
+      return container;
+    };
+    
+    const addFunction = (id, fn) => {
+      container.register(id, Awilix.asFunction(fn));
       
       return container;
     };
 
-    const loadModules = globs => {
-      container.loadModules(globs, {
-        formatName: 'camelCase',
-        cwd: __dirname,
+    const addClass = (id, classDef) => {
+      container.register(id, Awilix.asClass(classDef));
+      
+      return container;
+    };
+
+    const loadModules = (dir, { cwd }) => {
+      const abspath = Path.Combine(cwd, dir);
+      const files = getDirContents(abspath);
+      
+      files.forEach(file => {
+        const moduleId = file.split(/[\\/]/g).pop().split('.')[0];
+                
+        const factory = eval(`((stdlib) => {
+          const module = { exports: {} };
+
+          ${File.ReadAllText(file)}
+
+          module.exports["__MODULE_ID"] = "${moduleId}";
+          module.exports["__MODULE_SRC"] = String.raw\`${file}\`;
+
+          return module;
+        })`);
+
+        addFunction(moduleId, cradle => factory(cradle).exports);
       });
       
       return container;
@@ -123,18 +144,26 @@ function bootstrap(config = {}) {
     return {
       Awilix,
       addClass,
+      addFunction,
       addModule,
       addValue,
       container,
       loadModules
     };
   }
+  
+  return (() => {
+    const { container, addValue, addFunction, loadModules } = Container();
 
-  function init(__dirname) {
-    const { container, addValue } = Container();
-
-    addValue("ROOT", __dirname);
-    
+    addValue("ROOT", __dirname);    
+    addValue("APPS_PATH", `${__dirname}\\scripty_apps`);
+    addValue("MACROS_PATH", `${__dirname}\\scripty_macros`);
+    addValue("MODULES_PATH", `${__dirname}\\scripty_modules`);
+    addValue("CLASSES_PATH", `${__dirname}\\scripty_classes`);
+    addValue("USER_MODULES_PATH", `${GetFolderPath(SpecialFolder.UserProfile)}\\scripty_strokes`);
+        
+    loadModules("./scripty_modules", { cwd: __dirname });
+        
     env("ROOT", __dirname);
     env("APPS_PATH", `${__dirname}\\scripty_apps`);
     env("MACROS_PATH", `${__dirname}\\scripty_macros`);
@@ -190,6 +219,7 @@ function bootstrap(config = {}) {
     const ScriptyStrokes = {
       apps,
       container,
+      ...container.cradle,
       core: {
         env,
         mem,
@@ -205,7 +235,5 @@ function bootstrap(config = {}) {
     //this.store = appLoader("storage");
 
     return ScriptyStrokes;
-  }
-
-  return init(env("ROOT"));
+  })();
 }
