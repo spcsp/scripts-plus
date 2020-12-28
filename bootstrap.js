@@ -1,4 +1,5 @@
 function bootstrap(config = {}) {
+  const __dirname = sp.GetStoredString("SCRIPTY_ROOT");
   const { Directory, File, Path } = clr.System.IO;
   const { GetFolderPath, SpecialFolder } = clr.System.Environment;
 
@@ -82,8 +83,58 @@ function bootstrap(config = {}) {
 
     return newModule.exports;
   }
+  
+  function Container() {
+    eval(File.ReadAllText(Path.Combine(__dirname, `awilix.js`)));
+
+    const container = Awilix.createContainer();
+
+    const addValue = (id, val) => { 
+      container.register(id, Awilix.asValue(val));
+      
+      return container;
+    };
+
+    const addModule = (id) => {
+      const module = naiveRequire(id);
+      
+      container.register(id, Awilix.asFunction(() => module));
+      
+      return container;
+    };
+
+    const addClass = (id) => {
+      const module = naiveRequire(id);
+      
+      container.register(id, Awilix.asClass(module));
+      
+      return container;
+    };
+
+    const loadModules = globs => {
+      container.loadModules(globs, {
+        formatName: 'camelCase',
+        cwd: __dirname,
+      });
+      
+      return container;
+    };
+
+    return {
+      Awilix,
+      addClass,
+      addModule,
+      addValue,
+      container,
+      loadModules
+    };
+  }
 
   function init(__dirname) {
+    const { container, addValue } = Container();
+
+    addValue("ROOT", __dirname);
+    
     env("ROOT", __dirname);
     env("APPS_PATH", `${__dirname}\\scripty_apps`);
     env("MACROS_PATH", `${__dirname}\\scripty_macros`);
@@ -114,14 +165,9 @@ function bootstrap(config = {}) {
     }
 
     /**
-     * Require.js
+     * Container()
      */
-    eval(File.ReadAllText(Path.Combine(env("ROOT"), `awilix.js`)));
-
-    this.__ = Awilix.createContainer();
-    this.__.register({
-      mastercam: Awilix.asFunction(() => appLoader("mastercam"))
-    });
+    //eval(File.ReadAllText(Path.Combine(env("ROOT"), `container.js`)));
 
     /**
      * Load Apps with stdlib dependencies
@@ -143,6 +189,7 @@ function bootstrap(config = {}) {
 
     const ScriptyStrokes = {
       apps,
+      container,
       core: {
         env,
         mem,
@@ -151,13 +198,11 @@ function bootstrap(config = {}) {
       },
       ...stdlib,
       macro: runMacro,
-      toClip: str => clip.SetText(str),
-      get root() { return env.get("ROOT"); },
-      get settings() { return mem.get("SETTINGS"); },
+      toClip: str => clip.SetText(str)
       //events: createEmitter(),
     };
 
-    this.store = appLoader("storage");
+    //this.store = appLoader("storage");
 
     return ScriptyStrokes;
   }
