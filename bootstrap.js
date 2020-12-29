@@ -1,103 +1,53 @@
 function bootstrap(config = {}) {
-  const __dirname = sp.GetStoredString("SCRIPTY_ROOT");
-  const { Directory, File, Path } = clr.System.IO;
   const { GetFolderPath, SpecialFolder } = clr.System.Environment;
-
-  const configDefaults = {
-    toast: {
-      textColor: "yellow",
-      backgroundColor: "black"
-    }
-  };
-
-  const getFilename = f => f.split(/[\\/]/g).pop().split('.')[0];
-
-  const env = (k, v) => {
-    if (typeof v === "undefined") {
-      return sp.GetStoredString(`SCRIPTY_${k}`);
-    } else {
-      sp.StoreString(`SCRIPTY_${k}`, v);
-    }
-  };
-
-  const mem = (k, v) => {
-    if (typeof v === "undefined") {
-      return sp.GetStoredObject(`SCRIPTY_${k}`);
-    } else {
-      sp.StoreObject(`SCRIPTY_${k}`, v);
-    }
-  };
-
-  function resolve(moduleId) {
-    this.PATH = [
-      env("APPS_PATH"),
-      env("MODULES_PATH"),
-      env("USER_MODULES_PATH")
-    ];
-
-    for (const dir of this.PATH) {
-      const abspath = Path.Combine(dir, `${moduleId}.js`);
-
-      if (env("SETTINGS").debug) {
-        sp.MessageBox(abspath, "DEBUG:resolve");
-      }
-
-      if (File.Exists(abspath)) {
-        const data = File.ReadAllText(abspath);
-
-        if (data) {
-          return { data, abspath, error: false };
-        }
-      }
+  const { Directory, File, Path } = clr.System.IO;
+  
+  const readFile = f => File.ReadAllText(f);
+  const pathJoin = (p1, p2) => Path.Combine(p1, p2);
+  
+  const __dirname = sp.GetStoredString("SCRIPTY_STROKES");
+  const __sources = pathJoin(__dirname, "src");
+     
+  function require(moduleId, opts = {}) {
+    const cwd = opts.cwd || __sources;
+    
+    let abspath = pathJoin(cwd, moduleId);
+    
+    if (Boolean(opts.absolute || false)) {
+      abspath = moduleId;
     }
 
-    sp.MessageBox(
-      `"${moduleId}" was not found in the ScriptyPath.\n\n${this.PATH.join("\n")}`,
-      "ScriptyStrokes __resolve() ERROR"
-    );
-
-    return {
-      error: `"${moduleId}" was not found in the ScriptyPath.\n\n${this.PATH.join("\n")}`
-    };
-  }
-
-  function naiveRequire(moduleId, dependencies = {}) {
-    const file = resolve(moduleId);
-
-    if (file.error) {
-      return sp.MessageBox(file.error, "ScriptyStrokes naiveRequire() ERROR");
-    }
-
-    const SRC = `(function moduleLoader(stdlib) {
+    const source = readFile(abspath);
+    
+    const factory = eval(`(function() {
       const module = { exports: {} };
 
-      ${file.data}
-
-      module.exports["__MODULE_ID"] = "${moduleId}";
-      module.exports["__MODULE_SRC"] = String.raw\`${file.abspath}\`;
+      ${source}
 
       return module;
-    })`;
-
-    var newModule = eval(SRC)(dependencies);
-
-    return newModule.exports;
+    })`);
+    
+    return factory().exports;
   }
+      
+  const getFilename = str => str.split(/[\\/]/g).pop().split('.')[0];  
+    
+  //const IoC = require("core/container.js");
   
   function Container() {
-    eval(File.ReadAllText(Path.Combine(__dirname, `awilix.js`)));
+    require("core/awilix.js");
 
-    const getDirContents = dir => Array.from(Directory.GetFiles(dir));
+    const getFilename = f => f.split(/[\\/]/g).pop().split('.')[0];
 
-    const container = Awilix.createContainer();
-
-    const addModule = (id) => {
-      const module = naiveRequire(id);
-      
-      container.register(id, Awilix.asFunction(() => module));
-      
-      return container;
+    const getDirContents = dir => {
+      try { 
+        return Array.from(Directory.GetFiles(dir));
+      } catch (err) {
+        return [];
+      }
     };
+    
+    const container = Awilix.createContainer();
 
     const addValue = (id, val) => { 
       container.register(id, Awilix.asValue(val));
@@ -116,15 +66,29 @@ function bootstrap(config = {}) {
       
       return container;
     };
-
-    const loadModules = (dir, { cwd }) => {
-      const abspath = Path.Combine(cwd, dir);
+    
+    const loadClasses = (dir, { cwd }) => {
+      const abspath = pathJoin(cwd, dir);
       const files = getDirContents(abspath);
       
       files.forEach(file => {
-        const moduleId = file.split(/[\\/]/g).pop().split('.')[0];
+        const moduleId = getFilename(file).toLowerCase();
+        const theClass = require(file, { absolute: true });
+        
+        container.register(moduleId, Awilix.asClass(theClass));
+      });
+      
+      return container;
+    };
+    
+    const loadModules = (dir, { cwd }) => {
+      const abspath = pathJoin(cwd, dir);
+      const files = getDirContents(abspath);
+      
+      files.forEach(file => {
+        const moduleId = getFilename(file);
                 
-        const factory = eval(`((stdlib) => {
+        const factory = eval(`(stdlib => {
           const module = { exports: {} };
 
           ${File.ReadAllText(file)}
@@ -145,95 +109,73 @@ function bootstrap(config = {}) {
       Awilix,
       addClass,
       addFunction,
-      addModule,
       addValue,
       container,
+      loadClasses,
       loadModules
     };
   }
   
-  return (() => {
-    const { container, addValue, addFunction, loadModules } = Container();
+  /**
+   * Macro Runner
+   */
+  function runMacro(macroFile, payload) {
+    const abspath = pathJoin(ENV.MACRO_PATH, `${macroFile}.js`);
+    
+    (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
+  }
+  
+  /**
+   * Fill the container!
+   */
+  const IoC = Container();
+  
+  IoC.addValue("env", {
+    ROOT: __dirname,
+    APP_PATH: `${__dirname}\\scripty_apps`,
+    MACRO_PATH: `${__dirname}\\scripty_macros`,
+    CLASS_PATH: `${__dirname}\\scripty_classes`,
+    MODULE_PATH: `${__dirname}\\scripty_modules`,
+    HOSTNAME: sp.ExpandEnvironmentVariables("%COMPUTERNAME%"),
+    USER_PROFILE_PATH: GetFolderPath(SpecialFolder.UserProfile)
+  });
+      
+  const ENV = IoC.container.resolve("env");
+      
+  IoC.loadModules("./modules", { cwd: __sources });
+  IoC.loadModules("./scripty_strokes", { cwd: ENV.USER_PROFILE_PATH });
+  
+  IoC.loadClasses("./classes", { cwd: __sources });
+  
+  const store = require("core/store.js");
 
-    addValue("ROOT", __dirname);    
-    addValue("APPS_PATH", `${__dirname}\\scripty_apps`);
-    addValue("MACROS_PATH", `${__dirname}\\scripty_macros`);
-    addValue("MODULES_PATH", `${__dirname}\\scripty_modules`);
-    addValue("CLASSES_PATH", `${__dirname}\\scripty_classes`);
-    addValue("USER_MODULES_PATH", `${GetFolderPath(SpecialFolder.UserProfile)}\\scripty_strokes`);
-        
-    loadModules("./scripty_modules", { cwd: __dirname });
-        
-    env("ROOT", __dirname);
-    env("APPS_PATH", `${__dirname}\\scripty_apps`);
-    env("MACROS_PATH", `${__dirname}\\scripty_macros`);
-    env("MODULES_PATH", `${__dirname}\\scripty_modules`);
-    env("USER_MODULES_PATH", `${GetFolderPath(SpecialFolder.UserProfile)}\\scripty_strokes`);
-
-    mem("SETTINGS", {...configDefaults, ...config});
-
-    /**
-     * Build up the StdLib
-     */
-    const stdModules = new Array();
-    const moduleLocations = Directory.GetFiles(env("MODULES_PATH"));
-    moduleLocations.forEach(m => stdModules.push(getFilename(m)));
-
-    const stdlib = stdModules.reduce((modules, module) => {
-      modules[module] = naiveRequire(module);
-
-      return modules;
-    }, {});
-
-    /**
-     * Macro Runner
-     */
-    function runMacro(macroFile, payload) {
-      const abspath = Path.Combine(env("MACROS_PATH"), `${macroFile}.js`);
-      (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
-    }
-
-    /**
-     * Container()
-     */
-    //eval(File.ReadAllText(Path.Combine(env("ROOT"), `container.js`)));
-
-    /**
-     * Load Apps with stdlib dependencies
-     */
-    const appLoader = moduleId => naiveRequire(moduleId, stdlib);
-    const apps = {
-      //R: appLoader("R"),
-      types: appLoader("types"),
-      cimco: appLoader("cimco"),
-      //store: appLoader("storage"),
-      chrome: appLoader("chrome"),
-      scripty: appLoader("scripty"),
-      factory: appLoader("factory"),
-      "np++": appLoader("notepad++"),
-      explorer: appLoader("explorer"),
-      //jsdelivr: appLoader("jsdelivr"),
-      mastercam: appLoader("mastercam")
-    };
-
-    const ScriptyStrokes = {
-      apps,
-      container,
-      ...container.cradle,
-      core: {
-        env,
-        mem,
-        resolve,
-        require: naiveRequire
-      },
-      ...stdlib,
-      macro: runMacro,
-      toClip: str => clip.SetText(str)
-      //events: createEmitter(),
-    };
-
-    //this.store = appLoader("storage");
-
-    return ScriptyStrokes;
-  })();
+  /**
+   * Load Apps with stdlib dependencies
+   */
+   /*
+  const appLoader = moduleId => naiveRequire(moduleId, container.cradle);
+  const apps = {
+    //R: appLoader("R"),
+    types: appLoader("types"),
+    cimco: appLoader("cimco"),
+    //store: appLoader("storage"),
+    chrome: appLoader("chrome"),
+    scripty: appLoader("scripty"),
+    factory: appLoader("factory"),
+    "np++": appLoader("notepad++"),
+    explorer: appLoader("explorer"),
+    //jsdelivr: appLoader("jsdelivr"),
+    mastercam: appLoader("mastercam")
+  };
+*/
+  return {
+    //apps,
+    store,
+    macro: runMacro,
+    ...IoC.container.cradle,
+    container: IoC.container,
+    resolve: IoC.container.resolve,
+    toClip: str => clip.SetText(str)
+    //events: createEmitter(),
+  };
 }

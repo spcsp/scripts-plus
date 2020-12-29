@@ -1,0 +1,16 @@
+
+  const env = (k, v) => {
+    if (typeof v === "undefined") {
+      return sp.GetStoredString(`SCRIPTY_${k}`);
+    } else {
+      sp.StoreString(`SCRIPTY_${k}`, v);
+    }
+  };
+
+  const mem = (k, v) => {
+    if (typeof v === "undefined") {
+      return sp.GetStoredObject(`SCRIPTY_${k}`);
+    } else {
+      sp.StoreObject(`SCRIPTY_${k}`, v);
+    }
+  };

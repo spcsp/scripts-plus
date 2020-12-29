@@ -1,3 +1,27 @@
+function getType(obj) {
+  switch (typeof obj) {
+    case "boolean":
+      return "Bool";
+    case "string":
+      return "String";
+    case "object":
+      return "Object";
+    default:
+      return obj.GetType().Name;
+  }
+};
+
+const TYPES = [
+  "Bool",
+  "Handle",
+  "HistoryScript",
+  "Number",
+  "Object",
+  "Point",
+  "Rectangle",
+  "String"
+];
+
 class Storage {
   constructor() {
     this.typeMap = {};
@@ -14,14 +38,14 @@ class Storage {
       throw Error(`No value was supplied for "${key}"`);
     }
     
-    const type = $.getType(val);
+    const type = getType(val);
     
     this.typeMap[key] = type;
     
     sp[`Store${type}`](key, val);
   }
   
-  rem(key) {
+  del(key) {
     const type = this.typeMap[key];
     
     sp[`DeleteStored${type}`](key);

@@ -79,3 +79,5 @@ class Mastercam {
     sp.SendKeys("{ENTER}");
   }
 }
+
+module.exports = Mastercam;
