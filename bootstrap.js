@@ -6,7 +6,7 @@ function bootstrap(config = {}) {
   const pathJoin = (p1, p2) => Path.Combine(p1, p2);
   
   const __dirname = sp.GetStoredString("SCRIPTY_STROKES");
-  const __sources = pathJoin(__dirname, "src");
+  const __sources = pathJoin(__dirname, "scripty_modules");
      
   function require(id, opts = {}) {
     const cwd = opts.cwd || __sources;
@@ -63,7 +63,6 @@ function bootstrap(config = {}) {
     };
 
     return {
-      //Awilix,
       value,
       dynamic,
       singleton,
@@ -75,13 +74,13 @@ function bootstrap(config = {}) {
   
   const env = {
     ROOT: __dirname,
-    APP_PATH: `${__dirname}\\scripty_apps`,
-    MACRO_PATH: `${__dirname}\\scripty_macros`,
-    CLASS_PATH: `${__dirname}\\scripty_classes`,
-    MODULE_PATH: `${__dirname}\\scripty_modules`,
+    SOURCES: __sources,
+    MACRO_PATH: `${__sources}\\macros`,
+    CLASS_PATH: `${__sources}\\classes`,
+    MODULE_PATH: `${__sources}\\modules`,
+    USER_PROFILE: GetFolderPath(SpecialFolder.UserProfile),
     HOSTNAME: sp.ExpandEnvironmentVariables("%COMPUTERNAME%"),
-    SYSTEM_ROOT: sp.ExpandEnvironmentVariables("%SystemRoot%"),
-    USER_PROFILE: GetFolderPath(SpecialFolder.UserProfile)
+    SYSTEM_ROOT: sp.ExpandEnvironmentVariables("%SystemRoot%")
   };
   
   //const Container = require("core/container.js");
@@ -118,7 +117,7 @@ function bootstrap(config = {}) {
      */
     toClip: str => clip.SetText(str),
     macro: (macroFile, payload) => {
-      const abspath = pathJoin(ENV.MACRO_PATH, `${macroFile}.js`);
+      const abspath = pathJoin(env.MACRO_PATH, `${macroFile}.js`);
       (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
     },
     

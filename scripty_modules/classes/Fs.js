@@ -1,6 +1,10 @@
 const { Directory, File } = clr.System.IO;
 
 class Fs {
+  constructor() {
+    //
+  }
+  
   cp(src, dest, overwrite = false) {
     return File.Copy(src, dest, overwrite);
   }
@@ -26,4 +30,4 @@ class Fs {
   }
 }
 
-module.exports = new Fs();
+module.exports = Fs;

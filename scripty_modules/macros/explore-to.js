@@ -1,6 +1,5 @@
-var { explorer } = $.apps;
+$.explorer.open($.env.SCRIPTY_ROOT);
 
-explorer.open($.env.SCRIPTY_ROOT);
 /*
 var start = new clr.System.Diagnostics.ProcessStartInfo();
 start.FileName = sp.ExpandEnvironmentVariables("%windir%") + "\\explorer.exe";
