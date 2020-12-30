@@ -1,8 +1,7 @@
 class Chrome {
-  static EXE_PATH = String.raw`C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`;
-  
   constructor({ exec }) {
     this._exec = exec;
+    this.EXE_PATH = String.raw`C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`;
   }
 
   inspect() {
@@ -27,4 +26,4 @@ class Chrome {
   }
 }
 
-module.exports = new Chrome(stdlib);
+module.exports = Chrome;

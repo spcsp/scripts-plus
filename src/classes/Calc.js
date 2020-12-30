@@ -1,4 +1,4 @@
-class Calculator {
+class Calc {
   constructor({ env }) {
     this.EXE_PATH = String.raw`${env.expand("%WINDIR%")}\system32\calc.exe`;
   }
@@ -8,4 +8,4 @@ class Calculator {
   }
 }
 
-module.exports = new Calculator(stdlib);
+module.exports = Calc;

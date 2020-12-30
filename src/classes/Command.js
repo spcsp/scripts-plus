@@ -1,4 +1,4 @@
-class Cmd {
+class Command {
   constructor({ exec }) {
     exec.alias("git", String.raw`C:\Program Files\Git\git-bash.exe`);
   }
@@ -8,4 +8,4 @@ class Cmd {
   }
 }
 
-module.exports = new Cmd(stdlib);
+module.exports = Command;

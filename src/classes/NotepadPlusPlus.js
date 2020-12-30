@@ -1,10 +1,10 @@
 class NotepadPlusPlus {
-  TITLE_PARTIAL = "Notepad++";
-  EXE_PATH = String.raw`C:\Program Files (x86)\Notepad++\notepad++.exe`;
-  
   constructor({ exec, window }) {
     this._exec = exec;   
     this._window = window;   
+    
+    this.TITLE_PARTIAL = "Notepad++";
+    this.EXE_PATH = String.raw`C:\Program Files (x86)\Notepad++\notepad++.exe`;
   }
 
   openFile(abspath) {
@@ -20,7 +20,7 @@ class NotepadPlusPlus {
   }
 
   run(args = [], config = {}) {
-    return this._exec.run(NotepadPlusPlus.EXE_PATH, args, config);
+    return this._exec.run(this.EXE_PATH, args, config);
   }
 
   get windows() {
@@ -32,4 +32,4 @@ class NotepadPlusPlus {
   }
 }
 
-module.exports = new NotepadPlusPlus(stdlib);
+module.exports = NotepadPlusPlus;

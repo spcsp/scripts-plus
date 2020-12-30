@@ -1,12 +1,16 @@
-class Types {  
+class Generics {
+  constructor({ getType }) {
+    this._getType = getType;
+  }
+  
   match(obj, fns) {
     if (typeof fns["Undefined"] !== "function") {
       throw Error(`You must provide a function for "Undefined"`);
     }
         
-    const type = $.getType(obj);
+    const type = this._getType(obj);
 
-    if (!$.getType.TYPES.includes(type)) {
+    if (!this._getType.TYPES.includes(type)) {
       throw Error(`"${type}" is not a valid type to match against.`);
     }
       
@@ -18,4 +22,4 @@ class Types {
   }
 }
 
-module.exports = new Types();
+module.exports = Generics;

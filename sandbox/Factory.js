@@ -30,4 +30,4 @@ class AppFactory {
   }
 }
 
-module.exports = new AppFactory(stdlib);
+module.exports = AppFactory;

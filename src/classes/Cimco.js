@@ -1,28 +1,13 @@
-class Mastercam {  
-  constructor({ exec, fs, utils, window }) {
-    this.TITLE_PARTIAL = "Mastercam";
-    this.EXE_PATH = String.raw`C:\Program Files\Mcam2019\Mastercam.exe`;
+class Cimco {
+  constructor({ exec, utils, window }) {
+    this.TITLE_PARTIAL = "CIMCO";
+    this.EXE_PATH = String.raw`C:\Program Files\Mcam2019\common\Editors\CIMCOEdit8\CIMCOEdit.exe`;
     
-    this._fs = fs;
     this._exec = exec;   
     this._utils = utils;
     this._window = window;   
-  }
-  
-  _getExt(str) {
-    return str.split(".").pop().toUpperCase();
-  }
-  
-  get pathFiles() {
-    return [...$.fs.readdir(this.currentPath)];
-  }
-  
-  get camFiles() {
-    return this.pathFiles.filter(f => this._getExt(f).startsWith("M"));
-  }
-
-  get ncFiles() {
-    return this.pathFiles.filter(f => this._getExt(f) === "NC");
+    
+    this._exec.alias("cimco", this.EXE_PATH);
   }
   
   get windows() {
@@ -42,7 +27,7 @@ class Mastercam {
   }
 
   get abspath() {
-    return this.title.split(" - ")[0];
+    return this.title.split(" - ")[1].replace(/\[|\]/g, "").trim();//.replace(/\\/g, "/");
   }
 
   get currentPath() {
@@ -50,7 +35,7 @@ class Mastercam {
   }
 
   get filename() {
-    return this.abspath.split("\\").pop();
+    return this.abspath.split("/").pop();
   }
 
   get filenameNoExt() {
@@ -62,7 +47,7 @@ class Mastercam {
   }
   
   get partNumber() {
-    return this._utils.stripOpNum(this.filenameNoExt);
+    return this.utils.stripOpNum(this.filenameNoExt);
   }
   
   activate() {
@@ -80,4 +65,4 @@ class Mastercam {
   }
 }
 
-module.exports = new Mastercam(stdlib);
+module.exports = Cimco;

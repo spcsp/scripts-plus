@@ -30,4 +30,4 @@ class Explorer {
   }
 }
 
-module.exports = new Explorer(stdlib);
+module.exports = Explorer;

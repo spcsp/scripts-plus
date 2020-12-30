@@ -1,12 +1,13 @@
 class SuperMenu {  
-  constructor({ apps, popup }) {
-    this.mcam = apps.mastercam;
-    this.$popup = popup;
-    this._menu = this.$popup.create();
+  constructor({ mastercam, popup }) {
+    this._mcam = mastercam;
+    this._popup = popup;
+    
+    this._menu = this._popup.create();
   }
   
   _addToMainMenu(li) {
-    var addToMainMenu = this.$popup.addToMenu(this._menu);
+    var addToMainMenu = this._popup.addToMenu(this._menu);
     
     addToMainMenu(li);
     
@@ -14,15 +15,15 @@ class SuperMenu {
   }
   
   get Spacer() {
-    return $.popup.spacer
+    return this._popup.spacer
   }
   
   get Cancel() {
-    return $.popup.cancel;
+    return this._popup.cancel;
   }
     
   get PartOps() {
-    return this.$popup.menuItem(`${partBase} Ops`);
+    return this._popup.menuItem(`${partBase} Ops`);
   }
   
   get Mastercam() {
@@ -34,26 +35,26 @@ class SuperMenu {
   }
   
   Create(menuItems) {
-    var { addToMenu, addToSubMenu, menuItem, show } = this.$popup;
+    var { addToMenu, addToSubMenu, menuItem, show } = this._popup;
     
     menuItems.forEach(m => this._addToMainMenu(m));
     
-    var ncfile = this.mcam.filenameNoExt;
-    var partBase = this.mcam.partNumber.split("_")[0];
-    var addToOps = this.$popup.addToSubMenu(this.PartOps);
+    var ncfile = this._mcam.filenameNoExt;
+    var partBase = this._mcam.partNumber.split("_")[0];
+    var addToOps = this._popup.addToSubMenu(this.PartOps);
 
     /**
      * Operations Sub-menu
      */
     getAllMcamFiles().forEach(f => addToOps(menuItem(f)));
-    addToOps($.popup.spacer);
+    addToOps(this._popup.spacer);
     addToOps(menuItem("Open Job Folder", `$.macro("mastercam/OpenCurrentJobFolder")`));
 
     /**
      * Main Menu
      */
     addToMainMenu(menuItem(`Open ${ncfile}.NC`, `$.macro("mastercam/OpenMatchingNCFile")`));
-    addToMainMenu($.popup.spacer);
+    addToMainMenu(this._popup.spacer);
     addToMainMenu(menuItem("Copy Job Path", `$.macro("mastercam/CurrentFolderPathToClipboard")`));
     addToMainMenu(menuItem("Copy Part Number", `$.macro("mastercam/CurrentPartNumberToClipboard")`));
     addToMainMenu(menuItem("Copy Filename", `$.macro("mastercam/CurrentFilenameToClipboard")`));
@@ -63,7 +64,7 @@ class SuperMenu {
   }
   
   get Spacer() {
-    addToMainMenu(this.$popup.spacer);
+    addToMainMenu(this._popup.spacer);
     
     return this;
   }
@@ -84,9 +85,4 @@ class SuperMenu {
   
 }
 
-module.exports = function superMenuFactory() {
-  return new SuperMenu(stdlib);
-}
-
-
-
+module.exports = SuperMenu;
