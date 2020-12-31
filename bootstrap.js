@@ -1,100 +1,120 @@
 function bootstrap(config = {}) {
-  const { GetFolderPath, SpecialFolder } = clr.System.Environment;
   const { Directory, File, Path } = clr.System.IO;
-  
-  const readFile = f => File.ReadAllText(f);
-  const pathJoin = (p1, p2) => Path.Combine(p1, p2);
+  const { GetFolderPath, SpecialFolder } = clr.System.Environment
   
   const __dirname = sp.GetStoredString("SCRIPTY_STROKES");
-  const __sources = pathJoin(__dirname, "scripty_modules");
-     
-  function require(id, opts = {}) {
-    const cwd = opts.cwd || __sources;
-    let abspath = pathJoin(cwd, id);
-    
-    if (Boolean(opts.absolute || false)) abspath = id;
-    
-    const source = readFile(abspath);    
-    const factory = eval(`(function() {
+  
+  const fromRoot = p => Path.Combine(__dirname, p);
+  const expandVar = v => sp.ExpandEnvironmentVariables(`%${v}%`);  
+  const specialFolder = n => GetFolderPath(SpecialFolder[n]);
+  
+  const env = {
+    ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
+    MACRO_PATH: fromRoot("macros"),
+    CLASS_PATH: fromRoot("scripty_classes"),
+    MODULE_PATH: fromRoot("scripty_modules"),
+    HOSTNAME: expandVar("ComputerName"),
+    WINDIR: expandVar("WINDIR"),
+    SYSTEM_ROOT: expandVar("SystemRoot"),
+    APPDATA: expandVar("ApplicationData"),
+    LOCAL_APPDATA: expandVar("LocalAppData"),
+    USER_PROFILE: specialFolder("UserProfile"),
+    LOCAL_APPDATA: specialFolder("LocalApplicationData")
+  };
+  
+  function evalModule(source) {
+    return eval(`(() => {
       const module = { exports: {} };
 
       ${source}
 
-      return module;
-    })`);
+      ;return module;
+    })()`);
+  } 
+  
+  function require(id, opts = {}) {
+    const cwd = opts.cwd || env.MODULE_PATH;
+    let abspath = Path.Combine(cwd, id);
     
-    return factory().exports;
+    if (Boolean(opts.absolute || false)) abspath = id;
+    
+    const source = File.ReadAllText(abspath);    
+    const module = evalModule(source);
+    
+    return module.exports;
   }
   
+  /*
   function Container() {
-    require("core/awilix.js");
+    require("awilix.js");
     const container = Awilix.createContainer();
     const getFilename = f => f.split(/[\\/]/g).pop().split('.')[0];
-    const getDirContents = dir => {
-      try{return Array.from(Directory.GetFiles(dir))}catch(err){return []}
-    };
-    const value = (id, val) => container.register(id, Awilix.asValue(val));
-    const dynamic = (id, fn) => container.register(id, Awilix.asFunction(fn));
-    const singleton = (id, fn) => container.register(id, Awilix.asFunction(fn).singleton());
-    const loadClasses = (dir, { cwd }) => {
-      getDirContents(Path.Combine(cwd, dir)).forEach(file => {
+    const asVal = (id, v) => container.register(id, Awilix.asValue(v));
+    const asFunc = (id, v) => container.register(id, Awilix.asFunction(v));
+    const asClass = (id, v) => container.register(id, Awilix.asClass(v));
+    const asSingle = (id, v) => container.register(id, Awilix.asFunction(v).singleton());
+    const getFiles = (dir, { cwd } = {}) => {
+      let abspath = dir;
+      
+      if (typeof cwd === "string") {
+        abspath = Path.Combine(cwd, dir);
+      }
+      
+      try {
+        return Array.from(Directory.GetFiles(dir))
+      } catch(err) {
+        return [];
+      }
+    }
+    
+    const loadClasses = (...args) => {
+      getFiles(...args).forEach(file => {
         const id = getFilename(file).toLowerCase();
         const theClass = require(file, { absolute: true });
         
-        container.register(id, Awilix.asClass(theClass));
+        asClass(id, theClass);
       });
     };
-    const loadModules = (dir, { cwd }) => {
-      getDirContents(Path.Combine(cwd, dir)).forEach(file => {
-        const id = getFilename(file);                
-        const factory = eval(`(stdlib => {
-          const module = { exports: {} };
+    
+    const loadModules = (...args) => {
+      getFiles(...args).forEach(file => {
+        const id = getFilename(file);
+        const source = File.ReadAllText(file);
+        const module = evalModule(source);
 
-          ${File.ReadAllText(file)}
-
-          module.exports["__MODULE_ID"] = "${id}";
-          module.exports["__MODULE_SRC"] = String.raw\`${file}\`;
-
-          return module;
-        })`);
-
-        container.register(id, Awilix.asFunction(deps => factory(deps).exports));
+        if (typeof module.exports.factory === "function") {
+          asFunc(id, cradle => module.exports.factory(cradle));
+        } else {
+          asFunc(id, () => module.exports);
+        }
       });
     };
 
     return {
-      value,
-      dynamic,
-      singleton,
+      asVal,
+      asFunc,
+      asClass,
+      asSingle,
       container,
       loadClasses,
       loadModules,
+      getModules: () => container.cradle
     };
   }
+  */
+  //const Container = require("container.js");
+    
+  require("awilix.js");
+  const Container = require("container.js");
   
-  const env = {
-    ROOT: __dirname,
-    SOURCES: __sources,
-    MACRO_PATH: `${__sources}\\macros`,
-    CLASS_PATH: `${__sources}\\classes`,
-    MODULE_PATH: `${__sources}\\modules`,
-    USER_PROFILE: GetFolderPath(SpecialFolder.UserProfile),
-    HOSTNAME: sp.ExpandEnvironmentVariables("%COMPUTERNAME%"),
-    SYSTEM_ROOT: sp.ExpandEnvironmentVariables("%SystemRoot%")
-  };
+  const IoC = new Container({ Awilix, require, evalModule });
   
-  //const Container = require("core/container.js");
-  
-  /**
-   * Let's fill the container!
-   */
-  const IoC = Container();
-  
-  IoC.value("env", env);
-  IoC.singleton("store", () => require("core/store.js"));
-  IoC.loadModules("./modules", { cwd: __sources });
+  IoC.asVal("env", env);
+//  IoC.asVal("Awilix", Awilix);
+  IoC.asSingle("store", () => require("store.js"));
+  IoC.loadClasses(env.CLASS_PATH);
+  IoC.loadModules(env.MODULE_PATH);
   IoC.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
-  IoC.loadClasses("./classes", { cwd: __sources });
 
   /**
    * This is ScriptyStrokes
@@ -102,30 +122,19 @@ function bootstrap(config = {}) {
    * Everything `$.xxx` for your S+ scripts
    */
   return {
-    /**
-     * Awilix Wrapper
-     */
-    ...IoC,
-    
-    /**
-     * Scripty Core
-     */
-    ...IoC.container.cradle,
-    
+    ...IoC,         // Awilix Wrapper
+    ...IoC.modules, // Scripty Core
     /**
      * Scripty Functions
      */
-    toClip: str => clip.SetText(str),
     macro: (macroFile, payload) => {
-      const abspath = pathJoin(env.MACRO_PATH, `${macroFile}.js`);
+      const abspath = Path.Combine(env.MACRO_PATH, `${macroFile}.js`);
       (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
     },
-    
     /**
      * Scripty Setters
      */
     set clip(str) { clip.SetText(str) },
-    
     /**
      * Scripty Getters
      */
