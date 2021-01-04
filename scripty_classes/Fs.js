@@ -25,6 +25,10 @@ class Fs {
     return Directory.GetFiles(dir);
   }
 
+  readFile(filepath) {
+    return File.ReadAllText(filepath);
+  }
+  
   writeFile(filepath, content) {
     return File.WriteAllText(filepath, content);
   }

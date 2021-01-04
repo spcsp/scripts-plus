@@ -7,19 +7,22 @@ function bootstrap(config = {}) {
   const fromRoot = p => Path.Combine(__dirname, p);
   const expandVar = v => sp.ExpandEnvironmentVariables(`%${v}%`);  
   const specialFolder = n => GetFolderPath(SpecialFolder[n]);
+  const USER_PROFILE = specialFolder("UserProfile");
   
   const env = {
+    // Windows
+    USER_PROFILE,
+    WINDIR: expandVar("WINDIR"),
+    HOSTNAME: expandVar("ComputerName"),
+    SYSTEM_ROOT: expandVar("SystemRoot"),
+    APPDATA: expandVar("ApplicationData"),
+    LOCAL_APPDATA: specialFolder("LocalApplicationData"),
+    // Scripty
     ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
     MACRO_PATH: fromRoot("macros"),
     CLASS_PATH: fromRoot("scripty_classes"),
     MODULE_PATH: fromRoot("scripty_modules"),
-    HOSTNAME: expandVar("ComputerName"),
-    WINDIR: expandVar("WINDIR"),
-    SYSTEM_ROOT: expandVar("SystemRoot"),
-    APPDATA: expandVar("ApplicationData"),
-    LOCAL_APPDATA: expandVar("LocalAppData"),
-    USER_PROFILE: specialFolder("UserProfile"),
-    LOCAL_APPDATA: specialFolder("LocalApplicationData")
+    CACHE_PATH: Path.Combine(USER_PROFILE, ".scripty_cache")
   };
   
   function evalModule(source) {

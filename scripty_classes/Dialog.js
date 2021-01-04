@@ -29,9 +29,9 @@ class Dialog {
     this.buttonCancel.DialogResult = this.CANCEL; 
   }
   
-  create(inputLabel = "Input:", title = "ScriptyStrokes Dialog") {
+  create({ text, title } = { text: "Input:", title: "ScriptyStrokes Dialog" }) {
+    this.label.Text = text;
     this.form.Text = title;
-    this.label.Text = inputLabel;
     
     this.buttonOk.Location = new Point (10, 10);
     this.buttonCancel.Location = new Point(

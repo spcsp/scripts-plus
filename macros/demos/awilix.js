@@ -1,4 +1,4 @@
-var res = $.request("https://unpkg.com/awilix/lib/awilix.umd.js");
+var res = $.unpkg("awilix/lib/awilix.umd.js");
 
 eval(res);
 

@@ -3,97 +3,90 @@ class Keyboard {
     this._alt = "#";
     this._ctrl = "^";
     this._shift = "+";
-    
-    this._buffers = {
-      main: ""
-    };
+  }
+      
+  keys(input) {
+    sp.SendKeys(input);
+    return this;
   } 
   
-  hook(cb) {
-    return KeyboardHook.OnKeyboardHookEventAsync.connect(cb);
+  type(input = "") {
+    return this.string(input).enter();
   }
-  /*  
-  vKeys() {
-    sp.SendModifiedVKeys([vk.LMENU], [vk.VK_S]);
+  
+  pause(time = 250) {
+    sp.Sleep(time);
+    return this;
   }
-  */
-  _push(input, buffer = "main") {
-    this._buffers[buffer] += input;
-    //sp.MessageBox(input, ""); //This is for debugging
+  
+  string(input = "") {
+    sp.SendString(`${input}`);
     return this;
   }
     
-  keys(input) {
-    return sp.SendKeys(input);
-  } 
-  
-  string(input) {
-    return sp.SendString(input);
+  virtualKeys(...keys) {
+    sp.SendModifiedVKeys(...keys);
+    return this;
   }
   
-  enter() {
-    return this.type("{ENTER}");
-  }
-  
-  //Space
-  _(input) {
-    return this._push(" ");
-    if (input) this._push(input);
+  enter(now) {
+    this.keys("{ENTER}");
     return this;
   }  
   
   tab(count = 1) {
-    return this.type(`\{TAB ${count}\}`);
+    this.keys(`{TAB ${count}}`);
     return this;
   }  
   
-  ctrl(input) {
-    this._push(this._ctrl);
-    if (input) this._push(input);
+  ctrl(input = "") {
+    this.keys(`${this._ctrl}${input}`);
     return this;
   }
   
-  alt(input) {
-    this._push(this._alt);
-    if (input) this._push(input);
+  alt(key) {
+    sp.SendAltDown();
+    sp.SendKeys(key);
+    sp.SendAltUp();
+    //this.keys(`${this._alt}${input}`);
     return this;
   }
   
-  shift(input = "+") {
-    this._push(this._shift);
-    if (input) this._push(input);
+  shift(input = "") {
+    this.keys(`${this._shift}${input}`);
     return this;
   }
-  
-  type(input) {
-    if (input) this._push(input);
-    this.keys(this._buffers["main"]);
-    this.reset();
+      
+  meta(key) {
+    sp.SendWinDown();
+    sp.SendKeys(key);
+    sp.SendWinUp();
+    return this;
   }
   
   selectAll() {
-    this.ctrl().type("a");
+    this.ctrl("a");
     return this;
   }
   
   copy() {
-    this.ctrl().type("c");
+    this.ctrl("c");
     return clip.GetText();
   }
   
   cut() {
-    this.ctrl().type("x");
+    this.ctrl("x");
     return clip.GetText();
   }
   
   undo() {
-    this.ctrl().type("z");
+    this.ctrl("z");
     return this;
   }
   
-  reset() {
-    this._buffers["main"] = "";
-    return this;    
+  hook(cb) {
+    KeyboardHook.OnKeyboardHookEventAsync.connect(cb);
+    return this;
   }
 }
 
