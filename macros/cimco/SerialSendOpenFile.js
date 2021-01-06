@@ -1,7 +1,5 @@
-var { cimco, explorer } = $.apps;
-
 var comNum = 2;
-var mapped = explorer.mapUNCpath(cimco.abspath);
+var mapped = $.explorer.mapUNCpath($.cimco.abspath);
 
 var commands = [
   `MODE COM${comNum} BAUD=19200 PARITY=e DATA=7`,
@@ -20,4 +18,4 @@ sp.RunProgram(
   true
 );
 
-$.toast("was sent to the machine", cimco.abspath);
+$.toast("was sent to the machine", $.cimco.abspath);

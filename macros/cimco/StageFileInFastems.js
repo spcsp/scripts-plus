@@ -1,4 +1,4 @@
-var { abspath, filename } = $.apps.cimco;
+var { abspath, filename } = $.cimco;
 
 var xcopy = $.exec.create("xcopy");
 

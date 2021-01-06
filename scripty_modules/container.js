@@ -35,7 +35,7 @@ class Container {
       const id = this._getFilename(file).toLowerCase();
       const theClass = this._require(file, { absolute: true });
       
-      this.asClass(id, theClass);
+      this._container.register(id, this._awilix.asClass(theClass).singleton());
     });
   }
   

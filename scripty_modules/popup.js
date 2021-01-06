@@ -12,9 +12,9 @@ popup.cancel = () => new PopupMenuItem("Cancel");
 
 popup.menuItem = (...args) => new PopupMenuItem(...args);
 
-popup.addToMenu = (menu) => (item) => menu.MenuItems.Add(item);
+popup.addToMenu = menu => item => menu.MenuItems.Add(item);
 
-popup.addToSubMenu = (menu) => (item) => menu.SubMenuItems.Add(item);
+popup.addToSubMenu = menu => item => menu.SubMenuItems.Add(item);
 
 //popup.show = (popup) => sp.ShowPopupMenuEx(popup);
 

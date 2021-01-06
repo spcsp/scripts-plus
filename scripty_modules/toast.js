@@ -6,24 +6,32 @@
  */
 function toast(message, opts = {}) {
   const info = new DisplayTextInfo();
+  info.UsePrimaryScreen = true;
   
   info.Message = message;
-  info.Title = opts.title || "ScriptyStrokes";
-  info.TitleAlignment = opts.titleAlignment || "Center";
-  info.MessageAlignment = opts.messageAlignment || "Center";
-  info.Duration = opts.duration || 3000;
-  info.Opacity = opts.opacity || 0.7;
-  info.Location = opts.location || "top";
+  if (typeof opts === "string") {
+    info.Title = opts;
+  } else {
+    info.Title = opts.title || "ScriptyStrokes";
+  }
+  
+  info.ForeColor = opts.textColor || "cyan";
   info.TitleFont = new Font("Segoe UI", 18, host.flags(FontStyle.Bold));
+  info.TitleAlignment = opts.titleAlignment || "Center";
   info.MessageFont = new Font("Segoe UI Semibold", 16);
-  info.BackColor = opts.backgroundColor || "black",
-  info.ForeColor = opts.textColor || "cyan",
+  info.MessageAlignment = opts.messageAlignment || "Center";
+  
   info.Padding = opts.padding || 20;
-  info.UsePrimaryScreen = true;
+  info.Duration = opts.duration || 3000;
+  info.Location = opts.location || "top";
+  info.Opacity = opts.opacity || 0.7;
+  info.BackColor = opts.backgroundColor || "black";
 
   return sp.DisplayText(info);
 }
 
 toast.factory = title => message => toast(message, { title });
+
+toast.copied = toast.factory("Copied To Clipboard");
 
 module.exports = toast;
