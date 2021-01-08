@@ -1,4 +1,3 @@
+.cache
 node_modules/
 System Volume Information/
-
-/workcenter_post_paths.json

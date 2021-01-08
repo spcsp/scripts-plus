@@ -22,25 +22,33 @@ function bootstrap(config = {}) {
     MACRO_PATH: fromRoot("macros"),
     CLASS_PATH: fromRoot("scripty_classes"),
     MODULE_PATH: fromRoot("scripty_modules"),
-    CACHE_PATH: Path.Combine(USER_PROFILE, ".scripty_cache")
+    SCRIPTY_CACHE_PATH: fromRoot(".cache"),
+    USER_CACHE_PATH: Path.Combine(USER_PROFILE, ".scripty_cache")
   };
   
   function require(id, opts = {}) {
-    const cwd = opts.cwd || env.MODULE_PATH;
+    this.cwd = opts.cwd || env.MODULE_PATH;
     
-    let abspath = Path.Combine(cwd, id);
+    let abspath = Path.Combine(this.cwd, id);
     
     if (Boolean(opts.absolute || false)) abspath = id;
     
+    const source = File.ReadAllText(abspath);    
     const module = eval(`(() => {
       const module = { exports: {} };
-      ${File.ReadAllText(abspath)}
+      
+      ${source}
+      
       ;return module;
     })()`);
     
+    if (typeof module.exports === "undefined") {
+      throw Error(`${abspath} had no exports`);
+    }
+    
     return module.exports;
   }
- 
+   
   function macro(macroFile, payload) {
     const abspath = Path.Combine(env.MACRO_PATH, `${macroFile}.js`);
     
@@ -50,13 +58,13 @@ function bootstrap(config = {}) {
   require("awilix.js");
   
   const Container = require("container.js");
+  sp.MessageBox
   const IoC = new Container({ Awilix, require });
   
   IoC.asVal("env", env);
-  IoC.asVal("store", require("store.js"));
-  IoC.loadClasses(env.CLASS_PATH);
   IoC.loadModules(env.MODULE_PATH);
   IoC.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
+  IoC.loadClasses(env.CLASS_PATH);
 
   /**
    * This is ScriptyStrokes

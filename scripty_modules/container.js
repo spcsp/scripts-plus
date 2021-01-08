@@ -2,11 +2,8 @@ class Container {
   constructor({ Awilix, require }) {
     this._awilix = Awilix;
     this._require = require;    
-    this._container = this._awilix.createContainer();
-  }
-  
-  get container() {
-    return this._container;
+    
+    this.container = this._awilix.createContainer();
   }
   
   get modules() {
@@ -18,19 +15,15 @@ class Container {
   }
   
   asVal(id, v) { 
-    return this._container.register(id, this._awilix.asValue(v));
+    return this.container.register(id, this._awilix.asValue(v));
   }
-  
-  asClass(id, v) { 
-    return this._container.register(id, this._awilix.asClass(v));
-  }
-  
+    
   asFunc(id, v) { 
-    return this._container.register(id, this._awilix.asFunction(v));
+    return this.container.register(id, this._awilix.asFunction(v));
   }
   
   asSingle(id, v) { 
-    return this._container.register(id, this._awilix.asFunction(v).singleton());
+    return this.container.register(id, this._awilix.asFunction(v).singleton());
   }
   
   loadModules(...args) {
@@ -47,7 +40,17 @@ class Container {
       const id = this._getFilename(file).toLowerCase();
       const module = this._require(file, { absolute: true });
       
-      if (module) this.asClass(id, this._awilix.asClass(module));
+      if (module) {
+        const moduleDefinition = {
+          [id]: this._awilix.asClass(module).singleton()
+        };
+        
+        if (typeof module.aliasTo === "string") {
+          moduleDefinition[module.aliasTo] = this._awilix.aliasTo(id);
+        }
+        
+        this.container.register(moduleDefinition);
+      }
     });
   }
   

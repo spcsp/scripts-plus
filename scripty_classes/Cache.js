@@ -5,8 +5,12 @@ class Cache {
     this._path = path;
     this._store = store;
     
-    this._cacheDir = this._env.CACHE_PATH;
-    this._fs.mkdir(this._cacheDir);    
+    this._cacheDir = this._env.SCRIPTY_CACHE_PATH;
+    this._fs.mkdir(this._cacheDir);
+  }
+  
+  setCacheDir(dir) {
+    this._cacheDir = dir;
   }
   
   keyPath(key) {

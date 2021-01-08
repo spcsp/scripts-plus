@@ -5,17 +5,21 @@ class Unpkg {
   }
   
   fetch(pkg, opts = { cache: true }) {
-    if (!opts.cache) return this._client(pkg);
+    const unslash = p => p.replace("/", "__");
+    
+    if (!opts.cache) {
+      return this._client(pkg);
+    }
     
     const scopedCache = $.cache.scoped("unpkg");
     
-    if (!scopedCache.has(pkg)) {
+    if (!scopedCache.has(unslash(pkg))) {
       const src = this._client(pkg);
       
-      scopedCache.set(pkg, src);
+      scopedCache.set(unslash(pkg), src);
     }
   
-    return scopedCache.get(pkg);
+    return scopedCache.get(unslash(pkg));
   }
 };
 
