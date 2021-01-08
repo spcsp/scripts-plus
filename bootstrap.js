@@ -9,11 +9,6 @@ function bootstrap(config = {}) {
   const specialFolder = n => GetFolderPath(SpecialFolder[n]);
   const USER_PROFILE = specialFolder("UserProfile");
   
-  const xClip = {
-    set clip(str) { return clip.SetText(str) },
-    get clip() { return clip.GetText() }
-  };
-  
   const env = {
     // Windows
     USER_PROFILE,
@@ -30,36 +25,35 @@ function bootstrap(config = {}) {
     CACHE_PATH: Path.Combine(USER_PROFILE, ".scripty_cache")
   };
   
-  function evalModule(source) {
-    return eval(`(() => {
-      const module = { exports: {} };
-
-      ${source}
-
-      ;return module;
-    })()`);
-  } 
-  
   function require(id, opts = {}) {
     const cwd = opts.cwd || env.MODULE_PATH;
+    
     let abspath = Path.Combine(cwd, id);
     
     if (Boolean(opts.absolute || false)) abspath = id;
     
-    const source = File.ReadAllText(abspath);    
-    const module = evalModule(source);
+    const module = eval(`(() => {
+      const module = { exports: {} };
+      ${File.ReadAllText(abspath)}
+      ;return module;
+    })()`);
     
     return module.exports;
   }
-  
+ 
+  function macro(macroFile, payload) {
+    const abspath = Path.Combine(env.MACRO_PATH, `${macroFile}.js`);
+    
+    (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
+  }
+    
   require("awilix.js");
-  const Container = require("container.js");
   
-  const IoC = new Container({ Awilix, require, evalModule });
+  const Container = require("container.js");
+  const IoC = new Container({ Awilix, require });
   
   IoC.asVal("env", env);
-  IoC.asFunc("clip", () => xClip);
-  IoC.asSingle("store", () => require("store.js"));
+  IoC.asVal("store", require("store.js"));
   IoC.loadClasses(env.CLASS_PATH);
   IoC.loadModules(env.MODULE_PATH);
   IoC.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
@@ -70,12 +64,17 @@ function bootstrap(config = {}) {
    * Everything `$.xxx` for your S+ scripts
    */
   return {
+    macro,          // Macro Runner
     ...IoC,         // Awilix Wrapper
-    ...IoC.modules, // Scripty Core
-    macro: (macroFile, payload) => {
-      const abspath = Path.Combine(env.MACRO_PATH, `${macroFile}.js`);
-      (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
+    ...IoC.modules, // Scripty Core    
+    set clip(str) {
+       clip.SetText(str);
     },
-    get registrations() { return Object.keys(IoC.container.registrations).sort() }
+    get clip() {
+      return clip.GetText();
+    },
+    get registrations() {
+      return Object.keys(IoC.container.registrations).sort();
+    }
   };
 }

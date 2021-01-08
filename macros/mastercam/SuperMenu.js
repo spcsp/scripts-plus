@@ -5,7 +5,7 @@ function McamFilesSubMenu(menuEntryText) {
   const addEntry = $.popup.addToSubMenu(subMenu);
 
   $.mastercam.camFiles.forEach(f => {
-    addEntry($.popup.menuItem(f, "$.apps.mastercam.open(String.raw`"+f+"`)"));
+    addEntry($.popup.menuItem(f, "$.mastercam.open(String.raw`"+f+"`)"));
   });
   
   return subMenu;
@@ -16,7 +16,7 @@ function NcFilesSubMenu(menuEntryText) {
   const addEntry = $.popup.addToSubMenu(subMenu);
   
   $.mastercam.ncFiles.forEach(f => {
-    addEntry($.popup.menuItem(f, "$.apps.cimco.open(String.raw`"+f+"`)"));
+    addEntry($.popup.menuItem(f, "$.cimco.open(String.raw`"+f+"`)"));
   });
   
   return subMenu;

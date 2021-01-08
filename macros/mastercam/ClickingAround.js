@@ -3,7 +3,8 @@ $.mouse.hooks.move.after = () => sp.Sleep(100);
 
 function editSelectedOperations() {
     return $.mouse
-        .rightClick(65, 275) // Center of first Machine Group
+        .move(265, 375) // Center of first Machine Group
+        .rightClick()
         .move(265, 375) // Over flyout triangle for [Edit selected operations...]
         .waitForSubmenu()
 }

@@ -1,3 +1,5 @@
+var copied = $.toaster.create("Copied To Clipboard");
+
 $.clip = $.mastercam.filenameNoExt;
 
-$.toast.copied($.clip);
+copied($.clip);

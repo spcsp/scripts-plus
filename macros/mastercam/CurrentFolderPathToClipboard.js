@@ -1,3 +1,5 @@
+var copied = $.toaster.create("Copied To Clipboard");
+
 $.clip = $.mastercam.currentPath;
 
-$.toast.copied($.mastercam.currentPath);
+copied($.clip);

@@ -17,6 +17,4 @@ function balloon(message, opts = {}) {
   );
 }
 
-balloon.factory = title => message => balloon(message, { title });
-
 module.exports = balloon;

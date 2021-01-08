@@ -1,4 +1,10 @@
 class Container {
+  constructor({ Awilix, require }) {
+    this._awilix = Awilix;
+    this._require = require;    
+    this._container = this._awilix.createContainer();
+  }
+  
   get container() {
     return this._container;
   }
@@ -6,14 +12,11 @@ class Container {
   get modules() {
     return this.container.cradle;
   }
-  
-  constructor({ Awilix, evalModule, require }) {
-    this._awilix = Awilix;
-    this._require = require;
-    this._evalModule = evalModule;
-    this._container = this._awilix.createContainer();
+
+  get Awilix() {
+    return this._awilix = Awilix;
   }
-    
+  
   asVal(id, v) { 
     return this._container.register(id, this._awilix.asValue(v));
   }
@@ -30,26 +33,21 @@ class Container {
     return this._container.register(id, this._awilix.asFunction(v).singleton());
   }
   
-  loadClasses(...args) {
-    this._getFiles(...args).forEach(file => {
-      const id = this._getFilename(file).toLowerCase();
-      const theClass = this._require(file, { absolute: true });
-      
-      this._container.register(id, this._awilix.asClass(theClass).singleton());
-    });
-  }
-  
   loadModules(...args) {
     this._getFiles(...args).forEach(file => {
       const id = this._getFilename(file);
-      const source = File.ReadAllText(file);
-      const module = this._evalModule(source);
-
-      if (typeof module.exports.factory === "function") {
-        this.asFunc(id, cradle => module.exports.factory(cradle));
-      } else {
-        this.asFunc(id, () => module.exports);
-      }
+      const module = this._require(file, { absolute: true });
+            
+      if (module) this.asVal(id, module);
+    });
+  }
+  
+  loadClasses(...args) {
+    this._getFiles(...args).forEach(file => {
+      const id = this._getFilename(file).toLowerCase();
+      const module = this._require(file, { absolute: true });
+      
+      if (module) this.asClass(id, this._awilix.asClass(module));
     });
   }
   

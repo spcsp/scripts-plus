@@ -12,7 +12,7 @@ function toast(message, opts = {}) {
   if (typeof opts === "string") {
     info.Title = opts;
   } else {
-    info.Title = opts.title || "ScriptyStrokes";
+    info.Title = typeof opts.title === "string" ? opts.title : "ScriptyStrokes";
   }
   
   info.ForeColor = opts.textColor || "cyan";
@@ -29,9 +29,5 @@ function toast(message, opts = {}) {
 
   return sp.DisplayText(info);
 }
-
-toast.factory = title => message => toast(message, { title });
-
-toast.copied = toast.factory("Copied To Clipboard");
 
 module.exports = toast;

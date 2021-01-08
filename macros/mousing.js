@@ -5,4 +5,4 @@ const randomBetween = (min, max) => floor(random() * (max - min + 1) + min);
 const randX = () => randomBetween(0, Width);
 const randY = () => randomBetween(0, Height);
 
-$.keyboard.hook(() => $.mouse.move(randX(), randY()))
+$.keyboard.hook(() => $.mouse.move(randX(), randY()));

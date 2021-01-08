@@ -1,3 +1,5 @@
+var copied = $.toaster.create("Copied To Clipboard");
+
 $.clip = $.mastercam.partNumber;
 
-$.toast($.clip, "Copied To Clipboard");
+copied($.clip);
