@@ -47,10 +47,22 @@ class WebView {
      return this;
   }
   
-  show(vars = {}) {
+  data(input) {
+     this._data = input;
+     return this;
+  }
+  
+  show() {
     this._browser = new WebBrowser();
     this._browser.Width = this._width;    
     this._browser.Height = this._height;
+    
+    //this._browser.ObjectForScripting = {};
+    
+    this._browser.AllowWebBrowserDrop = false;
+    //this._browser.ScriptErrorsSuppressed = true; // Debugging
+    this._browser.WebBrowserShortcutsEnabled = false;
+    this._browser.IsWebBrowserContextMenuEnabled = false;
     
     this._form = new Form();
     this._form.Text = this._title;
@@ -60,17 +72,20 @@ class WebView {
     this._form.Width = this._width + (this.BORDER_THICKNESS * 2); // L & R
     this._form.Height = this._height + this.BORDER_THICKNESS + 26; // <-- TITLEBAR!!
     
-    this._data = {
+    const systemInfo = {
       __WIDTH: this._width,
       __HEIGHT: this._height
     };
     
-    this._html = this._interpolateVars(this._html, {...this._data, ...vars});
+    this._html = this._interpolateVars(this._html, {...systemInfo, ...this._data});
     
     this._page = String.raw`
     <!DOCTYPE html>
     <html>
     <head>
+    <script>
+      function test(message) { alert(message); }
+    </script>
     <style>${this.CSS_RESET}</style>
     <style>
       html,body {
@@ -81,7 +96,9 @@ class WebView {
     </style>
     <style>${this._css}</style>
     </head>
-    <body>${this._html}</body>
+    <body>
+    <button onclick="test()"></button>
+    ${this._html}</body>
     </html>`;
     
     this._browser.DocumentText = this._page;

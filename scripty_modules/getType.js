@@ -11,18 +11,4 @@ function getType(obj) {
   }
 };
 
-Object.defineProperty(getType, 'TYPES', {
-  writable: false,
-  value: [
-    "Bool",
-    "Handle",
-    "HistoryScript",
-    "Number",
-    "Object",
-    "Point",
-    "Rectangle",
-    "String"
-  ]
-});
-
 module.exports = getType;

@@ -10,3 +10,7 @@ Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\Script
 Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokes.csproj.CoreCompileInputs.cache
 Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokesPlugIn.dll
 Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokesPlugIn.pdb
+Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokes.csprojAssemblyReference.cache
+Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokes.csproj.CoreCompileInputs.cache
+Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokesPlugIn.dll
+Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokesPlugIn.pdb

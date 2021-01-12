@@ -3,7 +3,6 @@ function bootstrap(config = {}) {
   const { GetFolderPath, SpecialFolder } = clr.System.Environment
   
   const __dirname = sp.GetStoredString("SCRIPTY_STROKES");
-  
   const fromRoot = p => Path.Combine(__dirname, p);
   const expandVar = v => sp.ExpandEnvironmentVariables(`%${v}%`);  
   const specialFolder = n => GetFolderPath(SpecialFolder[n]);
@@ -18,11 +17,12 @@ function bootstrap(config = {}) {
     APPDATA: expandVar("ApplicationData"),
     LOCAL_APPDATA: specialFolder("LocalApplicationData"),
     // Scripty
-    ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
+    CACHE_PATH: fromRoot(".cache"),
     MACRO_PATH: fromRoot("macros"),
+    CORE_PATH: fromRoot("scripty_core"),
     CLASS_PATH: fromRoot("scripty_classes"),
     MODULE_PATH: fromRoot("scripty_modules"),
-    SCRIPTY_CACHE_PATH: fromRoot(".cache"),
+    ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
     USER_CACHE_PATH: Path.Combine(USER_PROFILE, ".scripty_cache")
   };
   
@@ -36,9 +36,7 @@ function bootstrap(config = {}) {
     const source = File.ReadAllText(abspath);    
     const module = eval(`(() => {
       const module = { exports: {} };
-      
       ${source}
-      
       ;return module;
     })()`);
     
@@ -48,23 +46,14 @@ function bootstrap(config = {}) {
     
     return module.exports;
   }
-   
-  function macro(macroFile, payload) {
-    const abspath = Path.Combine(env.MACRO_PATH, `${macroFile}.js`);
-    
-    (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
-  }
-    
-  require("awilix.js");
   
-  const Container = require("container.js");
-  sp.MessageBox
-  const IoC = new Container({ Awilix, require });
+  const containerFactory = require("container.js", { cwd: env.CORE_PATH });
   
-  IoC.asVal("env", env);
-  IoC.loadModules(env.MODULE_PATH);
-  IoC.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
-  IoC.loadClasses(env.CLASS_PATH);
+  const Scripty = containerFactory({ require });
+  Scripty.asVal("env", env);
+  Scripty.loadModules(env.MODULE_PATH);
+  Scripty.loadClasses(env.CLASS_PATH);
+  Scripty.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
 
   /**
    * This is ScriptyStrokes
@@ -72,9 +61,8 @@ function bootstrap(config = {}) {
    * Everything `$.xxx` for your S+ scripts
    */
   return {
-    macro,          // Macro Runner
-    ...IoC,         // Awilix Wrapper
-    ...IoC.modules, // Scripty Core    
+    ...Scripty,         // Awilix Wrapper
+    ...Scripty.modules, // Scripty Modules    
     set clip(str) {
        clip.SetText(str);
     },
@@ -82,7 +70,12 @@ function bootstrap(config = {}) {
       return clip.GetText();
     },
     get registrations() {
-      return Object.keys(IoC.container.registrations).sort();
+      return Object.keys(Scripty.container.registrations).sort();
+    },
+    macro(macroFile, payload) {
+      const abspath = Path.Combine(env.MACRO_PATH, `${macroFile}.js`);
+      
+      (data => eval(File.ReadAllText(abspath)))({ abspath, payload });
     }
   };
 }

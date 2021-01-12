@@ -1,7 +1,9 @@
 class Container {
-  constructor({ Awilix, require }) {
-    this._awilix = Awilix;
+  constructor({ require }) {
+    require("awilix.js", { cwd: env.CORE_PATH });
+    
     this._require = require;    
+    this._awilix = Awilix;
     
     this.container = this._awilix.createContainer();
   }
@@ -73,4 +75,4 @@ class Container {
   }
 }
 
-module.exports = Container;
+module.exports = args => new Container(args);

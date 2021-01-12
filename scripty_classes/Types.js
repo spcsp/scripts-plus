@@ -25,3 +25,5 @@ class Types {
     }
   }
 }
+
+module.exports = Types

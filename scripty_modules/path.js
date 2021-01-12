@@ -8,11 +8,16 @@ function toUNC(abspath) {
   }
 }
   
+function exists(p) {
+  return clr.System.IO.Path.Exists(p);
+}
+
 function join(path1, path2) {
   return clr.System.IO.Path.Combine(path1, path2);
 }
 
 module.exports = {
+  exists,
   join,
   toUNC
 };
