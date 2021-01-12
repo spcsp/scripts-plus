@@ -10,7 +10,30 @@ Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\Script
 Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokes.csproj.CoreCompileInputs.cache
 Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokesPlugIn.dll
 Z:\Employees\Shaggy\harris-bruno\strokesplus.net\scripty_plugin\obj\Debug\ScriptyStrokesPlugIn.pdb
-Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokes.csprojAssemblyReference.cache
-Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokes.csproj.CoreCompileInputs.cache
-Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokesPlugIn.dll
-Z:\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokesPlugIn.pdb
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokes.csprojAssemblyReference.cache
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokes.csproj.CoreCompileInputs.cache
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ScriptyStrokesPlugIn.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ScriptyStrokesPlugIn.pdb
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ClearScript.Core.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ClearScript.V8.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\Common.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\StrokesPlus.net.exe
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\Newtonsoft.Json.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ManagedWinapi.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\WindowsInput.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\AudioSwitcher.AudioApi.CoreAudio.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ScintillaNET FindReplaceDialog.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ScintillaNET.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\AudioSwitcher.AudioApi.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ClearScript.Core.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ClearScript.V8.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\StrokesPlus.net.exe.config
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\Newtonsoft.Json.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ManagedWinapi.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\WindowsInput.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ScintillaNET FindReplaceDialog.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\ScintillaNET.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Debug\AudioSwitcher.AudioApi.dll.config
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokes.csproj.CopyComplete
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokesPlugIn.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Debug\ScriptyStrokesPlugIn.pdb

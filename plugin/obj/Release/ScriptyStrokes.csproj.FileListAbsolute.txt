@@ -1,0 +1,27 @@
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ScriptyStrokesPlugIn.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ScriptyStrokesPlugIn.pdb
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ClearScript.Core.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ClearScript.V8.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\Common.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\StrokesPlus.net.exe
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\Newtonsoft.Json.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ManagedWinapi.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\WindowsInput.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\AudioSwitcher.AudioApi.CoreAudio.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ScintillaNET FindReplaceDialog.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ScintillaNET.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\AudioSwitcher.AudioApi.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ClearScript.Core.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ClearScript.V8.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\StrokesPlus.net.exe.config
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\Newtonsoft.Json.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ManagedWinapi.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\WindowsInput.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ScintillaNET FindReplaceDialog.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\ScintillaNET.xml
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\bin\Release\AudioSwitcher.AudioApi.dll.config
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Release\ScriptyStrokes.csprojAssemblyReference.cache
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Release\ScriptyStrokes.csproj.CoreCompileInputs.cache
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Release\ScriptyStrokes.csproj.CopyComplete
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Release\ScriptyStrokesPlugIn.dll
+\\192.168.100.53\cnc\Employees\Shaggy\harris-bruno\Workcenter Automation\plugin\obj\Release\ScriptyStrokesPlugIn.pdb

@@ -1,11 +1,12 @@
+using System.Linq;
 using StrokesPlus.net.Code;
 using StrokesPlus.net.Engine;
 
 namespace ScriptyStrokes
 {
-  public static class ScriptyStrokes
+  public static class ScriptyStrokesPlugin
   {
-    static ScriptyStrokes()
+    static ScriptyStrokesPlugin()
     {
       foreach (var spe in ActionFunctions.EngineList().Where(e => !e.IsExecuting))
       {
