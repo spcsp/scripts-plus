@@ -5,16 +5,92 @@ const {
   WebBrowser
 } = forms.System.Windows.Forms;
 
+const style = str => `<style>${str}</style>`;
+const script = str => `<script>${str}</script>`;
+const stringify = arr => arr.join("\n");
+const dotProp = (obj, str) => str.split('.').reduce((o,i) => o[i], obj)
+
 class WebView {
-  constructor() {
-    this.BORDER_THICKNESS = 8;
+  constructor({ json2 }) {
+    this.json = json2;
+    
     this.CSS_RESET = String.raw`html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}`;
+    this.BORDER_THICKNESS = 8;
     
     this._title = "Scripty WebView";
-    this._width = 600;
-    this._ratio = 16/9;
-    this._height = Math.floor(this._width / this._ratio);
-    this._html = `<pre>Scripty WebView</pre>`;
+  }
+  
+  get _document() {
+    return `<!DOCTYPE html><html><head>${this._head}</head><body>${this._body}</body></html>`;
+  }
+  
+  get _head() {
+    const styles = [
+      style(this.CSS_RESET),
+      style(`html,body {width: 100%;height: ${this._height}px;overflow: hidden;}`),
+      style(this._css)
+    ];
+    
+    return stringify(styles) + String.raw`
+      <script>${this._headScript}</script>
+      <script>
+        window.onload = function() {
+          ${this._onLoadScript}
+        }
+      </script>
+      <script>
+        window.onkeydown = function() {
+          ${this._onKeyDownScript}
+        }
+      </script>`;
+  }
+  
+  get _body() {
+    const html = this._html + `<script>${this._bodyScript}</script>`;
+    
+    return this._interpolateVars(html, {
+      ...{ $view: this._viewInfo},
+      ...{ $data: this._data }
+    });
+  }
+  
+  get calculatedHeightByRatio() {
+    return Math.floor(this._width / this._ratio);
+  }
+
+  get _viewInfo() {
+    return {
+      width: this._width,
+      height: this._height,
+      ratio: this._ratio,
+      title: this._title
+    };
+  }
+  
+  create(opts) {
+    Object.keys(opts).forEach(key => {
+      if (typeof this[key] === "function") {
+        this[key](opts[key]);
+      }
+    });
+    
+    return this;
+  }
+  
+  /**
+   * Always call last in the chain
+   */
+  show() {    
+    this._calculateDimensions();
+    this._initBrowser();
+    this._initForm();
+    this._form.ShowDialog(); // Blocking!
+    this._dispose();
+  }
+    
+  data(input) {
+     this._data = input;
+     return this;
   }
   
   title(input) {
@@ -35,35 +111,55 @@ class WebView {
   ratio(input) {
     this._ratio = input;
     return this;
-  }
+  } 
   
   css(input) {
-     this._css = input;
-     return this;
+    this._css = input;
+    return this;
+  }
+  
+  js(input) {
+    this._bodyScript = input;
+    return this;
   }
   
   html(input) {
-     this._html = input;
-     return this;
+    this._html = input;
+    return this;
   }
   
-  data(input) {
-     this._data = input;
-     return this;
+  onLoad(src) {
+    this._onLoadScript = src;
+    return this;
   }
   
-  show() {
-    this._browser = new WebBrowser();
-    this._browser.Width = this._width;    
-    this._browser.Height = this._height;
+  onKeyDown(src) {
+    this._onKeyDownScript = src;
+    return this;
+  }
+  
     
-    //this._browser.ObjectForScripting = {};
+  _interpolateVars(src, vars) {
+    return src.replace(/{{.*?}}/g, match => {
+      return dotProp(vars, match.replace(/{|}|\s/g, ""));
+    });
+  }
+  
+  _calculateDimensions() {
+    if (typeof this._width !== "number") {
+      this._ratio = 480;
+    }
+        
+    if (typeof this._width !== "number" && typeof this._ratio) {
+      this._ratio = 4/3;
+    }
     
-    this._browser.AllowWebBrowserDrop = false;
-    //this._browser.ScriptErrorsSuppressed = true; // Debugging
-    this._browser.WebBrowserShortcutsEnabled = false;
-    this._browser.IsWebBrowserContextMenuEnabled = false;
-    
+    if (typeof this._height !== "number") {
+      this._height = this.calculatedHeightByRatio;
+    }
+  }
+  
+  _initForm() {
     this._form = new Form();
     this._form.Text = this._title;
     this._form.MaximizeBox = false;
@@ -72,46 +168,18 @@ class WebView {
     this._form.Width = this._width + (this.BORDER_THICKNESS * 2); // L & R
     this._form.Height = this._height + this.BORDER_THICKNESS + 26; // <-- TITLEBAR!!
     
-    const systemInfo = {
-      __WIDTH: this._width,
-      __HEIGHT: this._height
-    };
-    
-    this._html = this._interpolateVars(this._html, {...systemInfo, ...this._data});
-    
-    this._page = String.raw`
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <script>
-      function test(message) { alert(message); }
-    </script>
-    <style>${this.CSS_RESET}</style>
-    <style>
-      html,body {
-        width: 100%;
-        height: ${this._height}px;
-        overflow: hidden;
-      }
-    </style>
-    <style>${this._css}</style>
-    </head>
-    <body>
-    <button onclick="test()"></button>
-    ${this._html}</body>
-    </html>`;
-    
-    this._browser.DocumentText = this._page;
-        
     this._form.Controls.Add(this._browser);
-    this._form.ShowDialog(); // Blocking!
-    this._dispose();
   }
   
-  _interpolateVars(src, vars) {
-    return src.replace(/{{.*?}}/g, match => {
-      return vars[match.replace(/{|}|\s/g, "")];
-    });
+  _initBrowser(debug = false) {
+    this._browser = new WebBrowser();
+    this._browser.Width = this._width;    
+    this._browser.Height = this._height;
+    this._browser.DocumentText = this._document;
+    this._browser.ScriptErrorsSuppressed = debug;
+    this._browser.AllowWebBrowserDrop = false;
+    this._browser.WebBrowserShortcutsEnabled = false;
+    this._browser.IsWebBrowserContextMenuEnabled = false;
   }
   
   _dispose() {

@@ -19,6 +19,7 @@ function bootstrap(config = {}) {
     // Scripty
     CACHE_PATH: fromRoot(".cache"),
     MACRO_PATH: fromRoot("macros"),
+    EXTERNALS_PATH: fromRoot("externals"),
     CORE_PATH: fromRoot("scripty_core"),
     CLASS_PATH: fromRoot("scripty_classes"),
     MODULE_PATH: fromRoot("scripty_modules"),
@@ -52,6 +53,7 @@ function bootstrap(config = {}) {
   const Scripty = containerFactory({ require });
   Scripty.asVal("env", env);
   Scripty.loadModules(env.MODULE_PATH);
+  Scripty.loadModules(env.EXTERNALS_PATH); 
   Scripty.loadClasses(env.CLASS_PATH);
   Scripty.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
 
