@@ -21,6 +21,7 @@ function bootstrap(config = {}) {
     MACRO_PATH: fromRoot("macros"),
     EXTERNALS_PATH: fromRoot("externals"),
     CORE_PATH: fromRoot("scripty_core"),
+    VIEWS_PATH: fromRoot("scripty_views"),
     CLASS_PATH: fromRoot("scripty_classes"),
     MODULE_PATH: fromRoot("scripty_modules"),
     ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
@@ -49,13 +50,14 @@ function bootstrap(config = {}) {
   }
   
   const containerFactory = require("container.js", { cwd: env.CORE_PATH });
-  
   const Scripty = containerFactory({ require });
+  
   Scripty.asVal("env", env);
+  Scripty.loadClasses(env.CLASS_PATH);
   Scripty.loadModules(env.MODULE_PATH);
   Scripty.loadModules(env.EXTERNALS_PATH); 
-  Scripty.loadClasses(env.CLASS_PATH);
   Scripty.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
+  Scripty.asVal("__autoloaded_webviews", Scripty.getModules(env.VIEWS_PATH))
 
   /**
    * This is ScriptyStrokes

@@ -28,6 +28,21 @@ class Container {
     return this.container.register(id, this._awilix.asFunction(v).singleton());
   }
   
+  getModules(...args) {
+    return this._getFiles(...args).reduce((modules, file) => {
+      const module = this._require(file, { absolute: true });
+      
+      if (module) {
+        modules.push({
+          module,
+          name: this._getFilename(file)
+        });
+      }
+      
+      return modules;
+    }, []);
+  }
+    
   loadModules(...args) {
     this._getFiles(...args).forEach(file => {
       const id = this._getFilename(file);
