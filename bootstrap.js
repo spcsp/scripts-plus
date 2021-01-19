@@ -6,26 +6,22 @@ function bootstrap(config = {}) {
   const fromRoot = p => Path.Combine(__dirname, p);
   const expandVar = v => sp.ExpandEnvironmentVariables(`%${v}%`);  
   const specialFolder = n => GetFolderPath(SpecialFolder[n]);
-  const USER_PROFILE = specialFolder("UserProfile");
   
   const env = {
-    // Windows
-    USER_PROFILE,
+    ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
+    USER_PROFILE: specialFolder("UserProfile"),
     WINDIR: expandVar("WINDIR"),
     HOSTNAME: expandVar("ComputerName"),
     SYSTEM_ROOT: expandVar("SystemRoot"),
     APPDATA: expandVar("ApplicationData"),
     LOCAL_APPDATA: specialFolder("LocalApplicationData"),
-    // Scripty
     CACHE_PATH: fromRoot(".cache"),
     MACRO_PATH: fromRoot("macros"),
-    EXTERNALS_PATH: fromRoot("externals"),
     CORE_PATH: fromRoot("scripty_core"),
-    VIEWS_PATH: fromRoot("scripty_views"),
     CLASS_PATH: fromRoot("scripty_classes"),
     MODULE_PATH: fromRoot("scripty_modules"),
-    ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
-    USER_CACHE_PATH: Path.Combine(USER_PROFILE, ".scripty_cache")
+    EXTERNALS_PATH: fromRoot("externals"),
+    USER_CACHE_PATH: Path.Combine(specialFolder("UserProfile"), ".scripty_cache")
   };
   
   function require(id, opts = {}) {
@@ -36,7 +32,7 @@ function bootstrap(config = {}) {
     if (Boolean(opts.absolute || false)) abspath = id;
     
     const source = File.ReadAllText(abspath);    
-    const module = eval(`(() => {
+    const module = eval(`(function moduleLoader() {
       const module = { exports: {} };
       ${source}
       ;return module;
@@ -57,7 +53,6 @@ function bootstrap(config = {}) {
   Scripty.loadModules(env.MODULE_PATH);
   Scripty.loadModules(env.EXTERNALS_PATH); 
   Scripty.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
-  Scripty.asVal("__autoloaded_webviews", Scripty.getModules(env.VIEWS_PATH))
 
   /**
    * This is ScriptyStrokes
@@ -67,10 +62,10 @@ function bootstrap(config = {}) {
   return {
     ...Scripty,         // Awilix Wrapper
     ...Scripty.modules, // Scripty Modules    
-    set clip(str) {
+    set clipboard(str) {
        clip.SetText(str);
     },
-    get clip() {
+    get clipboard() {
       return clip.GetText();
     },
     get registrations() {

@@ -39,8 +39,11 @@ class Keyboard {
     return this;
   }  
   
-  ctrl(input = "") {
-    this.keys(`${this._ctrl}${input}`);
+  ctrl(key) {
+    sp.SendControlDown();
+    sp.SendKeys(key);
+    sp.SendControlUp();
+    //this.keys(`${this._ctrl}${input}`);
     return this;
   }
   
@@ -61,6 +64,14 @@ class Keyboard {
     sp.SendWinDown();
     sp.SendKeys(key);
     sp.SendWinUp();
+    return this;
+  }
+  
+  liftAllSpecialKeys() {
+    sp.SendWinUp();
+    sp.SendAltUp();
+    sp.SendShiftUp();
+    sp.SendControlUp();
     return this;
   }
   
