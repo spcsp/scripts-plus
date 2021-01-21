@@ -1,3 +1,6 @@
-.cache
+.vs/
+.cache/
+
+obj/
 node_modules/
 System Volume Information/

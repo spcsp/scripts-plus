@@ -14,21 +14,33 @@
   "homepage": "https://github.com/kevinkhill/scripty-strokes",
   "scripts": {
     "lint": "eslint ./scripty_*/**/*.js",
-    "deploy": "rsync -ar --delete-after ./* kevin@hbcnc.shop:'/var/www/static.hbcnc.shop/\"Workcenter Automation\"/'",
-    "build": "msbuild ./scripty_plugin/ScriptyStrokes.csproj"
+    "h": "watchify --standalone h --entry index.js --plugin tinyify --outfile scripty_plugins/HyperscriptPlugin/Sources/h.js"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
+    "babelify": "^10.0.0",
+    "browser-pack-flat": "^3.4.2",
+    "browserify": "^17.0.0",
+    "deamdify": "^0.3.0",
+    "deumdify": "^1.2.8",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "globalify": "^1.1.0",
+    "hyperscript": "^2.0.2",
+    "hyperscript-helpers": "^3.0.3",
+    "hyperscript-html": "^2.0.0",
     "np": "^7.0.0",
     "prettier": "^2.1.2",
-    "typescript": "^4.0.3"
+    "tinyify": "^3.0.0",
+    "typescript": "^4.0.3",
+    "watchify": "^3.11.1"
   },
   "dependencies": {
-    "hyperscript": "^2.0.2"
+    "@unional/globalify": "*",
+    "uglify-js": "^3.12.4"
   }
 }

@@ -51,7 +51,7 @@ function bootstrap(config = {}) {
   Scripty.asVal("env", env);
   Scripty.loadClasses(env.CLASS_PATH);
   Scripty.loadModules(env.MODULE_PATH);
-  Scripty.loadModules(env.EXTERNALS_PATH); 
+  //Scripty.loadModules(env.EXTERNALS_PATH); 
   Scripty.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
 
   /**

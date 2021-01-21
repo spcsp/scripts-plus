@@ -1,0 +1,34 @@
+{
+  "name": "strokesplus-plugin-hyperscript",
+  "main": "index.js",
+  "license": "MIT",
+  "version": "0.1.0",
+  "keywords": [
+    "StrokesPlus",
+    "StrokesPlus.net",
+    "Plugin",
+    "Hyperscript"
+  ],
+  "author": {
+    "name": "Kevin Hill",
+    "email": "kevinkhill@gmail.com",
+    "website": "http://kevinhill.codes"
+  },
+  "homepage": "https://github.com/kevinkhill/scripty-strokes",
+  "scripts": {
+    "build": "browserify index.js > Properties/h.js"
+  },
+  "browserify": {
+    "standalone": "h",
+    "plugin": [
+      "tinyify"
+    ]
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "hyperscript": "^2.0.2",
+    "hyperscript-helpers": "^3.0.3",
+    "hyperscript-html": "^2.0.0",
+    "tinyify": "^3.0.0"
+  }
+}
