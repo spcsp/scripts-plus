@@ -5,7 +5,9 @@
     <HasSharedItems>true</HasSharedItems>
     <SharedGUID>c323df3c-4f78-4731-8654-6a1845400706</SharedGUID>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" />
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ScriptyStrokes</Import_RootNamespace>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)EmbeddedResource.cs" />
   </ItemGroup>

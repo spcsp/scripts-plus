@@ -15,15 +15,6 @@
     "website": "http://kevinhill.codes"
   },
   "homepage": "https://github.com/kevinkhill/scripty-strokes",
-  "scripts": {
-    "build": "browserify index.js > Properties/h.js"
-  },
-  "browserify": {
-    "standalone": "h",
-    "plugin": [
-      "tinyify"
-    ]
-  },
   "devDependencies": {
     "browserify": "^17.0.0",
     "hyperscript": "^2.0.2",

@@ -7,7 +7,8 @@ namespace ScriptyStrokes
   {
     public static void StrokesPlusInitStaticPlugin(V8ScriptEngine e)
     {
-      e.Execute(EmbeddedResource.GetFileContents("h.js"));
+      e.Execute("function hyper(){sp.MessageBox('hyper!','');}");
+      //e.Execute(EmbeddedResource.GetFileContents("h.js"));
     }
   }
 }
