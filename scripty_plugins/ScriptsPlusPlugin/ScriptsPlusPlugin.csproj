@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BBF56F9D-BBFA-44B6-A2D4-69DD36D1831B}</ProjectGuid>
+    <ProjectGuid>{CF333F6B-452C-4C91-8442-A705A1CEE9BD}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SandboxPlugin</RootNamespace>
-    <AssemblyName>SandboxPlugin</AssemblyName>
+    <RootNamespace>ScriptsPlusPlugin</RootNamespace>
+    <AssemblyName>ScriptsPlusPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,14 +24,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ScriptsPlusPlugin.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="ClearScript.Core">
       <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.Core.dll</HintPath>
@@ -40,26 +47,6 @@
       <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.V8.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Common">
-      <HintPath>C:\Program Files\StrokesPlus.net\Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="StrokesPlus.net">
-      <HintPath>C:\Program Files\StrokesPlus.net\StrokesPlus.net.exe</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="SandboxPlugin.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <Import Project="..\ScriptyCore\Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

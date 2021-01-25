@@ -1,14 +1,13 @@
-function bootstrap(config = {}) {
+function bootstrap(config) {
   const { Directory, File, Path } = clr.System.IO;
   const { GetFolderPath, SpecialFolder } = clr.System.Environment
   
-  const __dirname = sp.GetStoredString("SCRIPTY_STROKES");
-  const fromRoot = p => Path.Combine(__dirname, p);
+  const fromRoot = p => Path.Combine(config.root, p);
   const expandVar = v => sp.ExpandEnvironmentVariables(`%${v}%`);  
   const specialFolder = n => GetFolderPath(SpecialFolder[n]);
   
   const env = {
-    ROOT: sp.GetStoredString("SCRIPTY_STROKES"),
+    ROOT: config.root,
     USER_PROFILE: specialFolder("UserProfile"),
     WINDIR: expandVar("WINDIR"),
     HOSTNAME: expandVar("ComputerName"),

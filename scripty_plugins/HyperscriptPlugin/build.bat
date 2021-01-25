@@ -6,7 +6,5 @@ del %DLL_NAME%
 call npx browserify --standalone h --plugin tinyify --entry index.js --outfile Properties/h.js
 call dotnet msbuild -p:Configuration=Release HyperscriptPlugin.csproj
 xcopy /S /Q /Y /F bin\Release\%DLL_NAME%
-call install.bat
-rmdir obj /Q /S
-rmdir bin /Q /S
 @popd
+call install.bat
