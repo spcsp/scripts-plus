@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptsPlusPlugin", "Script
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperscriptPlugin", "HyperscriptPlugin\HyperscriptPlugin.csproj", "{7ED983D1-B998-4608-AA18-C7BAF95B4F52}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4AA25C9C-2CB3-474B-990B-923076063CE4}"
+	ProjectSection(SolutionItems) = preProject
+		Common.props = Common.props
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

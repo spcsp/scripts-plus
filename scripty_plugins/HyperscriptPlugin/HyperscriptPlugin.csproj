@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="../Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,23 +25,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>..\DLLs\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ClearScript.Core">
-      <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ClearScript.V8">
-      <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.V8.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="HyperscriptPlugin.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -60,7 +48,4 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>move "$(TargetPath)" "$(ProjectDir)..\DLLs\$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
