@@ -40,26 +40,27 @@
       <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.V8.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ClearScript.Windows">
-      <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.Windows.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HyperscriptPlugin.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\h.js" />
+    <EmbeddedResource Include="Properties\h.js" />
   </ItemGroup>
-  <Import Project="..\ScriptyCore\Common.projitems" Label="Shared" />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PostBuildEvent>move "$(TargetPath)" "$(ProjectDir)..\DLLs\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

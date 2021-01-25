@@ -1,8 +1,8 @@
 ﻿using Microsoft.ClearScript.V8;
 
-namespace ScriptsPlusPlugin
+namespace ScriptsPlusCorePlugin
 {
-  public static class ScriptsPlusPlugin
+  public static class ScriptsPlusCorePlugin
   {
     public static void StrokesPlusInitStaticPlugin(V8ScriptEngine e)
     {

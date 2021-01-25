@@ -90,4 +90,6 @@ class Container {
   }
 }
 
-module.exports = args => new Container(args);
+const createContainer = args => new Container(args);
+
+module.exports = { createContainer };

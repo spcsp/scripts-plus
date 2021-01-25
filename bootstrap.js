@@ -2,6 +2,7 @@ function bootstrap(config) {
   const { Directory, File, Path } = clr.System.IO;
   const { GetFolderPath, SpecialFolder } = clr.System.Environment
   
+//  const createNanoEvents = () => ({events:{},emit(event, ...args) {for (let i of this.events[event] || []) {i(...args)}},on(event, cb){;(this.events[event] = this.events[event] || []).push(cb);return ()=>(this.events[event]=this.events[event].filter(i=>i!==cb))}});
   const fromRoot = p => Path.Combine(config.root, p);
   const expandVar = v => sp.ExpandEnvironmentVariables(`%${v}%`);  
   const specialFolder = n => GetFolderPath(SpecialFolder[n]);
@@ -44,23 +45,28 @@ function bootstrap(config) {
     return module.exports;
   }
   
-  const containerFactory = require("container.js", { cwd: env.CORE_PATH });
-  const Scripty = containerFactory({ require });
+  const loadCoreModule = m => require(m, { cwd: env.CORE_PATH });
   
-  Scripty.asVal("env", env);
-  Scripty.loadClasses(env.CLASS_PATH);
-  Scripty.loadModules(env.MODULE_PATH);
-  //Scripty.loadModules(env.EXTERNALS_PATH); 
-  Scripty.loadModules("./scripty_strokes", { cwd: env.USER_PROFILE });
+  const { createNanoEvents } = loadCoreModule("nano.js");
+  const { createContainer } = loadCoreModule("container.js");
+  
+  const ScriptsPlus = createContainer({ require });
+  
+  ScriptsPlus.asVal("env", env);
+  ScriptsPlus.asVal("events", createNanoEvents());
+  ScriptsPlus.loadClasses(env.CLASS_PATH);
+  ScriptsPlus.loadModules(env.MODULE_PATH);
+  //ScriptsPlus.loadModules(env.EXTERNALS_PATH); 
+  ScriptsPlus.loadModules("./scripts_plus", { cwd: env.USER_PROFILE });
 
   /**
-   * This is ScriptyStrokes
+   * This is ScriptsPlusStrokes
    *
    * Everything `$.xxx` for your S+ scripts
    */
   return {
-    ...Scripty,         // Awilix Wrapper
-    ...Scripty.modules, // Scripty Modules    
+    ...ScriptsPlus,         // Awilix Wrapper
+    ...ScriptsPlus.modules, // ScriptsPlus Modules    
     set clipboard(str) {
        clip.SetText(str);
     },
@@ -68,7 +74,7 @@ function bootstrap(config) {
       return clip.GetText();
     },
     get registrations() {
-      return Object.keys(Scripty.container.registrations).sort();
+      return Object.keys(ScriptsPlus.container.registrations).sort();
     },
     macro(macroFile, payload) {
       const abspath = Path.Combine(env.MACRO_PATH, `${macroFile}.js`);

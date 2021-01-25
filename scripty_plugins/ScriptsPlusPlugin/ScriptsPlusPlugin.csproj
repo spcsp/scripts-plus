@@ -35,6 +35,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="ScriptsPlusPlugin.cs" />
   </ItemGroup>
@@ -49,4 +52,7 @@
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>move "$(TargetPath)" "$(ProjectDir)..\DLLs\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
