@@ -1,3 +1,4 @@
-const { HyperScript } = require('hyperscript-html');
+//const h = require('hyperscript');
+var { HyperScript, wrap } = require('hyperscript-html');
 
-module.exports = HyperScript();
+return new HyperScript();
