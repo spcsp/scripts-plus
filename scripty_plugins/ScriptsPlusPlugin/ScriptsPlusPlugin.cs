@@ -12,10 +12,15 @@ namespace ScriptsPlusPlugin
 
         return bootstrap({ root: PATH_TO_REPO });
       }";
-      
+
     public static void StrokesPlusInitStaticPlugin(V8ScriptEngine e)
     {
-      e.Execute(BOOTSTRAP_INIT_SRC);
+      e.Execute(Properties.Resources.SCRIPTS_PLUS_SRC);
+    }
+
+    public static string GetSource()
+    {
+      return Properties.Resources.SCRIPTS_PLUS_SRC;
     }
   }
 }

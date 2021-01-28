@@ -2,11 +2,11 @@ const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  entry: './index.js',
+  entry: './main.js',
   output: {
     path: path.resolve(__dirname, 'Properties'),
-    filename: 'h.js',
-    library: 'h',
+    filename: 'ScriptsPlus.js',
+    library: '$',
     libraryTarget: 'this',
     globalObject: 'this',
   },
