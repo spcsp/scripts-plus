@@ -1,23 +1,15 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["h"] = factory();
-	else
-		root["h"] = factory();
-})(this, function() {
-return /******/ (() => { // webpackBootstrap
+this.h =
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 10:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-//const h = require('hyperscript');
 var { HyperScript, wrap } = __webpack_require__(349);
 
-return new HyperScript();
+var h = new HyperScript();
+
+module.exports = h;
 
 /***/ }),
 
@@ -301,4 +293,3 @@ module.exports = {kase, toStyleStr, fromStyleStr, zenhand}
 /******/ 	return __webpack_require__(10);
 /******/ })()
 ;
-});

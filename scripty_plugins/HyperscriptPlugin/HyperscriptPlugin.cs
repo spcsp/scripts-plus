@@ -8,5 +8,9 @@ namespace HyperscriptPlugin
     {
       e.Execute(Properties.Resources.HYPERSCRIPT_SOURCE);
     }
+    public static string GetSource()
+    {
+      return Properties.Resources.HYPERSCRIPT_SOURCE;
+    }
   }
 }

@@ -8,7 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, 'Properties'),
     filename: 'h.js',
     library: 'h',
-    libraryTarget: 'umd',
+    libraryTarget: 'this',
     globalObject: 'this',
   },
   optimization: {
