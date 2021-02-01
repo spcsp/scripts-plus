@@ -1,18 +1,28 @@
 {
-  "env": {
-    "commonjs": true,
-    "es2021": true,
-    "node": true
-  },
-  "parser": "@typescript-eslint/parser",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 12
   },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "globals": {
+    "sp": "readonly",
+    "clr": "readonly",
+    "forms": "readonly",
+    "File": "readonly",
+    "Font": "readonly",
+    "FontStyle": "readonly",
+    "WebBrowser": "readonly",
+    "Directory": "readonly"
+  },
   "plugins": [
-    "prettier",
-    "@typescript-eslint"
+    "prettier"
   ],
   "extends": [
+    "eslint:recommended",
     "plugin:prettier/recommended"
   ],
   "rules": {

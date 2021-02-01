@@ -1,3 +1,4 @@
+.vs/
 .vscode/
 tools/
 
@@ -6,3 +7,4 @@ tools/
 .eslintrc.json
 .gitignore
 .prettierrc.json
+.babelrc.json

@@ -1,0 +1,8 @@
+{
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": false,
+  "arrowParens": "as-needed",
+  "trailingComma": "es5",
+  "quoteProps": "as-needed"
+}
