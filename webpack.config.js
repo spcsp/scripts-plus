@@ -18,20 +18,14 @@ module.exports = {
       onBuildEnd: {
         scripts: [
           'compile.bat',
-          'reload_s+.bat'
+          'reload_s+.bat',
+          'notify.bat'
         ]
       }
     })
   ],
   externals: {
     clr: "clr"
-  },
-  resolve: { 
-    extensions: [".js"],
-    fallback: {
-      fs: "empty",
-      path: "empty"
-    }
   },
   module: {
     rules: [

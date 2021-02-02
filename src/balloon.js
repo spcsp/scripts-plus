@@ -10,7 +10,7 @@
  */
 function balloon(message, opts = {}) {
   return sp.ShowBalloonTip(
-    opts.title || "ScriptyStrokes",
+    opts.title || "ScriptsPlus",
     message,
     opts.type || "Info",
     opts.timeout || 3000

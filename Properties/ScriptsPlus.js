@@ -97,7 +97,7 @@ module.exports = new Babel();
  */
 function balloon(message) {
   var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return sp.ShowBalloonTip(opts.title || "ScriptyStrokes", message, opts.type || "Info", opts.timeout || 3000);
+  return sp.ShowBalloonTip(opts.title || "ScriptsPlus", message, opts.type || "Info", opts.timeout || 3000);
 }
 
 module.exports = balloon;
