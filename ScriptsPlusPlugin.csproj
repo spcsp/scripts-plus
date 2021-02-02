@@ -52,7 +52,49 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\ScriptsPlus.js" />
+    <Content Include="src\aaaaa.js" />
+    <Content Include="src\alert.js" />
+    <Content Include="src\babel.js" />
+    <Content Include="src\balloon.js" />
+    <Content Include="src\balloons.js" />
+    <Content Include="src\cache.js" />
+    <Content Include="src\calc.js" />
+    <Content Include="src\chrome.js" />
+    <Content Include="src\cimco.js" />
+    <Content Include="src\createNanoEvents.js" />
+    <Content Include="src\datestamp.js" />
+    <Content Include="src\dialog.js" />
+    <Content Include="src\engine.js" />
+    <Content Include="src\env.js" />
+    <Content Include="src\exec.js" />
+    <Content Include="src\explorer.js" />
+    <Content Include="src\fs.js" />
+    <Content Include="src\getType.js" />
+    <Content Include="src\index.js" />
+    <Content Include="src\keyboard.js" />
+    <Content Include="src\macro.js" />
+    <Content Include="src\mastercam.js" />
+    <Content Include="src\mouse.js" />
+    <Content Include="src\notepadPlusPlus.js" />
+    <Content Include="src\objKeysToStr.js" />
+    <Content Include="src\path.js" />
+    <Content Include="src\popup.js" />
+    <Content Include="src\regedit.js" />
+    <Content Include="src\request.js" />
+    <Content Include="src\store.js" />
+    <Content Include="src\strings.js" />
+    <Content Include="src\timer.js" />
+    <Content Include="src\timestamp.js" />
+    <Content Include="src\toast.js" />
+    <Content Include="src\toaster.js" />
+    <Content Include="src\types.js" />
+    <Content Include="src\unpkg.js" />
+    <Content Include="src\utils.js" />
+    <Content Include="src\webview.js" />
+    <Content Include="src\window.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\ScriptsPlus.js" />
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="package.json" />
+    <None Include="tsconfig.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

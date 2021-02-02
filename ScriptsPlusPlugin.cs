@@ -5,12 +5,7 @@ namespace ScriptsPlusPlugin
 {
   public static class ScriptsPlusPlugin
   {
-    public static string BundleSrc {
-      get
-      {
-        return Properties.Resources.ResourceManager.GetString("ScriptsPlus.js");
-      }
-    }
+    public static string BundleSrc { get; } = Properties.Resources.ScriptsPlus_js;
 
     public static void StrokesPlusInitStaticPlugin(V8ScriptEngine e)
     {
@@ -18,7 +13,8 @@ namespace ScriptsPlusPlugin
       {
         e.Execute(BundleSrc);
       }
-      catch (System.Exception err) {
+      catch (System.Exception err)
+      {
         MessageBox.Show(err.Message, "ScriptsPlus Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }

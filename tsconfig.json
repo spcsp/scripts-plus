@@ -2,8 +2,8 @@
   "compilerOptions": {
     "strict": true,
     "allowJs": true,
-    "rootDir": "./types-generator/src",
-    "outDir": "./types-generator/dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "target": "es5",
     "module": "commonjs",
     "esModuleInterop": true,

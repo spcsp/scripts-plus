@@ -1,6 +1,8 @@
-const { CreateDirectory, GetFiles } = clr.System.IO.Directory;
-
 class Fs {
+  constructor({ Directory }) {
+    this._dir = Directory;
+  }
+  
   cp(src, dest, overwrite = false) {
     return File.Copy(src, dest, overwrite);
   }
@@ -14,11 +16,11 @@ class Fs {
   }
   
   mkdir(dir) {
-    return CreateDirectory(dir);
+    return this._dir.CreateDirectory(dir);
   }
 
   readdir(dir) {
-    return GetFiles(dir);
+    return this._dir.GetFiles(dir);
   }
 
   readFile(filepath) {
@@ -30,4 +32,4 @@ class Fs {
   }
 }
 
-module.exports = new Fs();
+module.exports = new Fs(clr.System.IO);

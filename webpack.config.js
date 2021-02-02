@@ -15,10 +15,6 @@ module.exports = {
   },
   resolve: { 
     extensions: [".js"],
-    modules: [
-      path.resolve(__dirname, 'src'),      
-     'node_modules'
-    ],
     fallback: {
       fs: "empty",
       path: "empty"
