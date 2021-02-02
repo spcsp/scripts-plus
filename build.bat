@@ -1,7 +1,5 @@
 @echo off
 cls
 pushd %~dp0
-call pack.bat
-call compile.bat
+npm run build & pause
 popd
-rem timeout /T 3

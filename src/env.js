@@ -1,21 +1,28 @@
-const { Directory, File, Path } = clr.System.IO;
-const { GetFolderPath, SpecialFolder } = clr.System.Environment
+const specialFolder = require("./specialFolder");
 
-const expand = v => sp.ExpandEnvironmentVariables(`%${v}%`);  
-const specialFolder = n => GetFolderPath(SpecialFolder[n]);
+class Env {
+  constructor() {    
+    this.WINDIR = this.expand("WINDIR");
+    this.HOSTNAME = this.expand("ComputerName");
+    this.SYSTEM_ROOT = this.expand("SystemRoot");
+    this.APPDATA = this.expand("ApplicationData");
+  }
+  
+  expand(id) {
+    return id => sp.ExpandEnvironmentVariables('%' + id + '%');
+  }
+  
+  get USER_PROFILE() {
+    return specialFolder("UserProfile");
+  }
+  
+  get LOCAL_APPDATA() {
+    return specialFolder("LocalApplicationData");
+  }
+  
+  get CACHE_PATH() {
+    return this.USER_PROFILE + "\\.scripty_cache";
+  }
+}
 
-const env = {
-  USER_PROFILE: specialFolder("UserProfile"),
-  WINDIR: expand("WINDIR"),
-  HOSTNAME: expand("ComputerName"),
-  SYSTEM_ROOT: expand("SystemRoot"),
-  APPDATA: expand("ApplicationData"),
-  LOCAL_APPDATA: specialFolder("LocalApplicationData"),
-  CACHE_PATH: Path.Combine(specialFolder("UserProfile"), ".scripty_cache")
-};
-
-module.exports = {
-  ...env,
-  expand,
-  specialFolder
-};
+module.exports = new Env();

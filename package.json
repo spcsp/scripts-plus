@@ -18,10 +18,20 @@
   },
   "homepage": "https://github.com/kevinkhill/scripts-plus",
   "scripts": {
+    "pack": "webpack",
+    "dev": "webpack --watch",
     "lint": "eslint ./src/*.js",
-    "fix": "lint -- --fix",
+    "fix": "npm run lint -- --fix",
     "build": "webpack",
-    "prod": "webpack --mode production"
+    "clean": "npm run precompile",
+    "precompile": "dotnet msbuild -nologo -t:Clean ScriptsPlusPlugin.sln",
+    "compile": "dotnet msbuild -nologo -p:Configuration=Release ScriptsPlusPlugin.sln"
+  },
+  "ntl": {
+    "descriptions": {
+      "build": "Builds the project",
+      "compile": "Bundles all `src/*.js` files and compiles the DLL"
+    }
   },
   "dependencies": {
     "vue": "^2.6.12"
@@ -32,12 +42,20 @@
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "babel-loader": "^8.2.2",
+    "body-parser": "^1.19.0",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "express": "^4.17.1",
     "json2": "^0.4.0",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "morgan": "^1.10.0",
+    "ntl": "^5.1.0",
     "prettier": "^2.2.1",
     "webpack": "^5.19.0",
-    "webpack-cli": "^4.4.0"
+    "webpack-cli": "^4.4.0",
+    "webpack-msbuild-plugin": "^1.0.15",
+    "webpack-shell-plugin-next": "^2.1.1"
   }
 }

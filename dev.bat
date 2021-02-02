@@ -1,6 +1,5 @@
-cls
 @echo off
+cls
 pushd %~dp0
-npm run build -- --watch
+npm run dev
 popd
-timeout /T 3

@@ -1,15 +1,28 @@
 const path = require('path');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+
+const fromHere = p => path.resolve(__dirname, p);
 
 module.exports = {
+  entry: fromHere('src/index.js'),
   mode: 'development',
   devtool: false,
-  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'Properties'),
+    path: fromHere('Properties'),
     filename: 'ScriptsPlus.js',
-    library: '$',
+    library: 'ScriptsPlus',
     libraryTarget: 'var'
   },
+  plugins: [
+    new WebpackShellPluginNext({
+      onBuildEnd: {
+        scripts: [
+          'compile.bat',
+          'reload_s+.bat'
+        ]
+      }
+    })
+  ],
   externals: {
     clr: "clr"
   },
@@ -23,7 +36,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'

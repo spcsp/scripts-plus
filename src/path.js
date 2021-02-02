@@ -1,3 +1,7 @@
+function join(path1, path2) {
+  return path1 + "\\" + path2;
+}
+
 function toUNC(abspath) {
   if (abspath.startsWith("Z")) {
     return abspath.replace(/^Z\:/, "\\\\hbdatavm\\cnc");
@@ -9,11 +13,7 @@ function toUNC(abspath) {
 }
   
 function exists(p) {
-  return Path.Exists(p);
-}
-
-function join(path1, path2) {
-  return Path.Combine(path1, path2);
+  return clr.System.IO.Path.Exists(p);
 }
 
 module.exports = {

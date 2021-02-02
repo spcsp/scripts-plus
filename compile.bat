@@ -1,6 +1,5 @@
 @echo off
 cls
 pushd %~dp0
-dotnet msbuild -nologo -p:Configuration=Release ScriptsPlusPlugin.csproj
+npm run compile
 popd
-rem timeout /T 3

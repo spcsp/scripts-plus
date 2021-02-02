@@ -1,4 +1,5 @@
-module.exports = {
+module.exports = () => ({
+// module.exports = {
   alert: require("./alert"),
   babel: require("./babel"),
   balloon: require("./balloon"),
@@ -19,12 +20,13 @@ module.exports = {
   keyboard: require("./keyboard"),
   mastercam: require("./mastercam"),
   mouse: require("./mouse"),
-  notepadPlusPlus: require("./notepadPlusPlus"),
-  objKeysToStr: require("./objKeysToStr"),
+  npp: require("./notepadPlusPlus"),
+  // objKeysToStr: require("./objKeysToStr"),
   path: require("./path"),
   popup: require("./popup"),
   regedit: require("./regedit"),
   request: require("./request"),
+  specialFolder: require("./specialFolder"),
   store: require("./store"),
   strings: require("./strings"),
   timer: require("./timer"),
@@ -35,5 +37,5 @@ module.exports = {
   unpkg: require("./unpkg"),
   utils: require("./utils"),
   webview: require("./webview"),
-  window: require("./window.js")
-};
+  window: require("./window")
+});
