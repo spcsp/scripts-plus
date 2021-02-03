@@ -7,6 +7,9 @@ module.exports = {
   entry: fromHere('src/index.js'),
   mode: 'development',
   devtool: false,
+  node: {
+    __dirname: false
+  },
   output: {
     path: fromHere('Properties'),
     filename: 'ScriptsPlus.js',
@@ -24,9 +27,6 @@ module.exports = {
       }
     })
   ],
-  externals: {
-    clr: "clr"
-  },
   module: {
     rules: [
       {
