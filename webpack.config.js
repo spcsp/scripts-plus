@@ -18,7 +18,7 @@ module.exports = {
   },
   plugins: [
     new WebpackShellPluginNext({
-      onBuildEnd: {
+      onAfterDone: {
         scripts: [
           'compile.bat',
           'reload_s+.bat',
