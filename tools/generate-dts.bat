@@ -1,7 +1,10 @@
 @echo off
-cls
-rem pushd %~dp0
-"C:\Program Files\StrokesPlus.net\StrokesPlus.net.exe" --script="clip.SetText('what')" 
-rem "C:\Program Files\StrokesPlus.net\StrokesPlus.net.exe" --script="eval(File.ReadAllText('./dtsGenerator.js'));generateDts();" 
-pause
-rem popd
+set EXE=C:\Program Files\StrokesPlus.net\StrokesPlus.net.exe
+set CWD=%~dp0
+set OUTFILE=%CWD%..\@types\strokesplus.net\index.d.ts
+set GENERATOR=%CWD%dtsGenerator.js
+
+echo Parsing `sp.getMethods()` and writing TypeScript declaration file
+"%EXE%" --script="eval(File.ReadAllText(String.raw`%GENERATOR%`))(String.raw`%OUTFILE%`);"
+echo Wrote to %OUTFILE%
+timeout /T 3
