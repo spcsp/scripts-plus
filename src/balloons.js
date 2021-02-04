@@ -4,9 +4,9 @@ class Balloons {
   constructor() {
     this._balloon = balloon;
   }
-  
+
   create(title) {
-    return message => this._balloon(message, { title });
+    return (message) => this._balloon(message, { title });
   }
 }
 

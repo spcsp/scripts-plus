@@ -7,16 +7,16 @@ function getAppWindowTitle(app) {
 }
 
 function getActive() {
-  return sp.ForegroundWindow()
+  return sp.ForegroundWindow();
 }
 
 function titleMatcher(title, { Match, NoMatch }) {
-  const match = Match || function(){};
-  const nomatch = NoMatch || function(){};
+  const match = Match || function () {};
+  const nomatch = NoMatch || function () {};
   return getActive().Title === title ? match() : nomatch();
 }
 
-const center = action => action.Window.Center();
+const center = (action) => action.Window.Center();
 
 module.exports = {
   center,

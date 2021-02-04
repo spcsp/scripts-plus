@@ -6,14 +6,14 @@ class Cimco {
   constructor() {
     this.TITLE_PARTIAL = "CIMCO";
     this.EXE_PATH = String.raw`C:\Program Files\Mcam2019\common\Editors\CIMCOEdit8\CIMCOEdit.exe`;
-    
-    this._exec = exec;   
+
+    this._exec = exec;
     this._utils = utils;
-    this._window = window;   
-    
+    this._window = window;
+
     this._exec.alias("cimco", this.EXE_PATH);
   }
-  
+
   get windows() {
     return this._window.getAppWindows(this);
   }
@@ -31,7 +31,7 @@ class Cimco {
   }
 
   get abspath() {
-    return this.title.split(" - ")[1].replace(/\[|\]/g, "").trim();//.replace(/\\/g, "/");
+    return this.title.split(" - ")[1].replace(/\[|\]/g, "").trim(); //.replace(/\\/g, "/");
   }
 
   get currentPath() {
@@ -49,16 +49,16 @@ class Cimco {
 
     return name.join("");
   }
-  
+
   get partNumber() {
     return this.utils.stripOpNum(this.filenameNoExt);
   }
-  
+
   activate() {
     return sp.RunOrActivate(this.EXE_PATH);
   }
-  
-  open(path) {   
+
+  open(path) {
     this.activate();
     sp.Sleep(200);
     sp.SendKeys("^o");

@@ -4,7 +4,7 @@ const window = require("./window");
 class NotepadPlusPlus {
   TITLE_PARTIAL = "Notepad++";
   EXE_PATH = String.raw`C:\Program Files (x86)\Notepad++\notepad++.exe`;
-  
+
   openFile(abspath) {
     sp.RunProgram(
       "notepad++",

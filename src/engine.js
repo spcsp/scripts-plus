@@ -6,7 +6,7 @@ class Engine {
   get previous() {
     return sp.EngineList().Last().Engine;
   }
-  
+
   thisEqualsLast(cb) {
     if (this.current.Name == this.previous.Name) {
       cb();

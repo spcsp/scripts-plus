@@ -7,20 +7,20 @@
 function toast(message, opts = {}) {
   const info = new DisplayTextInfo();
   info.UsePrimaryScreen = true;
-  
+
   info.Message = message;
   if (typeof opts === "string") {
     info.Title = opts;
   } else {
     info.Title = typeof opts.title === "string" ? opts.title : "ScriptyStrokes";
   }
-  
+
   info.ForeColor = opts.textColor || "cyan";
   info.TitleFont = new Font("Segoe UI", 18, host.flags(FontStyle.Bold));
   info.TitleAlignment = opts.titleAlignment || "Center";
   info.MessageFont = new Font("Segoe UI Semibold", 16);
   info.MessageAlignment = opts.messageAlignment || "Center";
-  
+
   info.Padding = opts.padding || 20;
   info.Duration = opts.duration || 3000;
   info.Location = opts.location || "top";

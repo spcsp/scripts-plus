@@ -11,7 +11,7 @@ function toUNC(abspath) {
     return abspath;
   }
 }
-  
+
 function exists(p) {
   return clr.System.IO.Path.Exists(p);
 }
@@ -19,5 +19,5 @@ function exists(p) {
 module.exports = {
   exists,
   join,
-  toUNC
+  toUNC,
 };

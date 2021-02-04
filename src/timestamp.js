@@ -1,5 +1,5 @@
 function timestamp() {
-  const date = new Date;
+  const date = new Date();
   const t = date.getMonth() + 1;
   const g = date.getDate();
   const n = date.getHours();
@@ -12,7 +12,7 @@ function timestamp() {
   a = (a < 10 ? "0" : "") + a;
   r = (r < 10 ? "0" : "") + r;
 
-  return date.getFullYear() + "-" + t + "-" + g + " " + n + ":" + a + ":" + r
+  return date.getFullYear() + "-" + t + "-" + g + " " + n + ":" + a + ":" + r;
 }
 
 module.exports = timestamp;

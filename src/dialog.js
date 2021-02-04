@@ -4,36 +4,36 @@ const {
   DialogResult,
   Form,
   Label,
-  TextBox
+  TextBox,
 } = forms.System.Windows.Forms;
 
 class Dialog {
   constructor() {
-    this.OK = DialogResult.OK; 
-    this.CANCEL = DialogResult.Cancel; 
+    this.OK = DialogResult.OK;
+    this.CANCEL = DialogResult.Cancel;
     this.ANCHOR = {
       RIGHT: AnchorStyles.Right,
-      BOTTOM: AnchorStyles.Bottom
+      BOTTOM: AnchorStyles.Bottom,
     };
-    
+
     this.form = new Form();
     this.label = new Label();
     this.textBox = new TextBox();
-    
+
     this.buttonOk = new Button();
     this.buttonOk.Text = "OK";
     this.buttonOk.DialogResult = this.OK;
-    
+
     this.buttonCancel = new Button();
     this.buttonCancel.Text = "Cancel";
-    this.buttonCancel.DialogResult = this.CANCEL; 
+    this.buttonCancel.DialogResult = this.CANCEL;
   }
-  
+
   create({ text, title } = { text: "Input:", title: "ScriptyStrokes Dialog" }) {
     this.label.Text = text;
     this.form.Text = title;
-    
-    this.buttonOk.Location = new Point (10, 10);
+
+    this.buttonOk.Location = new Point(10, 10);
     this.buttonCancel.Location = new Point(
       this.buttonOk.Left,
       this.buttonOk.Height + this.buttonOk.Top + 10
@@ -58,24 +58,24 @@ class Dialog {
     //var controls = formation.control(label);
     //form.Controls.AddRange(controls);
     //form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-    this.form.Controls.Add(this.label);  
-    this.form.Controls.Add(this.textBox);  
+    this.form.Controls.Add(this.label);
+    this.form.Controls.Add(this.textBox);
     this.form.Controls.Add(this.buttonOk);
     this.form.Controls.Add(this.buttonCancel);
-    
+
     return this;
   }
-    
+
   show(onSubmit) {
     if (typeof onSubmit !== "function") {
       throw Error("the input for dialog.show() must be a function");
     }
-    
+
     if (this.form.ShowDialog() == this.OK) {
       const text = this.textBox.Text;
-      
+
       this.textBox.Text = "";
-      
+
       onSubmit(text);
     }
   }

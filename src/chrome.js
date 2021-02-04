@@ -7,11 +7,12 @@ class Chrome {
   }
 
   inspect() {
-    if (this === "working") { // its not
+    if (this === "working") {
+      // its not
       this._exec.run(Chrome.EXE_PATH, ["chrome://inspect/#devices"]); // y tho
     } else {
       this._exec.run(Chrome.EXE_PATH);
-      
+
       sp.Sleep(1000);
       sp.SendKeys("^l");
       sp.SendKeys("chrome://inspect/#devices");

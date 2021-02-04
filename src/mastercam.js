@@ -3,7 +3,7 @@ const fs = require("./fs");
 const utils = require("./utils");
 const window = require("./window");
 
-class Mastercam {  
+class Mastercam {
   TITLE_PARTIAL = "Mastercam Mill";
   EXE_PATH = String.raw`C:\Program Files\Mcam2019\Mastercam.exe`;
 
@@ -14,17 +14,17 @@ class Mastercam {
   get pathFiles() {
     return Array.from(fs.readdir(this.currentPath));
   }
-  
+
   get camFiles() {
-    return this.pathFiles.filter(f => this._getExt(f).startsWith("M"));
+    return this.pathFiles.filter((f) => this._getExt(f).startsWith("M"));
   }
 
   get ncFiles() {
-    return this.pathFiles.filter(f => this._getExt(f) === "NC");
+    return this.pathFiles.filter((f) => this._getExt(f) === "NC");
   }
-  
+
   get window() {
-    return sp.WindowsFromTitleRegex('Mastercam Mill 2019$')[0] ;
+    return sp.WindowsFromTitleRegex("Mastercam Mill 2019$")[0];
   }
 
   get rawWindowTitle() {
@@ -62,16 +62,16 @@ class Mastercam {
 
     return name.join("");
   }
-  
+
   get partNumber() {
     return utils.stripOpNum(this.filenameNoExt);
   }
-  
+
   activate() {
     return sp.RunOrActivate(this.EXE_PATH);
   }
-  
-  open(path) {   
+
+  open(path) {
     this.activate();
     sp.Sleep(200);
     sp.SendKeys("^o");

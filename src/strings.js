@@ -13,5 +13,5 @@ function decrement(str) {
 module.exports = {
   allCaps,
   decrement,
-  increment
+  increment,
 };

@@ -1,6 +1,6 @@
 const createNanoEvents = require("./createNanoEvents");
 
-function ScriptsPlus(config) {  
+function ScriptsPlus(config) {
   return {
     alert: require("./alert"),
     babel: require("./babel"),
@@ -38,8 +38,8 @@ function ScriptsPlus(config) {
     unpkg: require("./unpkg"),
     utils: require("./utils"),
     webview: require("./webview"),
-    window: require("./window")
-  }
+    window: require("./window"),
+  };
 }
 
 module.exports = ScriptsPlus;

@@ -2,7 +2,7 @@ const {
   BorderStyle,
   Form,
   FormBorderStyle,
-  WebBrowser
+  WebBrowser,
 } = forms.System.Windows.Forms;
 
 class WebView {
@@ -10,12 +10,12 @@ class WebView {
     //this._views = __autoloaded_webviews;
     this._form = null;
     this._browser = null;
-    
+
     this.waterCss = false;
     this.embedJquery = false;
     this.html = "<p>Hello World!</p>";
   }
-  
+
   get document() {
     return `<!DOCTYPE html>
       <html>
@@ -26,26 +26,26 @@ class WebView {
       <body>${this.getBody()}</body>  
       </html>`;
   }
-  
+
   get templateData() {
     const $view = {
       title: this.title,
       ratio: this.ratio,
       width: this.width,
-      height: this.height
+      height: this.height,
     };
-    
+
     return Object.assign({}, { $view }, this.data);
   }
-  
+
   /**
    * Main method for rendering a WebView class
    */
-  show(config) { 
+  show(config) {
     this.title = config.constructor.name;
-      
+
     Object.assign(this, config);
-    
+
     this._calculateDimensions();
     this._initBrowser();
     this._initForm();
@@ -53,51 +53,53 @@ class WebView {
     this._browser.Dispose();
     this._form.Dispose();
   }
-  
+
   getHead() {
     const styles = [
       //this._style(this.CSS_RESET),
-      this._style(`html,body {width: 100%;height: ${this.height}px;overflow: hidden;}`),
+      this._style(
+        `html,body {width: 100%;height: ${this.height}px;overflow: hidden;}`
+      ),
       this.waterCss ? this._style(this.WATER_CSS) : false,
-      this.css ? this._style(this.css) : false
+      this.css ? this._style(this.css) : false,
     ];
-    
+
     const scripts = [
       this._script(this.JSON),
       this.embedJquery ? this._script(this.JQUERY) : false,
       this._eventHandler(this.onLoad, "window.onload"),
       this._eventHandler(this.onKeyUp, "document.onkeyup"),
-      this._eventHandler(this.onMouseUp, "document.onmouseup")
+      this._eventHandler(this.onMouseUp, "document.onmouseup"),
     ];
-    
+
     return [...styles, ...scripts].filter(Boolean).join("\n");
   }
-  
+
   getBody() {
     return this._interpolateVars(this.html, this.templateData);
   }
-  
+
   _calculateDimensions() {
-    if (!this.width) this.width = 480;        
-    if (!this.width && !this.ratio) this.ratio = 4/3;
+    if (!this.width) this.width = 480;
+    if (!this.width && !this.ratio) this.ratio = 4 / 3;
     if (!this.height) this.height = Math.floor(this.width / this.ratio);
   }
-  
+
   _initForm() {
     this._form = new Form();
     this._form.Text = this.title;
     this._form.MaximizeBox = false;
     this._form.MinimizeBox = false;
     this._form.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-    this._form.Width = this.width + (this.BORDER_THICKNESS * 2); // L & R
+    this._form.Width = this.width + this.BORDER_THICKNESS * 2; // L & R
     this._form.Height = this.height + this.BORDER_THICKNESS + 26; // <-- TITLEBAR!!
     this._form.Controls.Add(this._browser);
   }
-  
+
   _initBrowser(debug = false) {
     clip.SetText(this.document);
     this._browser = new WebBrowser();
-    this._browser.Width = this.width;    
+    this._browser.Width = this.width;
     this._browser.Height = this.height;
     this._browser.DocumentText = this.document;
     this._browser.AllowWebBrowserDrop = false;
@@ -105,13 +107,13 @@ class WebView {
     this._browser.WebBrowserShortcutsEnabled = false;
     this._browser.IsWebBrowserContextMenuEnabled = false;
   }
-  
+
   _interpolateVars(src, vars) {
-    return src.replace(/{{.*?}}/g, match => {
+    return src.replace(/{{.*?}}/g, (match) => {
       const key = match.replace(/{|}|\s/g, "");
       return vars[key] || `${key} key not found ind data`;
     });
-  }  
+  }
 
   _eventHandler(functionBody, target) {
     if (typeof functionBody === "string") {
@@ -119,18 +121,18 @@ class WebView {
         ${functionBody}
       }`);
     }
-    
+
     return "";
   }
-  
+
   _style(input) {
     return `<style>${input}\n</style>`;
   }
-  
+
   _script(input) {
     return `<script>${input}\n</script>`;
   }
-  
+
   /* eslint-disable prettier/prettier */
   static BORDER_THICKNESS = 8;
   
