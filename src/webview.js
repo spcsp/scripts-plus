@@ -1,9 +1,4 @@
-const {
-  BorderStyle,
-  Form,
-  FormBorderStyle,
-  WebBrowser,
-} = forms.System.Windows.Forms;
+const { Form, FormBorderStyle, WebBrowser } = forms.System.Windows.Forms;
 
 class WebView {
   constructor() {

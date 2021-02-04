@@ -3,6 +3,7 @@ const createNanoEvents = require("./createNanoEvents");
 function ScriptsPlus(config) {
   return {
     alert: require("./alert"),
+    api: require("./api"),
     babel: require("./babel"),
     balloon: require("./balloon"),
     balloons: require("./balloons"),
@@ -10,6 +11,7 @@ function ScriptsPlus(config) {
     calc: require("./calc"),
     chrome: require("./chrome"),
     cimco: require("./cimco"),
+    //clr: require("./clr"),
     datestamp: require("./datestamp"),
     dialog: require("./dialog"),
     engine: require("./engine"),
@@ -19,6 +21,7 @@ function ScriptsPlus(config) {
     explorer: require("./explorer"),
     fs: require("./fs"),
     getType: require("./getType"),
+    json: require("./json"),
     keyboard: require("./keyboard"),
     mastercam: require("./mastercam"),
     mouse: require("./mouse"),

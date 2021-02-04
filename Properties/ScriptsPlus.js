@@ -33,6 +33,47 @@ module.exports = alert;
 
 /***/ }),
 
+/***/ "./src/api.js":
+/*!********************!*\
+  !*** ./src/api.js ***!
+  \********************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const JSON = __webpack_require__(/*! ./json */ "./src/json.js");
+
+const {
+  Headers,
+  HttpClient,
+  Uri
+} = http.System.Net.Http;
+
+class Api {
+  constructor() {
+    this.client = new HttpClient();
+    this.client.BaseAddress = new Uri("http://localhost:3000");
+    this.client.DefaultRequestHeaders.Add("User-Agent", "ScriptsPlus");
+    this.client.DefaultRequestHeaders.Accept.Add(new Headers.MediaTypeWithQualityHeaderValue("application/json"));
+  }
+
+  get(url) {
+    return this._getResult(this.client.GetAsync(url));
+  }
+
+  post(url, obj) {
+    const response = this.client.PostAsync(url, json.payload(obj));
+    return this._getResult(response);
+  }
+
+  _getResult(response) {
+    return response.Content.ReadAsStringAsync().Result;
+  }
+
+}
+
+module.exports = new Api();
+
+/***/ }),
+
 /***/ "./src/babel.js":
 /*!**********************!*\
   !*** ./src/babel.js ***!
@@ -46,7 +87,7 @@ class Babel {
   }
 
   transform(input, options = {
-    presets: ['env']
+    presets: ["env"]
   }) {
     const babelSrc = unpkg.fetch("@babel/standalone");
     eval(babelSrc);
@@ -56,7 +97,6 @@ class Babel {
 
 }
 
-;
 module.exports = new Babel();
 
 /***/ }),
@@ -332,7 +372,6 @@ const createNanoEvents = () => ({
   },
 
   on(event, cb) {
-    ;
     (this.events[event] = this.events[event] || []).push(cb);
     return () => this.events[event] = this.events[event].filter(i => i !== cb);
   }
@@ -498,7 +537,7 @@ class Env {
   }
 
   expand(id) {
-    return id => sp.ExpandEnvironmentVariables('%' + id + '%');
+    return id => sp.ExpandEnvironmentVariables("%" + id + "%");
   }
 
   get USER_PROFILE() {
@@ -726,6 +765,7 @@ const createNanoEvents = __webpack_require__(/*! ./createNanoEvents */ "./src/cr
 function ScriptsPlus(config) {
   return {
     alert: __webpack_require__(/*! ./alert */ "./src/alert.js"),
+    api: __webpack_require__(/*! ./api */ "./src/api.js"),
     babel: __webpack_require__(/*! ./babel */ "./src/babel.js"),
     balloon: __webpack_require__(/*! ./balloon */ "./src/balloon.js"),
     balloons: __webpack_require__(/*! ./balloons */ "./src/balloons.js"),
@@ -733,6 +773,7 @@ function ScriptsPlus(config) {
     calc: __webpack_require__(/*! ./calc */ "./src/calc.js"),
     chrome: __webpack_require__(/*! ./chrome */ "./src/chrome.js"),
     cimco: __webpack_require__(/*! ./cimco */ "./src/cimco.js"),
+    //clr: require("./clr"),
     datestamp: __webpack_require__(/*! ./datestamp */ "./src/datestamp.js"),
     dialog: __webpack_require__(/*! ./dialog */ "./src/dialog.js"),
     engine: __webpack_require__(/*! ./engine */ "./src/engine.js"),
@@ -742,6 +783,7 @@ function ScriptsPlus(config) {
     explorer: __webpack_require__(/*! ./explorer */ "./src/explorer.js"),
     fs: __webpack_require__(/*! ./fs */ "./src/fs.js"),
     getType: __webpack_require__(/*! ./getType */ "./src/getType.js"),
+    json: __webpack_require__(/*! ./json */ "./src/json.js"),
     keyboard: __webpack_require__(/*! ./keyboard */ "./src/keyboard.js"),
     mastercam: __webpack_require__(/*! ./mastercam */ "./src/mastercam.js"),
     mouse: __webpack_require__(/*! ./mouse */ "./src/mouse.js"),
@@ -766,6 +808,31 @@ function ScriptsPlus(config) {
 }
 
 module.exports = ScriptsPlus;
+
+/***/ }),
+
+/***/ "./src/json.js":
+/*!*********************!*\
+  !*** ./src/json.js ***!
+  \*********************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const stringify = __webpack_require__(/*! json-stringify-safe */ "./node_modules/json-stringify-safe/stringify.js");
+
+function payload(obj) {
+  const {
+    UTF8
+  } = clr.System.Text.Encoding;
+  const {
+    StringContent
+  } = http.System.Http;
+  new StringContent(stringify(obj), UTF8, "application/json");
+}
+
+module.exports = {
+  stringify,
+  payload
+};
 
 /***/ }),
 
@@ -923,7 +990,7 @@ class Mastercam {
   }
 
   get window() {
-    return sp.WindowsFromTitleRegex('Mastercam Mill 2019$')[0];
+    return sp.WindowsFromTitleRegex("Mastercam Mill 2019$")[0];
   }
 
   get rawWindowTitle() {
@@ -1126,7 +1193,6 @@ class Mouse {
 
 }
 
-;
 module.exports = new Mouse();
 
 /***/ }),
@@ -1277,9 +1343,9 @@ function queryString(obj) {
 }
 
 function clientRequest(baseUrl, uri, params) {
-  var httpHandler = new HttpClientHandler();
-  httpHandler.AutomaticDecompression = host.flags(DecompressionMethods.GZip, DecompressionMethods.Deflate);
-  var client = new HttpClient(httpHandler);
+  var clientHandler = new clientHandler();
+  clientHandler.AutomaticDecompression = host.flags(DecompressionMethods.GZip, DecompressionMethods.Deflate);
+  var client = new HttpClient(clientHandler);
 
   if (baseUrl) {
     client.BaseAddress = new Uri(baseUrl);
@@ -1288,7 +1354,7 @@ function clientRequest(baseUrl, uri, params) {
   var endpoint = params ? `${uri}?${queryString(params)}` : uri;
   var response = client.GetAsync(endpoint).Result;
   var result = response.Content.ReadAsStringAsync().Result;
-  httpHandler.Dispose();
+  clientHandler.Dispose();
   client.Dispose();
   return result;
 }
@@ -1644,7 +1710,6 @@ class Unpkg {
 
 }
 
-;
 module.exports = new Unpkg();
 
 /***/ }),
@@ -1859,6 +1924,43 @@ module.exports = {
   getAppWindows,
   getAppWindowTitle
 };
+
+/***/ }),
+
+/***/ "./node_modules/json-stringify-safe/stringify.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/json-stringify-safe/stringify.js ***!
+  \*******************************************************/
+/***/ ((module, exports) => {
+
+exports = module.exports = stringify
+exports.getSerialize = serializer
+
+function stringify(obj, replacer, spaces, cycleReplacer) {
+  return JSON.stringify(obj, serializer(replacer, cycleReplacer), spaces)
+}
+
+function serializer(replacer, cycleReplacer) {
+  var stack = [], keys = []
+
+  if (cycleReplacer == null) cycleReplacer = function(key, value) {
+    if (stack[0] === value) return "[Circular ~]"
+    return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
+  }
+
+  return function(key, value) {
+    if (stack.length > 0) {
+      var thisPos = stack.indexOf(this)
+      ~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
+      ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
+      if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
+    }
+    else stack.push(value)
+
+    return replacer == null ? value : replacer.call(this, key, value)
+  }
+}
+
 
 /***/ })
 

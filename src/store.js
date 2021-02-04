@@ -24,7 +24,6 @@ class Store {
   set(key, val) {
     if (typeof val === "undefined") {
       throw Error(`No value was supplied for "${key}"`);
-      return;
     }
 
     const type = types.getType(val);

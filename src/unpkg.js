@@ -3,7 +3,6 @@ const request = require("./request");
 
 class Unpkg {
   constructor() {
-    this._cache = cache;
     this._client = request.create("https://unpkg.com");
   }
 
@@ -14,7 +13,7 @@ class Unpkg {
       return this._client(pkg);
     }
 
-    const scopedCache = $.cache.scoped("unpkg");
+    const scopedCache = cache.scoped("unpkg");
 
     if (!scopedCache.has(unslash(pkg))) {
       const src = this._client(pkg);

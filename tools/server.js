@@ -1,18 +1,14 @@
-const morgan = require('morgan');
-const express = require('express');
-const bodyParser = require('body-parser');
-
+const morgan = require("morgan");
+const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(morgan('dev')); // log requests to the console
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+const handleRequest = (req, res) => {
+  res.json(req.body);
+};
 
-app.post('/__scripts_plus', (_req, res) => {
-	res.json({ message: 'hooray! welcome to our api!' });	
-});
-
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+app.use(morgan("dev"));
+app.use(express.json());
+app.post("/", handleRequest);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`listening on port ${this.address().port}`);
 });

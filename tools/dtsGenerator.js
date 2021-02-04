@@ -9,7 +9,7 @@
       UInt32: "System.UInt32",
       String: "System.String",
       Point: "System.Drawing.Point",
-      SystemWindow: "System.SystemWindow",
+      //SystemWindow: "System.SystemWindow",
       Rectangle: "System.Drawing.Rectangle",
       RectRegion: "System.Drawing.RectRegion",
       "RectRegion[]": "System.Drawing.RectRegion[]",
@@ -18,7 +18,7 @@
       HistoryScript: "StrokesPlus.net.Engine.HistoryScript",
       PopupMenuInfo: "StrokesPlus.net.Engine.PopupMenuInfo",
       PopupMenuInfoEx: "StrokesPlus.net.Engine.PopupMenuInfoEx",
-      CoreAudioDevice: "StrokesPlus.net.Engine.CoreAudioDevice"
+      CoreAudioDevice: "StrokesPlus.net.Engine.CoreAudioDevice",
     };
 
     if (Object.prototype.hasOwnProperty.call(typeAliases, type)) {
@@ -108,7 +108,7 @@ declare interface Sp {
         const paramName = parameters[i].Name;
         const paramType = parameters[i].ParameterType.ToString();
 
-        s += comma + paramName + ": " + paramType.replace(/\&$/, "");
+        s += comma + paramName + ": " + paramType.replace(/&$/, "");
 
         comma = ", ";
       }
@@ -121,6 +121,6 @@ declare interface Sp {
 
     File.WriteAllText(outfile, s);
   }
-  
+
   return generateDts;
 })();

@@ -5,14 +5,14 @@ function queryString(obj) {
 }
 
 function clientRequest(baseUrl, uri, params) {
-  var httpHandler = new HttpClientHandler();
+  var clientHandler = new clientHandler();
 
-  httpHandler.AutomaticDecompression = host.flags(
+  clientHandler.AutomaticDecompression = host.flags(
     DecompressionMethods.GZip,
     DecompressionMethods.Deflate
   );
 
-  var client = new HttpClient(httpHandler);
+  var client = new HttpClient(clientHandler);
 
   if (baseUrl) {
     client.BaseAddress = new Uri(baseUrl);
@@ -22,7 +22,7 @@ function clientRequest(baseUrl, uri, params) {
   var response = client.GetAsync(endpoint).Result;
   var result = response.Content.ReadAsStringAsync().Result;
 
-  httpHandler.Dispose();
+  clientHandler.Dispose();
   client.Dispose();
 
   return result;

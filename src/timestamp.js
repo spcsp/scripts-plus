@@ -1,10 +1,11 @@
 function timestamp() {
   const date = new Date();
-  const t = date.getMonth() + 1;
-  const g = date.getDate();
-  const n = date.getHours();
-  const a = date.getMinutes();
-  const r = date.getSeconds();
+
+  let t = date.getMonth() + 1;
+  let g = date.getDate();
+  let n = date.getHours();
+  let a = date.getMinutes();
+  let r = date.getSeconds();
 
   t = (t < 10 ? "0" : "") + t;
   g = (g < 10 ? "0" : "") + g;

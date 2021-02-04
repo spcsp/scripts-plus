@@ -4,19 +4,26 @@
     "ecmaVersion": 12
   },
   "env": {
-    "browser": true,
-    "commonjs": true,
-    "es2021": true
+    "es2020": true,
+    "commonjs": true
   },
   "globals": {
-    "sp": "readonly",
+    "clip": "readonly",
     "clr": "readonly",
-    "forms": "readonly",
+    "Directory": "readonly",
+    "DisplayTextInfo": "readonly",
     "File": "readonly",
     "Font": "readonly",
     "FontStyle": "readonly",
-    "WebBrowser": "readonly",
-    "Directory": "readonly"
+    "forms": "readonly",
+    "host": "readonly",
+    "http": "readonly",
+    "MouseButtons": "readonly",
+    "Point": "readonly",
+    "PopupMenuInfoEx": "readonly",
+    "PopupMenuItem": "readonly",
+    "sp": "readonly",
+    "WebBrowser": "readonly"
   },
   "plugins": [
     "prettier"
@@ -27,5 +34,16 @@
   ],
   "rules": {
     "prettier/prettier": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "./lib/*.js",
+        "./tools/*.js"
+      ],
+      "env": {
+        "node": true
+      }      
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 const path = require('path');
-const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+const HookShellScriptPlugin = require('hook-shell-script-webpack-plugin');
 
 const fromHere = p => path.resolve(__dirname, p);
 
@@ -17,16 +17,21 @@ module.exports = {
     libraryTarget: 'var'
   },
   plugins: [
-    new WebpackShellPluginNext({
-      onAfterDone: {
-        scripts: [
-          'compile.bat',
-          'reload_s+.bat',
-          'notify.bat'
-        ]
-      }
+    new HookShellScriptPlugin({
+      afterEmit: [
+        'npm run compile',
+        'npm run reload',
+        'npm run hello'
+      ]
     })
   ],
+  resolve: {
+    fallback: { 
+      fs: false,
+      path: false,
+      util: false
+    }
+  },
   module: {
     rules: [
       {
