@@ -43,8 +43,7 @@ const JSON = __webpack_require__(/*! ./json */ "./src/json.js");
 
 const {
   Headers,
-  HttpClient,
-  Uri
+  HttpClient
 } = http.System.Net.Http;
 
 class Api {
@@ -1417,7 +1416,6 @@ class Store {
   set(key, val) {
     if (typeof val === "undefined") {
       throw Error(`No value was supplied for "${key}"`);
-      return;
     }
 
     const type = types.getType(val);
@@ -1545,11 +1543,11 @@ module.exports = new Timer();
 
 function timestamp() {
   const date = new Date();
-  const t = date.getMonth() + 1;
-  const g = date.getDate();
-  const n = date.getHours();
-  const a = date.getMinutes();
-  const r = date.getSeconds();
+  let t = date.getMonth() + 1;
+  let g = date.getDate();
+  let n = date.getHours();
+  let a = date.getMinutes();
+  let r = date.getSeconds();
   t = (t < 10 ? "0" : "") + t;
   g = (g < 10 ? "0" : "") + g;
   n = (n < 10 ? "0" : "") + n;
@@ -1684,7 +1682,6 @@ const request = __webpack_require__(/*! ./request */ "./src/request.js");
 
 class Unpkg {
   constructor() {
-    this._cache = cache;
     this._client = request.create("https://unpkg.com");
   }
 
@@ -1697,7 +1694,7 @@ class Unpkg {
       return this._client(pkg);
     }
 
-    const scopedCache = $.cache.scoped("unpkg");
+    const scopedCache = cache.scoped("unpkg");
 
     if (!scopedCache.has(unslash(pkg))) {
       const src = this._client(pkg);
@@ -1737,7 +1734,6 @@ module.exports.backslash = i => i.replace(/\//g, "\\\\");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const {
-  BorderStyle,
   Form,
   FormBorderStyle,
   WebBrowser

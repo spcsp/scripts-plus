@@ -1,3 +1,3 @@
-const app = require("../lib/StrokesPlus.net.js");
+const app = require("../lib/StrokesPlusDotnet");
 
 app.runScript(`ScriptsPlus().balloon('Hello!')`);

@@ -1,3 +1,3 @@
-const app = require("./strokesplus.net");
+const app = require("../lib/StrokesPlusDotnet");
 
 app.runScript(`sp.Reload()`);

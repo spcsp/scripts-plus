@@ -19,7 +19,7 @@
   "homepage": "https://github.com/kevinkhill/scripts-plus",
   "scripts": {
     "dev": "webpack --watch",
-    "lint": "eslint --ext=.js ./src ./lib ./tools",
+    "lint": "eslint --ext=.js ./src ./tools",
     "fix": "npm run lint -- --fix",
     "build": "webpack",
     "clean": "npm run precompile",
