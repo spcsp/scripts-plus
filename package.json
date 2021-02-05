@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kevinkhill/scripts-plus",
   "scripts": {
+    "tasks": "ntl",
     "dev": "webpack --watch",
     "lint": "eslint --ext=.js ./src ./tools",
     "fix": "npm run lint -- --fix",
@@ -27,6 +28,11 @@
     "hello": "node tools/say_hello.js",
     "precompile": "dotnet msbuild -nologo -t:Clean ScriptsPlusPlugin.sln",
     "compile": "dotnet msbuild -nologo -p:Configuration=Release ScriptsPlusPlugin.sln"
+  },
+  "ntl": {
+    "descriptions": {
+      "build": "Runs webpack and then compiles the plugin."
+    }
   },
   "dependencies": {
     "json-stringify-safe": "^5.0.1"

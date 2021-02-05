@@ -2,11 +2,17 @@
 cls
 pushd %~dp0
 echo =================
-echo ==  LOCAL NPM  ==
+echo ==  NPM SHELL  ==
 echo =================
+echo > Type '.exit' to quit
+
+:start
 echo.
 set /P CMD="npm> "
+if /i "%CMD%"==".exit" goto start
 npm %CMD%
-pause
+goto start
+
+:exit
 popd
 exit /b
