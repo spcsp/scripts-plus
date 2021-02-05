@@ -6,12 +6,11 @@ const store = require("./store");
 class Cache {
   constructor() {
     this._cacheDir = env.CACHE_PATH;
-
-    fs.mkdir(this._cacheDir);
   }
 
   setCacheDir(dir) {
     this._cacheDir = dir;
+    fs.mkdir(this._cacheDir);
   }
 
   keyPath(key) {

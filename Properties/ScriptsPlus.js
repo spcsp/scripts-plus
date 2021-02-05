@@ -73,30 +73,32 @@ module.exports = new Api();
 
 /***/ }),
 
-/***/ "./src/babel.js":
-/*!**********************!*\
-  !*** ./src/babel.js ***!
-  \**********************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./src/autoload.js":
+/*!*************************!*\
+  !*** ./src/autoload.js ***!
+  \*************************/
+/***/ ((module) => {
 
-const unpkg = __webpack_require__(/*! ./unpkg */ "./src/unpkg.js");
-
-class Babel {
-  constructor() {//
-  }
-
-  transform(input, options = {
-    presets: ["env"]
-  }) {
-    const babelSrc = unpkg.fetch("@babel/standalone");
-    eval(babelSrc);
-    const output = Babel.transform(input, options).code;
-    return output.replace(`"use strict";`, "");
-  }
-
+function autoload(dir) {
+  const files = clr.System.IO.Directory.GetFiles(dir);
+  const modules = {};
+  files.forEach(filepath => {
+    const filename = filepath.split("\\").pop().replace(".js", "");
+    const contents = clr.System.IO.File.ReadAllText(filepath);
+    modules[filename] = eval(`(() => {
+      const module = { exports: {} }; 
+      const __filename = String.raw\`${filepath}\`;
+      
+    
+      ${contents}
+      
+      ;return module.exports;
+    })()`)();
+  });
+  return modules;
 }
 
-module.exports = new Babel();
+module.exports = autoload;
 
 /***/ }),
 
@@ -166,11 +168,11 @@ const store = __webpack_require__(/*! ./store */ "./src/store.js");
 class Cache {
   constructor() {
     this._cacheDir = env.CACHE_PATH;
-    fs.mkdir(this._cacheDir);
   }
 
   setCacheDir(dir) {
     this._cacheDir = dir;
+    fs.mkdir(this._cacheDir);
   }
 
   keyPath(key) {
@@ -687,43 +689,40 @@ module.exports = new Explorer();
 /***/ ((module) => {
 
 class Fs {
-  constructor({
-    Directory
-  }) {
-    this._dir = Directory;
+  constructor() {//
   }
 
   cp(src, dest, overwrite = false) {
-    return File.Copy(src, dest, overwrite);
+    return clr.System.IO.File.Copy(src, dest, overwrite);
   }
 
   exists(abspath) {
-    return File.Exists(abspath);
+    return clr.System.IO.File.Exists(abspath);
   }
 
   mv(src, dest) {
-    return File.Move(src, dest);
+    return clr.System.IO.File.Move(src, dest);
   }
 
   mkdir(dir) {
-    return this._dir.CreateDirectory(dir);
+    return clr.System.IO.Directory.CreateDirectory(dir);
   }
 
   readdir(dir) {
-    return this._dir.GetFiles(dir);
+    return clr.System.IO.Directory.GetFiles(dir);
   }
 
   readFile(filepath) {
-    return File.ReadAllText(filepath);
+    return clr.System.IO.File.ReadAllText(filepath);
   }
 
   writeFile(filepath, content) {
-    return File.WriteAllText(filepath, content);
+    return clr.System.IO.File.WriteAllText(filepath, content);
   }
 
 }
 
-module.exports = new Fs(clr.System.IO);
+module.exports = new Fs();
 
 /***/ }),
 
@@ -765,14 +764,15 @@ function ScriptsPlus(config) {
   return {
     alert: __webpack_require__(/*! ./alert */ "./src/alert.js"),
     api: __webpack_require__(/*! ./api */ "./src/api.js"),
-    babel: __webpack_require__(/*! ./babel */ "./src/babel.js"),
+    autoload: __webpack_require__(/*! ./autoload */ "./src/autoload.js"),
+    // babel: require("./babel"),
     balloon: __webpack_require__(/*! ./balloon */ "./src/balloon.js"),
     balloons: __webpack_require__(/*! ./balloons */ "./src/balloons.js"),
     cache: __webpack_require__(/*! ./cache */ "./src/cache.js"),
     calc: __webpack_require__(/*! ./calc */ "./src/calc.js"),
     chrome: __webpack_require__(/*! ./chrome */ "./src/chrome.js"),
     cimco: __webpack_require__(/*! ./cimco */ "./src/cimco.js"),
-    //clr: require("./clr"),
+    // clr: require("./clr"),
     datestamp: __webpack_require__(/*! ./datestamp */ "./src/datestamp.js"),
     dialog: __webpack_require__(/*! ./dialog */ "./src/dialog.js"),
     engine: __webpack_require__(/*! ./engine */ "./src/engine.js"),
@@ -799,7 +799,7 @@ function ScriptsPlus(config) {
     toast: __webpack_require__(/*! ./toast */ "./src/toast.js"),
     toaster: __webpack_require__(/*! ./toaster */ "./src/toaster.js"),
     types: __webpack_require__(/*! ./types */ "./src/types.js"),
-    unpkg: __webpack_require__(/*! ./unpkg */ "./src/unpkg.js"),
+    // unpkg: require("./unpkg"),
     utils: __webpack_require__(/*! ./utils */ "./src/utils.js"),
     webview: __webpack_require__(/*! ./webview */ "./src/webview.js"),
     window: __webpack_require__(/*! ./window */ "./src/window.js")
@@ -1667,47 +1667,6 @@ class Types {
 }
 
 module.exports = new Types();
-
-/***/ }),
-
-/***/ "./src/unpkg.js":
-/*!**********************!*\
-  !*** ./src/unpkg.js ***!
-  \**********************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-const cache = __webpack_require__(/*! ./cache */ "./src/cache.js");
-
-const request = __webpack_require__(/*! ./request */ "./src/request.js");
-
-class Unpkg {
-  constructor() {
-    this._client = request.create("https://unpkg.com");
-  }
-
-  fetch(pkg, opts = {
-    cache: true
-  }) {
-    const unslash = p => p.replace("/", "__");
-
-    if (!opts.cache) {
-      return this._client(pkg);
-    }
-
-    const scopedCache = cache.scoped("unpkg");
-
-    if (!scopedCache.has(unslash(pkg))) {
-      const src = this._client(pkg);
-
-      scopedCache.set(unslash(pkg), src);
-    }
-
-    return scopedCache.get(unslash(pkg));
-  }
-
-}
-
-module.exports = new Unpkg();
 
 /***/ }),
 

@@ -24,7 +24,7 @@
     "fix": "npm run lint -- --fix",
     "build": "webpack",
     "clean": "npm run precompile",
-    "reload": "node tools/reload_sp.js",
+    "reload-sp": "node tools/reload_sp.js",
     "hello": "node tools/say_hello.js",
     "precompile": "dotnet msbuild -nologo -t:Clean ScriptsPlusPlugin.sln",
     "compile": "dotnet msbuild -nologo -p:Configuration=Release ScriptsPlusPlugin.sln"

@@ -1,35 +1,35 @@
 class Fs {
-  constructor({ Directory }) {
-    this._dir = Directory;
+  constructor() {
+    //
   }
 
   cp(src, dest, overwrite = false) {
-    return File.Copy(src, dest, overwrite);
+    return clr.System.IO.File.Copy(src, dest, overwrite);
   }
 
   exists(abspath) {
-    return File.Exists(abspath);
+    return clr.System.IO.File.Exists(abspath);
   }
 
   mv(src, dest) {
-    return File.Move(src, dest);
+    return clr.System.IO.File.Move(src, dest);
   }
 
   mkdir(dir) {
-    return this._dir.CreateDirectory(dir);
+    return clr.System.IO.Directory.CreateDirectory(dir);
   }
 
   readdir(dir) {
-    return this._dir.GetFiles(dir);
+    return clr.System.IO.Directory.GetFiles(dir);
   }
 
   readFile(filepath) {
-    return File.ReadAllText(filepath);
+    return clr.System.IO.File.ReadAllText(filepath);
   }
 
   writeFile(filepath, content) {
-    return File.WriteAllText(filepath, content);
+    return clr.System.IO.File.WriteAllText(filepath, content);
   }
 }
 
-module.exports = new Fs(clr.System.IO);
+module.exports = new Fs();

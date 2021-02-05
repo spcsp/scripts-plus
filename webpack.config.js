@@ -1,6 +1,8 @@
 const path = require('path');
 const HookShellScriptPlugin = require('hook-shell-script-webpack-plugin');
 
+const RunNpmTaskPlugin = require('./lib/webpack-plugins/RunNpmTaskPlugin');
+
 const fromHere = p => path.resolve(__dirname, p);
 
 module.exports = {
@@ -17,13 +19,7 @@ module.exports = {
     libraryTarget: 'var'
   },
   plugins: [
-    new HookShellScriptPlugin({
-      afterEmit: [
-        'npm run compile',
-        'npm run reload',
-        'npm run hello'
-      ]
-    })
+    new RunNpmTaskPlugin({ task: "compile" })
   ],
   resolve: {
     fallback: { 
@@ -44,3 +40,15 @@ module.exports = {
     ]
   }
 };
+
+
+/*
+,
+    new HookShellScriptPlugin({
+      afterEmit: ['npm run compile']
+    }),
+    new HookShellScriptPlugin({
+      afterEmit: ['npm run reload-sp']
+    })
+    
+    */

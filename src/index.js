@@ -4,14 +4,15 @@ function ScriptsPlus(config) {
   return {
     alert: require("./alert"),
     api: require("./api"),
-    babel: require("./babel"),
+    autoload: require("./autoload"),
+    // babel: require("./babel"),
     balloon: require("./balloon"),
     balloons: require("./balloons"),
     cache: require("./cache"),
     calc: require("./calc"),
     chrome: require("./chrome"),
     cimco: require("./cimco"),
-    //clr: require("./clr"),
+    // clr: require("./clr"),
     datestamp: require("./datestamp"),
     dialog: require("./dialog"),
     engine: require("./engine"),
@@ -38,7 +39,7 @@ function ScriptsPlus(config) {
     toast: require("./toast"),
     toaster: require("./toaster"),
     types: require("./types"),
-    unpkg: require("./unpkg"),
+    // unpkg: require("./unpkg"),
     utils: require("./utils"),
     webview: require("./webview"),
     window: require("./window"),
@@ -46,3 +47,4 @@ function ScriptsPlus(config) {
 }
 
 module.exports = ScriptsPlus;
+
