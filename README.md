@@ -1,128 +1,62 @@
-## ScriptyStrokes, a StrokesPlus.net Scripting Framework
+## ScriptsPlus, a StrokesPlus.net Plugin
 
-### This was made this for fun because I love StrokesPlus.net and I also love Javascript.
+### Enhance the scripting capabilities of S+ with a rich module library.
+Inspired by the simplicity of jQuery, there are 40+ modules that extend and enhance the scripting capabilities within action scripts.
+Many common `sp.xxxx` methods are wrapped to simplify their use and some wrapped together to create new tools.
 
-Initially I tried to use the load external script feature but when I moved the file on accident, it caused a crash loop where I couldn't even start the program anymore. I put the old file back and started thinking how to over come this, something more dynamic.
+# Install
+Download `ScriptsPlusPlugin.dll` from here and place it in `C:\Program Files\StrokesPlus.net\Plug-Ins` to be automatically picked up by S+
+You can also add it manually, or place it in your own plugins folder and add that path.
 
-I like the `require()` function used in CommonJs to load other modules, so I put to work to try and make an implementation of this functionality for myself. I started with a little bootstrapper that sets up `__dirname` to reference the framework files, then a simple version of the code for the loader.
+# Loading
+ - Head to `Global Actions`
+ - Open the `Load/Unload` tab
+ - Check the box to enable the load script
+ - Paste in this snippet: `var $ = ScriptsPlus();`
+ - Profit!
 
-# Adding The ScriptyStrokes Bootstrapper
-Under `Global Action`, pick the `Load/Unload` tab, and check the box to enable the load script.
-Replace the path with the absolute path to the cloned repository.
-```
-sp.StoreString("SCRIPTY_ROOT", String.raw`C:\Wherever\I\May\Roam\RootOfFramework`);
-const $ = eval("("+File.ReadAllText(`${sp.GetStoredString("SCRIPTY_ROOT")}/bootstrap.js`)+")")({
-    toast: {
-        textColor: "cyan",
-        backgroundColor: "black"
-    }
-});
-```
+# Examples
 
-The bootstrapper takes care of providing a rich standard library, inspired a bit by jQuery,
-but with no affiliation. This framework wraps many common `sp.xxxx` methods with functions
-to enhance the scripting capabilities to the user of StrokesPlus.net
-
-## Examples
+### Wrapped Methods
 ```javascript
-$.alert("Hello World");
+// wraps `sp.MessageBox()`
+$.alert("Hello World!");
+
+// wraps `new DisplayTextInfo()`
+$.toast("Hello World!");
+
+// wraps `sp.sp.ShowBalloonTip()`
+$.balloon("Hello World!");
 ```
 
+### Dialogs
 ```javascript
-$.toast("Hello World");
-```
+function getUserInput() {
+  var modal = $.dialog.create("Text Input Demo");
 
-I like functional programming, so sometimes there are fp interfaces too.
-
-```javascript
-var toaster = $.toast.factory("My Toaster is Fancy");
-
-toaster("I MAKE TOAST!");
-```
-
-Some have configuration available on the method call.
-
-```javascript
-$.balloon("Hello World!", { title: "Custom Title" });
-```
-
-These are just a few of the many modules that come included.
-Check out the [stdlib](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/lib)
-modules as well as [application specific modules](https://github.com/kevinkhill/scripty-strokes/tree/main/scripty_modules/apps) too.
-
-# Writing Modules
-Scripty Modules look just like CJS modules, with a defined `module.exports` containing what you want to export from the module.
-
-### Classes
-```javascript
-class Environment {
-  expand(name) {
-    return clr.System.Environment.GetEnvironmentVariable(name);
-  }
+  modal.show(input => $.alert(input, "Input"));
 }
 
-module.exports = new Environment();
-```
-[source of the env module](https://github.com/kevinkhill/scripty-strokes/blob/main/scripty_modules/lib/env.js)
-
-
-### Functions
-```javascript
-/**
- * Create a modal dialog box notification.
- *
- * @param message string
- * @param title   string
- */
-function alert(message, title = "ScriptyStrokes") {
-  sp.MessageBox(message, title);
-}
-
-module.exports = alert;
+getUserInput();
 ```
 
-### Complex Functionality & Multiple Exports
+### Popup Menus
 ```javascript
-function queryString(obj) {
-  return Object.keys(obj)
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`)
-    .join("&");
-}
+var { addToMenu, addToSubMenu, menuItem, show } = $.popup;
 
-function request({ baseUrl }) {
-  var httpHandler = new HttpClientHandler();
-  httpHandler.AutomaticDecompression = host.flags(
-    DecompressionMethods.GZip,
-    DecompressionMethods.Deflate
-  );
+var popup = $.popup.create();
+var addToMainMenu = $.popup.addToMenu(popup);
 
-  var client = new HttpClient(httpHandler);
-  client.BaseAddress = new Uri(baseUrl);
+var mastercam = menuItem("Mastercam");
+var addToDemo = $.popup.addToSubMenu(mastercam);
 
-  return (url, params) => {
-    var endpoint = params ? `${url}?${queryString(params)}` : url;
-    var response = client.GetAsync(endpoint).Result;
-    var result = response.Content.ReadAsStringAsync().Result;
+addToDemo(menuItem("Hello World", `$.alert('Hello World')`));
+addToDemo(menuItem("Taco Bell", `$.alert('Taco Bell')`));
+addToDemo(menuItem("Is Good", `$.alert('Is Good')`));
 
-    httpHandler.Dispose();
-    client.Dispose();
+addToMainMenu(mastercam);
+addToMainMenu($.popup.spacer);
+addToMainMenu($.popup.cancel);
 
-    return result;
-  };
-}
-
-module.exports = { queryString, request };
-```
-
-With the simple StrokesPlus.net actions usage:
-```javascript
-var stackExchange = $.request({ baseUrl: "https://api.stackexchange.com/2.2/" });
-
-var res = stackExchange("answers", {
-  order: "desc",
-  sort: "activity",
-  site: "stackoverflow"
-});
-
-$.toClipboard(res);
+show(popup);
 ```
