@@ -5,17 +5,18 @@ function autoload(dir) {
   
   files.forEach(filepath => {
     const filename = filepath.split("\\").pop().replace(".js", "");
-    const contents = clr.System.IO.File.ReadAllText(filepath);  
-    
-    modules[filename] = eval(`(() => {
+    const contents = clr.System.IO.File.ReadAllText(filepath);
+    const module = eval(`(() => {
       const module = { exports: {} }; 
       const __filename = String.raw\`${filepath}\`;
       
     
       ${contents}
       
-      ;return module.exports;
-    })()`)();
+      ;return module;
+    })()`);
+    
+    modules[filename] = module.exports;
   });
   
   return modules;

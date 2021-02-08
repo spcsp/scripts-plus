@@ -1,4 +1,4 @@
-const createNanoEvents = require("./createNanoEvents");
+const createNanoEvents = require("./lib/createNanoEvents");
 
 function ScriptsPlus(config) {
   return {

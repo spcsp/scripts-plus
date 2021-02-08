@@ -85,15 +85,16 @@ function autoload(dir) {
   files.forEach(filepath => {
     const filename = filepath.split("\\").pop().replace(".js", "");
     const contents = clr.System.IO.File.ReadAllText(filepath);
-    modules[filename] = eval(`(() => {
+    const module = eval(`(() => {
       const module = { exports: {} }; 
       const __filename = String.raw\`${filepath}\`;
       
     
       ${contents}
       
-      ;return module.exports;
-    })()`)();
+      ;return module;
+    })()`);
+    modules[filename] = module.exports;
   });
   return modules;
 }
@@ -349,37 +350,6 @@ class Cimco {
 }
 
 module.exports = new Cimco();
-
-/***/ }),
-
-/***/ "./src/createNanoEvents.js":
-/*!*********************************!*\
-  !*** ./src/createNanoEvents.js ***!
-  \*********************************/
-/***/ ((module) => {
-
-/**
- * NanoEvents
- *
- * @link https://github.com/ai/nanoevents
- */
-const createNanoEvents = () => ({
-  events: {},
-
-  emit(event, ...args) {
-    for (let i of this.events[event] || []) {
-      i(...args);
-    }
-  },
-
-  on(event, cb) {
-    (this.events[event] = this.events[event] || []).push(cb);
-    return () => this.events[event] = this.events[event].filter(i => i !== cb);
-  }
-
-});
-
-module.exports = createNanoEvents;
 
 /***/ }),
 
@@ -758,7 +728,7 @@ module.exports = getType;
   \**********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const createNanoEvents = __webpack_require__(/*! ./createNanoEvents */ "./src/createNanoEvents.js");
+const createNanoEvents = __webpack_require__(/*! ./lib/createNanoEvents */ "./src/lib/createNanoEvents.js");
 
 function ScriptsPlus(config) {
   return {
@@ -946,6 +916,37 @@ class Keyboard {
 }
 
 module.exports = new Keyboard();
+
+/***/ }),
+
+/***/ "./src/lib/createNanoEvents.js":
+/*!*************************************!*\
+  !*** ./src/lib/createNanoEvents.js ***!
+  \*************************************/
+/***/ ((module) => {
+
+/**
+ * NanoEvents
+ *
+ * @link https://github.com/ai/nanoevents
+ */
+const createNanoEvents = () => ({
+  events: {},
+
+  emit(event, ...args) {
+    for (let i of this.events[event] || []) {
+      i(...args);
+    }
+  },
+
+  on(event, cb) {
+    (this.events[event] = this.events[event] || []).push(cb);
+    return () => this.events[event] = this.events[event].filter(i => i !== cb);
+  }
+
+});
+
+module.exports = createNanoEvents;
 
 /***/ }),
 
