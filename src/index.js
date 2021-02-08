@@ -1,32 +1,35 @@
-const createNanoEvents = require("./lib/createNanoEvents");
+const EventEmitter = require("events");
+
+const autoload = require("./lib/autoload");
+
+const alert = require("./alert");
+const api = require("./api");
+const apps = require("./apps");
+
+const balloon = require("./balloon");
 
 function ScriptsPlus(config) {
+  const autoloaded = config.autoload ? autoload(config.autoload) : {};
+  
   return {
-    alert: require("./alert"),
-    api: require("./api"),
-    autoload: require("./autoload"),
-    // babel: require("./babel"),
-    balloon: require("./balloon"),
+    apps,
+    alert,
+    api,
+    autoloaded,
+    balloon,
     balloons: require("./balloons"),
     cache: require("./cache"),
-    calc: require("./calc"),
-    chrome: require("./chrome"),
-    cimco: require("./cimco"),
-    // clr: require("./clr"),
     datestamp: require("./datestamp"),
     dialog: require("./dialog"),
     engine: require("./engine"),
     env: require("./env"),
-    events: createNanoEvents(),
+    events: new EventEmitter(),
     exec: require("./exec"),
-    explorer: require("./explorer"),
     fs: require("./fs"),
     getType: require("./getType"),
     json: require("./json"),
     keyboard: require("./keyboard"),
-    mastercam: require("./mastercam"),
     mouse: require("./mouse"),
-    npp: require("./notepadPlusPlus"),
     path: require("./path"),
     popup: require("./popup"),
     regedit: require("./regedit"),
@@ -39,7 +42,7 @@ function ScriptsPlus(config) {
     toast: require("./toast"),
     toaster: require("./toaster"),
     types: require("./types"),
-    // unpkg: require("./unpkg"),
+    unpkg: require("./unpkg"),
     utils: require("./utils"),
     webview: require("./webview"),
     window: require("./window"),
@@ -47,4 +50,5 @@ function ScriptsPlus(config) {
 }
 
 module.exports = ScriptsPlus;
+
 

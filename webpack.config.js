@@ -1,7 +1,7 @@
 const path = require('path');
 const HookShellScriptPlugin = require('hook-shell-script-webpack-plugin');
 
-const RunNpmTaskPlugin = require('./src/lib/webpack-plugins/RunNpmTaskPlugin');
+const RunNpmTaskPlugin = require('./src/lib/RunNpmTaskPlugin');
 
 const fromHere = p => path.resolve(__dirname, p);
 
@@ -11,6 +11,9 @@ module.exports = {
   devtool: false,
   node: {
     __dirname: false
+  },
+  watchOptions: {
+    poll: 1000
   },
   output: {
     path: fromHere('Properties'),

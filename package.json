@@ -19,10 +19,10 @@
   "homepage": "https://github.com/kevinkhill/scripts-plus",
   "scripts": {
     "tasks": "ntl",
-    "dev": "webpack --watch",
+    "dev": "webpack --progress --watch",
     "lint": "eslint --ext=.js ./src ./tools",
     "fix": "npm run lint -- --fix",
-    "build": "webpack",
+    "build": "webpack --progress --production",
     "clean": "npm run precompile",
     "reload-sp": "node tools/reload_sp.js",
     "hello": "node tools/say_hello.js",

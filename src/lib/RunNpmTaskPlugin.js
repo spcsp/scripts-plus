@@ -18,10 +18,10 @@ class RunNpmTaskPlugin {
   }
   
   apply(compiler) {
-    compiler.hooks.afterEmit.tapAsync('RunNpmTaskPlugin', async (compilation) => {
+    compiler.hooks.afterDone.tap('RunNpmTaskPlugin', (compilation) => {
       console.log("Compiling bundle into DLL");
       
-      await execa("npm", ["run", this.options.task]);
+      execa.sync("npm", ["run", this.options.task]);
       
       console.log("Done!");
     });
