@@ -1,0 +1,1 @@
+npx validjson output.json

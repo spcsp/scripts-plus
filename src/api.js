@@ -3,6 +3,8 @@ const json = require("./json");
 const { Headers, HttpClient } = http.System.Net.Http;
 
 class Api {
+  _result = "";
+  
   constructor() {
     this.client = new HttpClient();
     this.client.BaseAddress = new Uri("http://localhost:3000");
@@ -10,8 +12,6 @@ class Api {
     this.client.DefaultRequestHeaders.Accept.Add(
       new Headers.MediaTypeWithQualityHeaderValue("application/json")
     );
-    
-    this._result = "";
   }
 
   get(url) {
