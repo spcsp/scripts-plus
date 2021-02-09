@@ -10,7 +10,7 @@ const balloon = require("./balloon");
 
 function ScriptsPlus(config) {
   const autoloaded = config.autoload ? autoload(config.autoload) : {};
-  
+
   return {
     apps,
     alert,
@@ -50,5 +50,3 @@ function ScriptsPlus(config) {
 }
 
 module.exports = ScriptsPlus;
-
-
