@@ -39,7 +39,7 @@ module.exports = alert;
   \********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const JSON = __webpack_require__(/*! ./json */ "./src/json.js");
+const json = __webpack_require__(/*! ./json */ "./src/json.js");
 
 const {
   Headers,
@@ -52,19 +52,21 @@ class Api {
     this.client.BaseAddress = new Uri("http://localhost:3000");
     this.client.DefaultRequestHeaders.Add("User-Agent", "ScriptsPlus");
     this.client.DefaultRequestHeaders.Accept.Add(new Headers.MediaTypeWithQualityHeaderValue("application/json"));
+    this._result = "";
   }
 
   get(url) {
-    return this._getResult(this.client.GetAsync(url));
+    this._result = this.client.GetAsync(url).Result;
+    return this._getReply();
   }
 
   post(url, obj) {
-    const response = this.client.PostAsync(url, json.payload(obj));
-    return this._getResult(response);
+    this._result = this.client.PostAsync(url, json.payload(obj)).Result;
+    return this._getReply();
   }
 
-  _getResult(response) {
-    return response.Content.ReadAsStringAsync().Result;
+  _getReply() {
+    return this._result.Content.ReadAsStringAsync().Result;
   }
 
 }
@@ -939,8 +941,8 @@ function payload(obj) {
   } = clr.System.Text.Encoding;
   const {
     StringContent
-  } = http.System.Http;
-  new StringContent(stringify(obj), UTF8, "application/json");
+  } = http.System.Net.Http;
+  return new StringContent(stringify(obj), UTF8, "application/json");
 }
 
 module.exports = {

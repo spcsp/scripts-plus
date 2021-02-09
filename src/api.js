@@ -1,4 +1,4 @@
-const JSON = require("./json");
+const json = require("./json");
 
 const { Headers, HttpClient } = http.System.Net.Http;
 
@@ -10,20 +10,24 @@ class Api {
     this.client.DefaultRequestHeaders.Accept.Add(
       new Headers.MediaTypeWithQualityHeaderValue("application/json")
     );
+    
+    this._result = "";
   }
 
   get(url) {
-    return this._getResult(this.client.GetAsync(url));
+    this._result = this.client.GetAsync(url).Result;
+    
+    return this._getReply();
   }
 
   post(url, obj) {
-    const response = this.client.PostAsync(url, json.payload(obj));
-
-    return this._getResult(response);
+    this._result = this.client.PostAsync(url, json.payload(obj)).Result;
+    
+    return this._getReply();
   }
 
-  _getResult(response) {
-    return response.Content.ReadAsStringAsync().Result;
+  _getReply() {
+    return this._result.Content.ReadAsStringAsync().Result;
   }
 }
 

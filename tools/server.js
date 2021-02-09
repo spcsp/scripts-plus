@@ -9,6 +9,7 @@ const handleRequest = (req, res) => {
 app.use(morgan("dev"));
 app.use(express.json());
 app.post("/", handleRequest);
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`listening on port ${this.address().port}`);
+
+const server = app.listen(process.env.PORT || 3000, () => {  
+  console.log('Example app listening at http://localhost:%s', server.address().port);
 });
