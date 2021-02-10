@@ -4,7 +4,7 @@ const { Headers, HttpClient } = http.System.Net.Http;
 
 class Api {
   _result = "";
-  
+
   constructor() {
     this.client = new HttpClient();
     this.client.BaseAddress = new Uri("http://localhost:3000");
@@ -16,13 +16,13 @@ class Api {
 
   get(url) {
     this._result = this.client.GetAsync(url).Result;
-    
+
     return this._getReply();
   }
 
   post(url, obj) {
     this._result = this.client.PostAsync(url, json.payload(obj)).Result;
-    
+
     return this._getReply();
   }
 

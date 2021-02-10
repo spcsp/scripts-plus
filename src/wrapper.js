@@ -2,7 +2,7 @@ class Engine {
   get wrapper() {
     return __spEngineWrapper;
   }
-  
+
   get current() {
     return this.wrapper.Engine;
   }
