@@ -3,35 +3,36 @@ const path = require("path");
 const prettier = require("prettier");
 const chokidar = require("chokidar");
 
-const app = require("../../src/node/StrokesPlusDotnet");
-const { raw } = require("../../src/node");
+const node = require("../../src/node");
 
-const input = require.resolve("./DtsFromGetMethods");
-const output = path.join(__dirname, "output.d.ts");
-    
-const watcher = chokidar.watch(output, { persistent: true });
+const outputDts = path.join(__dirname, "output.d.ts");
+const watcher = chokidar.watch(outputDts, { persistent: true });
+const fileExists = async (fp) => {
+  try {
+    const stat = await fs.promises.stat(fp);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
 
-(async () => {
+async function onFileCreateOrUpdate(outputFilepath) {
   console.log("Parsing the contents of `sp.GetMethods`");
   console.log("to write a TypeScript Declaration file");
   
-  let eventToWatch = "add";
-
-  try {
-    const stat = await fs.promises.stat(output);
-    
-    eventToWatch = "change";
-  } catch (err) {}
+  const eventToWatch = await fileExists(outputFilepath) ? "change" : "add";
   
   watcher.on(eventToWatch, async path => {
     await watcher.close();
-        
-    // const contents = await fs.promises.readFile(input);
-    // const prettyJson = JSON.stringify(contents, null, 2);
-    // await fs.promises.writeFile(output, prettyJson);  
     
-    console.log(`Wrote to ${output}`);
+    console.log(`Wrote to ${outputFilepath}`);
   });
    
-  app.runScript(`eval(File.ReadAllText(${raw(input)}))(${raw(output)});`); //async
-})();
+  const input = node.raw(require.resolve("./DtsFromGetMethods"));
+  const generatorArg = node.raw(outputDts);
+  const script = `eval(File.ReadAllText(${input}))(${generatorArg});`;
+  
+  node.StrokesPlusDotnet.runScript(script); //async
+}
+
+onFileCreateOrUpdate(outputDts);
