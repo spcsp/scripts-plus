@@ -38,8 +38,7 @@
   "overrides": [
     {
       "files": [
-        "./lib/*.js",
-        "./tools/*.js"
+        "./tools/**/*.js"
       ],
       "env": {
         "node": true
