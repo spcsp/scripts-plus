@@ -1,7 +1,7 @@
 const path = require('path');
 const HookShellScriptPlugin = require('hook-shell-script-webpack-plugin');
 
-const RunNpmTaskPlugin = require('./src/lib/RunNpmTaskPlugin');
+const RunNpmTaskPlugin = require('./src/node/RunNpmTaskPlugin');
 
 const fromHere = p => path.resolve(__dirname, p);
 

@@ -18,6 +18,9 @@ app.post("/echo", (req, res) => {
   res.json(req.body);
 });
 
-const server = app.listen(process.env.PORT || 3000, () => {  
-  console.log('Example app listening at http://localhost:%s', server.address().port);
+const server = app.listen(process.env.PORT || 3000, () => {
+  console.log(
+    "Example app listening at http://localhost:%s",
+    server.address().port
+  );
 });

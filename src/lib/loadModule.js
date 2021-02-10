@@ -11,7 +11,7 @@ function loadModule(filepath) {
     
     ;return module;
   })()`);
-  
+
   return module.exports;
 }
 

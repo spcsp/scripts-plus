@@ -1,4 +1,4 @@
-(function(outfile) {
+(function (outfile) {
   function mapReturnType(type) {
     const typeAliases = {
       Void: "void",
@@ -27,7 +27,6 @@
       return type;
     }
   }
-
 
   const spms = sp.GetMethods();
 
@@ -120,5 +119,5 @@ declare interface Sp {
   s += "declare const sp:Sp;\n";
 
   File.WriteAllText(outfile, s);
-  sp.ShowBalloonTip("ScriptsPlus", `Wrote to ${outfile}`, 'Info', 5000);
-})
+  sp.ShowBalloonTip("ScriptsPlus", `Wrote to ${outfile}`, "Info", 5000);
+});
