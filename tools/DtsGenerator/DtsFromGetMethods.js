@@ -35,11 +35,11 @@
 */
 declare namespace Microsoft {
   namespace Win32 {
-  interface RegistryKey {}
+    interface RegistryKey {}
   }
 
   namespace Forms {
-  interface MouseButtons {}
+    interface MouseButtons {}
   }
 }
 
@@ -61,14 +61,14 @@ declare namespace System {
   type Boolean = boolean;
 
   namespace Drawing {
-  interface Image {}
-  interface Point {}
-  interface Rectangle {}
-  interface RectRegion {}
+    interface Image {}
+    interface Point {}
+    interface Rectangle {}
+    interface RectRegion {}
   }
 
   namespace Windows.Forms {
-  interface MouseButtons {}
+    interface MouseButtons {}
   }
 
   interface SystemWindow {}
@@ -76,13 +76,13 @@ declare namespace System {
 
 declare namespace StrokesPlus {
   namespace net.Engine {
-  interface InputBoxInfo {}
-  interface SystemWindow {}
-  interface HistoryScript {}
-  interface PopupMenuInfo {}
-  interface PopupMenuInfoEx {}
-  interface DisplayTextInfo {}
-  interface CoreAudioDevice {}
+    interface InputBoxInfo {}
+    interface SystemWindow {}
+    interface HistoryScript {}
+    interface PopupMenuInfo {}
+    interface PopupMenuInfoEx {}
+    interface DisplayTextInfo {}
+    interface CoreAudioDevice {}
   }
 }
 

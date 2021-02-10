@@ -13,6 +13,7 @@ const watcher = chokidar.watch(output, { persistent: true });
 
 (async () => {
   console.log("Parsing the contents of `sp.GetMethods`");
+  console.log("to write JSON schema for the methods' signatures");
 
   const stat = await fs.promises.stat(output);
   const eventToWatch = stat ? 'change' : 'add';
