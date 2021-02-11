@@ -3,6 +3,6 @@
   "ext": "js,html",
   "ignore": [
     "output.json",
-    "Methods.html"
+    "index.html"
   ]
 }

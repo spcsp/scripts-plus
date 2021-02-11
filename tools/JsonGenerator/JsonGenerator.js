@@ -8,8 +8,8 @@ const { onCreateOrUpdate, raw, readFile, safeWrite } = require("../lib");
 
 const input = require.resolve("./JsonFromGetMethods");
 const output = path.join(__dirname, "output.json");
-const htmlFile = path.join(__dirname, "Methods.html");
-const templateFile = path.join(__dirname, "Methods.template.html");
+const htmlFile = path.join(__dirname, "index.html");
+const templateFile = path.join(__dirname, "template.html");
 
 (async () => {  
   console.log("Parsing the contents of `sp.GetMethods`");
@@ -25,9 +25,13 @@ const templateFile = path.join(__dirname, "Methods.template.html");
       await safeWrite(path, JSON.stringify(data));
       console.log(`Wrote ${path}`);
       
-      const html = prettyPrintJson.toHtml(data);
-      const template = await readFile(templateFile);
-      await safeWrite(htmlFile, template.replace("HTML_SOURCE", html));
+      // const html = prettyPrintJson.toHtml(data);
+      
+      let template = await readFile(templateFile);
+      // template = template.replace("HTML_SOURCE", html)
+      template = template.replace("__JSON_SOURCE__", JSON.stringify(data))
+      
+      await safeWrite(htmlFile, template);
       console.log(`Wrote ${htmlFile}`);
     } catch (err) {
       throw Error(err);
