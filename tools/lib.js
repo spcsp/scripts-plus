@@ -1,8 +1,9 @@
 const fs = require("fs");
 const chokidar = require("chokidar");
 
-const raw = (str) => "String.raw`" + str + "`";
-
+const raw = s => "String.raw`"+s+"`";
+const readFile = f => fs.promises.readFile(f, "utf8");
+ 
 async function fileExists(fp) {
   try {
     await fs.promises.stat(fp);
@@ -31,16 +32,23 @@ async function onCreateOrUpdate(filepath, callback) {
 }
 
 async function safeWrite(filepath, content) {
-  const tempFile = filepath + "__atomic_write";
+  // const tempFile = filepath + "__atomic_write";
 
-  await fs.promises.writeFile(tempFile, content);
+  // if (await fileExists(filepath)) {
+    // await fs.promises.writeFile(tempFile, content);
+  // }
 
-  try {
-    await fs.promises.unlink(filepath);
-    await fs.promises.rename(tempFile, filepath);
-  } catch (err) {
-    await fs.promises.unlink(tempFile);
-  }
+  await fs.promises.writeFile(filepath, content);
+  // await fs.promises.writeFile(tempFile, content);
+
+  // try {
+    // await fs.promises.unlink(filepath);
+    // await fs.promises.rename(tempFile, filepath);
+  // } catch (err) {
+    //await fs.promises.unlink(tempFile);
+  // } finally {
+    // await fs.promises.unlink(tempFile);
+  // }
 }
 
-module.exports = { fileExists, onCreateOrUpdate, raw, safeWrite };
+module.exports = { fileExists, onCreateOrUpdate, raw, readFile, safeWrite };

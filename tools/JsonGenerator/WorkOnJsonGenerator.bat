@@ -1,2 +1,2 @@
 @echo off
-npx nodemon JsonGenerator.js
+npx nodemon -e js,html JsonGenerator.js

@@ -1,4 +1,8 @@
 {
   "delay": "2500",
-  "ignore": ["*.json"]
+  "ext": "js,html",
+  "ignore": [
+    "output.json",
+    "Methods.html"
+  ]
 }
