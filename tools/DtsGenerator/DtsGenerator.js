@@ -19,19 +19,19 @@ const fileExists = async (fp) => {
 async function onFileCreateOrUpdate(outputFilepath) {
   console.log("Parsing the contents of `sp.GetMethods`");
   console.log("to write a TypeScript Declaration file");
-  
-  const eventToWatch = await fileExists(outputFilepath) ? "change" : "add";
-  
-  watcher.on(eventToWatch, async path => {
+
+  const eventToWatch = (await fileExists(outputFilepath)) ? "change" : "add";
+
+  watcher.on(eventToWatch, async (path) => {
     await watcher.close();
-    
+
     console.log(`Wrote to ${outputFilepath}`);
   });
-   
+
   const input = node.raw(require.resolve("./DtsFromGetMethods"));
   const generatorArg = node.raw(outputDts);
   const script = `eval(File.ReadAllText(${input}))(${generatorArg});`;
-  
+
   node.StrokesPlusDotnet.runScript(script); //async
 }
 
