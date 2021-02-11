@@ -6,7 +6,12 @@ function runScript(src) {
   return execa(EXE_PATH, [`--script=${src}`]);
 }
 
+function evalFile(filepath) {
+  runScript("eval(File.ReadAllText(String.raw`" + filepath + "`));");
+}
+
 module.exports = {
   EXE_PATH,
+  evalFile,
   runScript,
 };
