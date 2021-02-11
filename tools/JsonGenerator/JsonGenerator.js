@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const parseJson = require('parse-json');
-const { prettyPrintJson } = require('pretty-print-json');
 
 const app = require("../../src/node/StrokesPlusDotnet");
 const { onCreateOrUpdate, raw, readFile, safeWrite } = require("../lib");
@@ -25,13 +24,12 @@ const templateFile = path.join(__dirname, "template.html");
       await safeWrite(path, JSON.stringify(data));
       console.log(`Wrote ${path}`);
       
-      // const html = prettyPrintJson.toHtml(data);
       
-      let template = await readFile(templateFile);
+      // let template = await readFile(templateFile);
       // template = template.replace("HTML_SOURCE", html)
-      template = template.replace("__JSON_SOURCE__", JSON.stringify(data))
+      // template = template.replace("__JSON_SOURCE__", JSON.stringify(data))
       
-      await safeWrite(htmlFile, template);
+      // await safeWrite(htmlFile, template);
       console.log(`Wrote ${htmlFile}`);
     } catch (err) {
       throw Error(err);
