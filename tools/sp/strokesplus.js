@@ -4,6 +4,8 @@ const EXE_PATH = String.raw`"C:\Program Files\StrokesPlus.net\StrokesPlus.net.ex
 
 const sp = async (src) => execa(EXE_PATH, [`--script=${src}`]);
 
+sp.EXE_PATH = EXE_PATH;
+
 sp.eval = s => sp(`eval(${s});`);
 
 sp.readFile = s => sp.eval(`File.ReadAllText(${s})`);

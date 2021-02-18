@@ -1,1 +1,1 @@
-sp.MessageBox("It Works", "test.sp.js");
+sp.MessageBox("It Works", "test.spjs");

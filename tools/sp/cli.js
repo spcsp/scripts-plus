@@ -1,12 +1,10 @@
-#!/usr/bin/env node
-
 const { resolve } = require('path');
 const { match } = require('minta');
 
-const { sp } = require("./strokesplus");
-
-process.exitCode = 0;
+const sp = require("./strokesplus");
 const [,,firstParam] = process.argv;
+
+const fileExtRegex = /\.sp\.?js$/;
 
 function exit(reason) {
   console.error(reason);
@@ -22,7 +20,7 @@ function execFile(filepath) {
 }
 
 match(firstParam) (
-  'reload',    _ => sp("sp.Reload()"),
-  /\.sp\.?js$/, f => execFile(f),
-  otherwise      => exit("This tool is used to run `xxx.sp.js` files through the StrokesPlus Script Engine")
+  'reload',     _ => sp("sp.Reload()"),
+  fileExtRegex, f => execFile(f),
+  otherwise       => exit("+ Strokes Plus CLI +\nThis tool can be used to run script files through the StrokesPlus Script Engine,\nAs well as a few other goodies thrown in.\nTry `cli.cmd reload`")
 );
