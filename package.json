@@ -1,7 +1,10 @@
 {
   "name": "strokesplus-plugin-scriptsplus",
-  "main": "src/index.js",
-  "browser": "Properties/ScriptsPlus.js",
+  "main": "./src/index.js",
+  "browser": "./Properties/ScriptsPlus.js",
+  "bin": {
+    "splus": "./tools/spe.js"
+  },
   "license": "MIT",
   "version": "0.1.0",
   "keywords": [
@@ -28,6 +31,7 @@
     "hello": "node tools/say_hello.js",
     "precompile": "dotnet msbuild -nologo -t:Clean ScriptsPlusPlugin.sln",
     "compile": "dotnet msbuild -nologo -p:Configuration=Release ScriptsPlusPlugin.sln",
+    "docs": "parcel ",
     "dts:dev": "cd ./tools/DtsGenerator && nodemon DtsGenerator.js",
     "dts:make": "cd ./tools/DtsGenerator && node DtsGenerator.js",
     "json:dev": "cd ./tools/JsonGenerator && nodemon JsonGenerator.js",
