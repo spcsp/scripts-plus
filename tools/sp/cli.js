@@ -11,16 +11,15 @@ function exit(reason) {
   process.exitCode = 1;
 }
 
-function execFile(filepath) {
-  if (filepath) {
-    const absPath = resolve(process.cwd(), filepath);
+(async () => {
     
-    return sp.exec(absPath);
-  }
-}
+  match(firstParam) (
+    'reload', _ => sp.reload(),
+    fileExtRegex, f => {
+      const absPath = resolve(process.cwd(), f);
+      return sp.execFile(absPath);
+    },
+    otherwise => exit("+ Strokes Plus CLI +\nThis tool can be used to run script files through the StrokesPlus Script Engine,\nAs well as a few other goodies thrown in.\nTry `cli.cmd reload`")
+  );
 
-match(firstParam) (
-  'reload',     _ => sp("sp.Reload()"),
-  fileExtRegex, f => execFile(f),
-  otherwise       => exit("+ Strokes Plus CLI +\nThis tool can be used to run script files through the StrokesPlus Script Engine,\nAs well as a few other goodies thrown in.\nTry `cli.cmd reload`")
-);
+})();

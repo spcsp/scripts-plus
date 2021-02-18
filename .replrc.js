@@ -6,7 +6,7 @@ const sp = require("./tools/sp/strokesplus");
 module.exports = {  
   context: [
     {
-      name: "sp",
+      name: "$",
       module: "./tools/sp/strokesplus.js"
     },
     {
