@@ -1,3 +1,1 @@
-const sp = require("./sp/strokesplus");
-
-sp.eval(`sp.Reload()`);
+require("./sp/strokesplus").reload();

@@ -2,14 +2,20 @@ const execa = require("execa");
 
 const EXE_PATH = String.raw`"C:\Program Files\StrokesPlus.net\StrokesPlus.net.exe"`;
 
-const sp = async (src) => execa(EXE_PATH, [`--script=${src}`]);
+const spApi = async (src) => execa(EXE_PATH, [`--script=${src}`]);
 
-sp.EXE_PATH = EXE_PATH;
+spApi.EXE_PATH = EXE_PATH;
 
-sp.eval = s => sp(`eval(${s});`);
+spApi.eval = s => spApi(`eval(${s})`);
 
-sp.readFile = s => sp.eval(`File.ReadAllText(${s})`);
+spApi.reload = () => spApi.eval(`sp.Reload()`);
 
-sp.exec = absPath => sp.readFile("String.raw`" + absPath + "`");
+spApi.settings = () => spApi.eval(`sp.OpenSettings()`);
 
-module.exports = sp;
+spApi.evalFile = s => spApi.eval(`File.ReadAllText(${s})`);
+
+spApi.execFile = absPath => {
+  spApi.evalFile("String.raw`" + absPath + "`");
+}
+
+module.exports = spApi;
