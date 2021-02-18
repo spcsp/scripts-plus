@@ -1,3 +1,3 @@
-const app = require("../src/node/StrokesPlusDotnet");
+const sp = require("./sp/strokesplus");
 
-app.runScript(`sp.Reload()`);
+sp.eval(`sp.Reload()`);

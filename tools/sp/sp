@@ -23,6 +23,6 @@ function execFile(filepath) {
 
 match(firstParam) (
   'reload',    _ => sp("sp.Reload()"),
-  /\.sp\.js$/, f => execFile(f),
+  /\.sp\.?js$/, f => execFile(f),
   otherwise      => exit("This tool is used to run `xxx.sp.js` files through the StrokesPlus Script Engine")
 );

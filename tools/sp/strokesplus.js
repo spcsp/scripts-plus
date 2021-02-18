@@ -10,7 +10,4 @@ sp.readFile = s => sp.eval(`File.ReadAllText(${s})`);
 
 sp.exec = absPath => sp.readFile("String.raw`" + absPath + "`");
 
-module.exports = {
-  sp,
-  EXE_PATH
-};
+module.exports = sp;
