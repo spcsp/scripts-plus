@@ -4,26 +4,9 @@
     "ecmaVersion": 12
   },
   "env": {
+    "node": true,
     "es2020": true,
     "commonjs": true
-  },
-  "globals": {
-    "clip": "readonly",
-    "clr": "readonly",
-    "Directory": "readonly",
-    "DisplayTextInfo": "readonly",
-    "File": "readonly",
-    "Font": "readonly",
-    "FontStyle": "readonly",
-    "forms": "readonly",
-    "host": "readonly",
-    "http": "readonly",
-    "MouseButtons": "readonly",
-    "Point": "readonly",
-    "PopupMenuInfoEx": "readonly",
-    "PopupMenuItem": "readonly",
-    "sp": "readonly",
-    "WebBrowser": "readonly"
   },
   "plugins": [
     "prettier"
@@ -38,11 +21,27 @@
   "overrides": [
     {
       "files": [
-        "./tools/**/*.js"
+        "./src/**/*.js",
+        "./**/*.sp.js"
       ],
-      "env": {
-        "node": true
-      }      
+      "globals": {
+        "clip": "readonly",
+        "clr": "readonly",
+        "Directory": "readonly",
+        "DisplayTextInfo": "readonly",
+        "File": "readonly",
+        "Font": "readonly",
+        "FontStyle": "readonly",
+        "forms": "readonly",
+        "host": "readonly",
+        "http": "readonly",
+        "MouseButtons": "readonly",
+        "Point": "readonly",
+        "PopupMenuInfoEx": "readonly",
+        "PopupMenuItem": "readonly",
+        "sp": "readonly",
+        "WebBrowser": "readonly"
+      }
     }
   ]
 }

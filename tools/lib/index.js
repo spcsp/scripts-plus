@@ -1,9 +1,9 @@
 const fs = require("fs");
 const chokidar = require("chokidar");
 
-const raw = s => "String.raw`"+s+"`";
-const readFile = f => fs.promises.readFile(f, "utf8");
- 
+const raw = (s) => "String.raw`" + s + "`";
+const readFile = (f) => fs.promises.readFile(f, "utf8");
+
 async function fileExists(fp) {
   try {
     await fs.promises.stat(fp);
@@ -35,19 +35,19 @@ async function safeWrite(filepath, content) {
   // const tempFile = filepath + "__atomic_write";
 
   // if (await fileExists(filepath)) {
-    // await fs.promises.writeFile(tempFile, content);
+  // await fs.promises.writeFile(tempFile, content);
   // }
 
   await fs.promises.writeFile(filepath, content);
   // await fs.promises.writeFile(tempFile, content);
 
   // try {
-    // await fs.promises.unlink(filepath);
-    // await fs.promises.rename(tempFile, filepath);
+  // await fs.promises.unlink(filepath);
+  // await fs.promises.rename(tempFile, filepath);
   // } catch (err) {
-    //await fs.promises.unlink(tempFile);
+  //await fs.promises.unlink(tempFile);
   // } finally {
-    // await fs.promises.unlink(tempFile);
+  // await fs.promises.unlink(tempFile);
   // }
 }
 

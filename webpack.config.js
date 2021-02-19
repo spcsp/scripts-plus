@@ -1,35 +1,32 @@
-const path = require('path');
-const HookShellScriptPlugin = require('hook-shell-script-webpack-plugin');
+const path = require("path");
 
-const RunNpmTaskPlugin = require('./src/node/RunNpmTaskPlugin');
+const RunNpmTaskPlugin = require("./src/node/RunNpmTaskPlugin");
 
-const fromHere = p => path.resolve(__dirname, p);
+const fromHere = (p) => path.resolve(__dirname, p);
 
 module.exports = {
-  entry: fromHere('src/index.js'),
-  mode: 'development',
+  entry: fromHere("src/index.js"),
+  mode: "development",
   devtool: false,
   node: {
-    __dirname: false
+    __dirname: false,
   },
   watchOptions: {
-    poll: 1000
+    poll: 1000,
   },
   output: {
-    path: fromHere('Properties'),
-    filename: 'ScriptsPlus.js',
-    library: 'ScriptsPlus',
-    libraryTarget: 'var'
+    path: fromHere("Properties"),
+    filename: "ScriptsPlus.js",
+    library: "ScriptsPlus",
+    libraryTarget: "var",
   },
-  plugins: [
-    new RunNpmTaskPlugin({ task: "compile" })
-  ],
+  plugins: [new RunNpmTaskPlugin({ task: "compile" })],
   resolve: {
-    fallback: { 
+    fallback: {
       fs: false,
       path: false,
-      util: false
-    }
+      util: false,
+    },
   },
   module: {
     rules: [
@@ -37,13 +34,12 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
-  }
+          loader: "babel-loader",
+        },
+      },
+    ],
+  },
 };
-
 
 /*
 ,

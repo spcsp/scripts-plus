@@ -22,7 +22,7 @@
     "dev": "webpack --progress --watch",
     "lint": "eslint --ext=.js ./src ./tools",
     "fix": "npm run lint -- --fix",
-    "build": "webpack --progress --production",
+    "build": "webpack --progress",
     "clean": "npm run precompile",
     "reload-sp": "node tools/reload_sp.js",
     "hello": "node tools/say_hello.js",

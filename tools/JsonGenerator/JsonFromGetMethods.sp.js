@@ -1,8 +1,7 @@
 (function (outfile) {
-  const quote = str => `"${str}"`;
   const keyVal = (key, val) => `"${key}":"${val}"`;
-  const trim = str => str.replace(/,$/, "");
-  
+  const trim = (str) => str.replace(/,$/, "");
+
   const spms = sp.GetMethods();
 
   let s = `{\n"methods": [\n`;
@@ -11,11 +10,11 @@
     const methodName = spms[m].Name;
     const returnType = spms[m].ReturnType.Name;
 
-    s += `\t{\n\t` +keyVal("name", methodName)+`\n`;
+    s += `\t{\n\t` + keyVal("name", methodName) + `\n`;
     s += `\t ,"parameters": [\n`;
 
     let comma = "";
-    let pTemp = ""
+    let pTemp = "";
 
     const parameters = spms[m].GetParameters();
     for (var i = 0; i < parameters.Count(); i++) {
@@ -23,19 +22,19 @@
       const paramName = param.Name;
       const paramType = param.ParameterType.ToString().replace(/&$/, "");
 
-      pTemp += comma + `\t\t\t{` + keyVal(paramName, paramType) + `}`;
+      pTemp += comma + `\t\t\t["` + paramName + `","` + paramType + `"]`;
 
       comma = `,\n`;
     }
 
-    s += pTemp+`\n\t\t],\n\t\t`;
-    s += trim(keyVal("returnType", returnType))+`\n`;
+    s += pTemp + `\n\t\t],\n\t\t`;
+    s += trim(keyVal("returnType", returnType)) + `\n`;
 
     s += `\t},`; // Close method def
   }
 
   s = trim(s) + `]`; // Close "methods"
-  
+
   s += `}`; // Close json
 
   File.WriteAllText(outfile, s);

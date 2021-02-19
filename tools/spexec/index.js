@@ -5,7 +5,7 @@ const parseJson = require("parse-json");
 const app = require("../lib/StrokesPlusDotnet");
 const { onCreateOrUpdate, raw, readFile, safeWrite } = require("../lib");
 
-const input = require.resolve("./JsonFromGetMethods.sp");
+const input = require.resolve("./helpWriter.sp");
 const output = path.join(__dirname, "output.json");
 
 (async () => {
@@ -21,6 +21,13 @@ const output = path.join(__dirname, "output.json");
 
       await safeWrite(path, JSON.stringify(data));
       console.log(`Wrote ${path}`);
+
+      // let template = await readFile(templateFile);
+      // template = template.replace("HTML_SOURCE", html)
+      // template = template.replace("__JSON_SOURCE__", JSON.stringify(data))
+
+      // await safeWrite(htmlFile, template);
+      // console.log(`Wrote ${htmlFile}`);
     } catch (err) {
       throw Error(err);
     }

@@ -508,12 +508,12 @@ var config = {
   /**
    * Show production mode tip message on boot?
    */
-  productionTip: undefined !== 'production',
+  productionTip: "development" !== 'production',
 
   /**
    * Whether to enable devtools
    */
-  devtools: undefined !== 'production',
+  devtools: "development" !== 'production',
 
   /**
    * Whether to record perf
@@ -745,7 +745,7 @@ var generateComponentTrace = noop; // work around flow check
 
 var formatComponentName = noop;
 
-if (undefined !== 'production') {
+if ("development" !== 'production') {
   var hasConsole = typeof console !== 'undefined';
   var classifyRE = /(?:^|[-_])(\w)/g;
 
@@ -869,7 +869,7 @@ Dep.prototype.notify = function notify() {
   // stabilize the subscriber list first
   var subs = this.subs.slice();
 
-  if (undefined !== 'production' && !config.async) {
+  if ("development" !== 'production' && !config.async) {
     // subs aren't sorted in scheduler if not running async
     // we need to sort them now to make sure they fire in correct
     // order
@@ -1186,7 +1186,7 @@ function defineReactive$$1(obj, key, val, customSetter, shallow) {
       /* eslint-enable no-self-compare */
 
 
-      if (undefined !== 'production' && customSetter) {
+      if ("development" !== 'production' && customSetter) {
         customSetter();
       } // #7981: for accessor properties without setter
 
@@ -1214,7 +1214,7 @@ function defineReactive$$1(obj, key, val, customSetter, shallow) {
 
 
 function set(target, key, val) {
-  if (undefined !== 'production' && (isUndef(target) || isPrimitive(target))) {
+  if ("development" !== 'production' && (isUndef(target) || isPrimitive(target))) {
     warn("Cannot set reactive property on undefined, null, or primitive value: " + target);
   }
 
@@ -1232,7 +1232,7 @@ function set(target, key, val) {
   var ob = target.__ob__;
 
   if (target._isVue || ob && ob.vmCount) {
-    undefined !== 'production' && warn('Avoid adding reactive properties to a Vue instance or its root $data ' + 'at runtime - declare it upfront in the data option.');
+    "development" !== 'production' && warn('Avoid adding reactive properties to a Vue instance or its root $data ' + 'at runtime - declare it upfront in the data option.');
     return val;
   }
 
@@ -1251,7 +1251,7 @@ function set(target, key, val) {
 
 
 function del(target, key) {
-  if (undefined !== 'production' && (isUndef(target) || isPrimitive(target))) {
+  if ("development" !== 'production' && (isUndef(target) || isPrimitive(target))) {
     warn("Cannot delete reactive property on undefined, null, or primitive value: " + target);
   }
 
@@ -1263,7 +1263,7 @@ function del(target, key) {
   var ob = target.__ob__;
 
   if (target._isVue || ob && ob.vmCount) {
-    undefined !== 'production' && warn('Avoid deleting properties on a Vue instance or its root $data ' + '- just set it to null.');
+    "development" !== 'production' && warn('Avoid deleting properties on a Vue instance or its root $data ' + '- just set it to null.');
     return;
   }
 
@@ -1309,7 +1309,7 @@ var strats = config.optionMergeStrategies;
  * Options with restrictions
  */
 
-if (undefined !== 'production') {
+if ("development" !== 'production') {
   strats.el = strats.propsData = function (parent, child, vm, key) {
     if (!vm) {
       warn("option \"" + key + "\" can only be used during instance " + 'creation with the `new` keyword.');
@@ -1392,7 +1392,7 @@ function mergeDataOrFn(parentVal, childVal, vm) {
 strats.data = function (parentVal, childVal, vm) {
   if (!vm) {
     if (childVal && typeof childVal !== 'function') {
-      undefined !== 'production' && warn('The "data" option should be a function ' + 'that returns a per-instance value in component ' + 'definitions.', vm);
+      "development" !== 'production' && warn('The "data" option should be a function ' + 'that returns a per-instance value in component ' + 'definitions.', vm);
       return parentVal;
     }
 
@@ -1438,7 +1438,7 @@ function mergeAssets(parentVal, childVal, vm, key) {
   var res = Object.create(parentVal || null);
 
   if (childVal) {
-    undefined !== 'production' && assertObjectType(key, childVal, vm);
+    "development" !== 'production' && assertObjectType(key, childVal, vm);
     return extend(res, childVal);
   } else {
     return res;
@@ -1471,7 +1471,7 @@ strats.watch = function (parentVal, childVal, vm, key) {
     return Object.create(parentVal || null);
   }
 
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     assertObjectType(key, childVal, vm);
   }
 
@@ -1501,7 +1501,7 @@ strats.watch = function (parentVal, childVal, vm, key) {
 
 
 strats.props = strats.methods = strats.inject = strats.computed = function (parentVal, childVal, vm, key) {
-  if (childVal && undefined !== 'production') {
+  if (childVal && "development" !== 'production') {
     assertObjectType(key, childVal, vm);
   }
 
@@ -1574,7 +1574,7 @@ function normalizeProps(options, vm) {
         res[name] = {
           type: null
         };
-      } else if (undefined !== 'production') {
+      } else if ("development" !== 'production') {
         warn('props must be strings when using array syntax.');
       }
     }
@@ -1586,7 +1586,7 @@ function normalizeProps(options, vm) {
         type: val
       };
     }
-  } else if (undefined !== 'production') {
+  } else if ("development" !== 'production') {
     warn("Invalid value for option \"props\": expected an Array or an Object, " + "but got " + toRawType(props) + ".", vm);
   }
 
@@ -1621,7 +1621,7 @@ function normalizeInject(options, vm) {
         from: val
       };
     }
-  } else if (undefined !== 'production') {
+  } else if ("development" !== 'production') {
     warn("Invalid value for option \"inject\": expected an Array or an Object, " + "but got " + toRawType(inject) + ".", vm);
   }
 }
@@ -1659,7 +1659,7 @@ function assertObjectType(name, value, vm) {
 
 
 function mergeOptions(parent, child, vm) {
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     checkComponents(child);
   }
 
@@ -1740,7 +1740,7 @@ function resolveAsset(options, type, id, warnMissing) {
 
   var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
 
-  if (undefined !== 'production' && warnMissing && !res) {
+  if ("development" !== 'production' && warnMissing && !res) {
     warn('Failed to resolve ' + type.slice(0, -1) + ': ' + id, options);
   }
 
@@ -1781,7 +1781,7 @@ function validateProp(key, propOptions, propsData, vm) {
     toggleObserving(prevShouldObserve);
   }
 
-  if (undefined !== 'production' && // skip validation for weex recycle-list child component props
+  if ("development" !== 'production' && // skip validation for weex recycle-list child component props
   !false) {
     assertProp(prop, key, value, vm, absent);
   }
@@ -1801,7 +1801,7 @@ function getPropDefaultValue(vm, prop, key) {
 
   var def = prop.default; // warn against non-factory defaults for Object & Array
 
-  if (undefined !== 'production' && isObject(def)) {
+  if ("development" !== 'production' && isObject(def)) {
     warn('Invalid default value for prop "' + key + '": ' + 'Props with type Object/Array must use a factory function ' + 'to return the default value.', vm);
   } // the raw prop value was also undefined from previous render,
   // return previous default value to avoid unnecessary watcher trigger
@@ -2038,7 +2038,7 @@ function globalHandleError(err, vm, info) {
 }
 
 function logError(err, vm, info) {
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     warn("Error in " + info + ": \"" + err.toString() + "\"", vm);
   }
   /* istanbul ignore else */
@@ -2169,7 +2169,7 @@ function nextTick(cb, ctx) {
 
 var initProxy;
 
-if (undefined !== 'production') {
+if ("development" !== 'production') {
   var allowedGlobals = makeMap('Infinity,undefined,NaN,isFinite,isNaN,' + 'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' + 'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' + 'require' // for Webpack/Browserify
   );
 
@@ -2292,7 +2292,7 @@ function _traverse(val, seen) {
 var mark;
 var measure;
 
-if (undefined !== 'production') {
+if ("development" !== 'production') {
   var perf = inBrowser && window.performance;
   /* istanbul ignore if */
 
@@ -2357,7 +2357,7 @@ function updateListeners(on, oldOn, add, remove$$1, createOnceHandler, vm) {
     event = normalizeEvent(name);
 
     if (isUndef(cur)) {
-      undefined !== 'production' && warn("Invalid handler for event \"" + event.name + "\": got " + String(cur), vm);
+      "development" !== 'production' && warn("Invalid handler for event \"" + event.name + "\": got " + String(cur), vm);
     } else if (isUndef(old)) {
       if (isUndef(cur.fns)) {
         cur = on[name] = createFnInvoker(cur, vm);
@@ -2438,7 +2438,7 @@ function extractPropsFromVNodeData(data, Ctor, tag) {
     for (var key in propOptions) {
       var altKey = hyphenate(key);
 
-      if (undefined !== 'production') {
+      if ("development" !== 'production') {
         var keyInLowerCase = key.toLowerCase();
 
         if (key !== keyInLowerCase && attrs && hasOwn(attrs, keyInLowerCase)) {
@@ -2582,7 +2582,7 @@ function initInjections(vm) {
     toggleObserving(false);
     Object.keys(result).forEach(function (key) {
       /* istanbul ignore else */
-      if (undefined !== 'production') {
+      if ("development" !== 'production') {
         defineReactive$$1(vm, key, result[key], function () {
           warn("Avoid mutating an injected value directly since the changes will be " + "overwritten whenever the provided component re-renders. " + "injection being mutated: \"" + key + "\"", vm);
         });
@@ -2623,7 +2623,7 @@ function resolveInject(inject, vm) {
         if ('default' in inject[key]) {
           var provideDefault = inject[key].default;
           result[key] = typeof provideDefault === 'function' ? provideDefault.call(vm) : provideDefault;
-        } else if (undefined !== 'production') {
+        } else if ("development" !== 'production') {
           warn("Injection \"" + key + "\" not found", vm);
         }
       }
@@ -2824,7 +2824,7 @@ function renderSlot(name, fallback, props, bindObject) {
     props = props || {};
 
     if (bindObject) {
-      if (undefined !== 'production' && !isObject(bindObject)) {
+      if ("development" !== 'production' && !isObject(bindObject)) {
         warn('slot v-bind without argument expects an Object', this);
       }
 
@@ -2894,7 +2894,7 @@ function checkKeyCodes(eventKeyCode, key, builtInKeyCode, eventKeyName, builtInK
 function bindObjectProps(data, tag, value, asProp, isSync) {
   if (value) {
     if (!isObject(value)) {
-      undefined !== 'production' && warn('v-bind without argument expects an Object or Array value', this);
+      "development" !== 'production' && warn('v-bind without argument expects an Object or Array value', this);
     } else {
       if (Array.isArray(value)) {
         value = toObject(value);
@@ -2988,7 +2988,7 @@ function markStaticNode(node, key, isOnce) {
 function bindObjectListeners(data, value) {
   if (value) {
     if (!isPlainObject(value)) {
-      undefined !== 'production' && warn('v-on without argument expects an Object value', this);
+      "development" !== 'production' && warn('v-on without argument expects an Object value', this);
     } else {
       var on = data.on = data.on ? extend({}, data.on) : {};
 
@@ -3042,7 +3042,7 @@ function bindDynamicKeys(baseObj, values) {
 
     if (typeof key === 'string' && key) {
       baseObj[values[i]] = values[i + 1];
-    } else if (undefined !== 'production' && key !== '' && key !== null) {
+    } else if ("development" !== 'production' && key !== '' && key !== null) {
       // null is a special value for explicitly removing a binding
       warn("Invalid value for dynamic directive argument (expected string or null): " + key, this);
     }
@@ -3198,7 +3198,7 @@ function cloneAndMarkFunctionalResult(vnode, data, contextVm, options, renderCon
   clone.fnContext = contextVm;
   clone.fnOptions = options;
 
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     (clone.devtoolsMeta = clone.devtoolsMeta || {}).renderContext = renderContext;
   }
 
@@ -3299,7 +3299,7 @@ function createComponent(Ctor, data, context, children, tag) {
 
 
   if (typeof Ctor !== 'function') {
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       warn("Invalid Component definition: " + String(Ctor), context);
     }
 
@@ -3455,7 +3455,7 @@ function createElement(context, tag, data, children, normalizationType, alwaysNo
 
 function _createElement(context, tag, data, children, normalizationType) {
   if (isDef(data) && isDef(data.__ob__)) {
-    undefined !== 'production' && warn("Avoid using observed data object as vnode data: " + JSON.stringify(data) + "\n" + 'Always create fresh vnode data objects in each render!', context);
+    "development" !== 'production' && warn("Avoid using observed data object as vnode data: " + JSON.stringify(data) + "\n" + 'Always create fresh vnode data objects in each render!', context);
     return createEmptyVNode();
   } // object syntax in v-bind
 
@@ -3470,7 +3470,7 @@ function _createElement(context, tag, data, children, normalizationType) {
   } // warn against non-primitive key
 
 
-  if (undefined !== 'production' && isDef(data) && isDef(data.key) && !isPrimitive(data.key)) {
+  if ("development" !== 'production' && isDef(data) && isDef(data.key) && !isPrimitive(data.key)) {
     {
       warn('Avoid using non-primitive value as key, ' + 'use string/number value instead.', context);
     }
@@ -3499,7 +3499,7 @@ function _createElement(context, tag, data, children, normalizationType) {
 
     if (config.isReservedTag(tag)) {
       // platform built-in elements
-      if (undefined !== 'production' && isDef(data) && isDef(data.nativeOn)) {
+      if ("development" !== 'production' && isDef(data) && isDef(data.nativeOn)) {
         warn("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">.", context);
       }
 
@@ -3600,7 +3600,7 @@ function initRender(vm) {
   var parentData = parentVnode && parentVnode.data;
   /* istanbul ignore else */
 
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
       !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
     }, true);
@@ -3651,7 +3651,7 @@ function renderMixin(Vue) {
 
       /* istanbul ignore else */
 
-      if (undefined !== 'production' && vm.$options.renderError) {
+      if ("development" !== 'production' && vm.$options.renderError) {
         try {
           vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
         } catch (e) {
@@ -3672,7 +3672,7 @@ function renderMixin(Vue) {
 
 
     if (!(vnode instanceof VNode)) {
-      if (undefined !== 'production' && Array.isArray(vnode)) {
+      if ("development" !== 'production' && Array.isArray(vnode)) {
         warn('Multiple root nodes returned from render function. Render function ' + 'should return a single root node.', vm);
       }
 
@@ -3768,7 +3768,7 @@ function resolveAsyncComponent(factory, baseCtor) {
       }
     });
     var reject = once(function (reason) {
-      undefined !== 'production' && warn("Failed to resolve async component: " + String(factory) + (reason ? "\nReason: " + reason : ''));
+      "development" !== 'production' && warn("Failed to resolve async component: " + String(factory) + (reason ? "\nReason: " + reason : ''));
 
       if (isDef(factory.errorComp)) {
         factory.error = true;
@@ -3812,7 +3812,7 @@ function resolveAsyncComponent(factory, baseCtor) {
             timerTimeout = null;
 
             if (isUndef(factory.resolved)) {
-              reject(undefined !== 'production' ? "timeout (" + res.timeout + "ms)" : null);
+              reject("development" !== 'production' ? "timeout (" + res.timeout + "ms)" : null);
             }
           }, res.timeout);
         }
@@ -3970,7 +3970,7 @@ function eventsMixin(Vue) {
   Vue.prototype.$emit = function (event) {
     var vm = this;
 
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       var lowerCaseEvent = event.toLowerCase();
 
       if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
@@ -4137,7 +4137,7 @@ function mountComponent(vm, el, hydrating) {
   if (!vm.$options.render) {
     vm.$options.render = createEmptyVNode;
 
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       /* istanbul ignore if */
       if (vm.$options.template && vm.$options.template.charAt(0) !== '#' || vm.$options.el || el) {
         warn('You are using the runtime-only build of Vue where the template ' + 'compiler is not available. Either pre-compile the templates into ' + 'render functions, or use the compiler-included build.', vm);
@@ -4151,7 +4151,7 @@ function mountComponent(vm, el, hydrating) {
   var updateComponent;
   /* istanbul ignore if */
 
-  if (undefined !== 'production' && config.performance && mark) {
+  if ("development" !== 'production' && config.performance && mark) {
     updateComponent = function () {
       var name = vm._name;
       var id = vm._uid;
@@ -4200,7 +4200,7 @@ function mountComponent(vm, el, hydrating) {
 }
 
 function updateChildComponent(vm, propsData, listeners, parentVnode, renderChildren) {
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     isUpdatingChildComponent = true;
   } // determine whether component has slot children
   // we need to do this before overwriting $options._renderChildren.
@@ -4261,7 +4261,7 @@ function updateChildComponent(vm, propsData, listeners, parentVnode, renderChild
     vm.$forceUpdate();
   }
 
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     isUpdatingChildComponent = false;
   }
 }
@@ -4355,7 +4355,7 @@ function resetSchedulerState() {
   index = queue.length = activatedChildren.length = 0;
   has = {};
 
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     circular = {};
   }
 
@@ -4422,7 +4422,7 @@ function flushSchedulerQueue() {
     has[id] = null;
     watcher.run(); // in dev build, check and stop circular updates.
 
-    if (undefined !== 'production' && has[id] != null) {
+    if ("development" !== 'production' && has[id] != null) {
       circular[id] = (circular[id] || 0) + 1;
 
       if (circular[id] > MAX_UPDATE_COUNT) {
@@ -4511,7 +4511,7 @@ function queueWatcher(watcher) {
     if (!waiting) {
       waiting = true;
 
-      if (undefined !== 'production' && !config.async) {
+      if ("development" !== 'production' && !config.async) {
         flushSchedulerQueue();
         return;
       }
@@ -4560,7 +4560,7 @@ var Watcher = function Watcher(vm, expOrFn, cb, options, isRenderWatcher) {
   this.newDeps = [];
   this.depIds = new _Set();
   this.newDepIds = new _Set();
-  this.expression = undefined !== 'production' ? expOrFn.toString() : ''; // parse expression for getter
+  this.expression = "development" !== 'production' ? expOrFn.toString() : ''; // parse expression for getter
 
   if (typeof expOrFn === 'function') {
     this.getter = expOrFn;
@@ -4569,7 +4569,7 @@ var Watcher = function Watcher(vm, expOrFn, cb, options, isRenderWatcher) {
 
     if (!this.getter) {
       this.getter = noop;
-      undefined !== 'production' && warn("Failed watching path: \"" + expOrFn + "\" " + 'Watcher only accepts simple dot-delimited paths. ' + 'For full control, use a function instead.', vm);
+      "development" !== 'production' && warn("Failed watching path: \"" + expOrFn + "\" " + 'Watcher only accepts simple dot-delimited paths. ' + 'For full control, use a function instead.', vm);
     }
   }
 
@@ -4807,7 +4807,7 @@ function initProps(vm, propsOptions) {
     var value = validateProp(key, propsOptions, propsData, vm);
     /* istanbul ignore else */
 
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       var hyphenatedKey = hyphenate(key);
 
       if (isReservedAttribute(hyphenatedKey) || config.isReservedAttr(hyphenatedKey)) {
@@ -4842,7 +4842,7 @@ function initData(vm) {
 
   if (!isPlainObject(data)) {
     data = {};
-    undefined !== 'production' && warn('data functions should return an object:\n' + 'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function', vm);
+    "development" !== 'production' && warn('data functions should return an object:\n' + 'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function', vm);
   } // proxy data on instance
 
 
@@ -4854,14 +4854,14 @@ function initData(vm) {
   while (i--) {
     var key = keys[i];
 
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       if (methods && hasOwn(methods, key)) {
         warn("Method \"" + key + "\" has already been defined as a data property.", vm);
       }
     }
 
     if (props && hasOwn(props, key)) {
-      undefined !== 'production' && warn("The data property \"" + key + "\" is already declared as a prop. " + "Use prop default value instead.", vm);
+      "development" !== 'production' && warn("The data property \"" + key + "\" is already declared as a prop. " + "Use prop default value instead.", vm);
     } else if (!isReserved(key)) {
       proxy(vm, "_data", key);
     }
@@ -4901,7 +4901,7 @@ function initComputed(vm, computed) {
     var userDef = computed[key];
     var getter = typeof userDef === 'function' ? userDef : userDef.get;
 
-    if (undefined !== 'production' && getter == null) {
+    if ("development" !== 'production' && getter == null) {
       warn("Getter is missing for computed property \"" + key + "\".", vm);
     }
 
@@ -4915,7 +4915,7 @@ function initComputed(vm, computed) {
 
     if (!(key in vm)) {
       defineComputed(vm, key, userDef);
-    } else if (undefined !== 'production') {
+    } else if ("development" !== 'production') {
       if (key in vm.$data) {
         warn("The computed property \"" + key + "\" is already defined in data.", vm);
       } else if (vm.$options.props && key in vm.$options.props) {
@@ -4936,7 +4936,7 @@ function defineComputed(target, key, userDef) {
     sharedPropertyDefinition.set = userDef.set || noop;
   }
 
-  if (undefined !== 'production' && sharedPropertyDefinition.set === noop) {
+  if ("development" !== 'production' && sharedPropertyDefinition.set === noop) {
     sharedPropertyDefinition.set = function () {
       warn("Computed property \"" + key + "\" was assigned to but it has no setter.", this);
     };
@@ -4973,7 +4973,7 @@ function initMethods(vm, methods) {
   var props = vm.$options.props;
 
   for (var key in methods) {
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       if (typeof methods[key] !== 'function') {
         warn("Method \"" + key + "\" has type \"" + typeof methods[key] + "\" in the component definition. " + "Did you reference the function correctly?", vm);
       }
@@ -5034,7 +5034,7 @@ function stateMixin(Vue) {
     return this._props;
   };
 
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     dataDef.set = function () {
       warn('Avoid replacing instance root $data. ' + 'Use nested data properties instead.', this);
     };
@@ -5086,7 +5086,7 @@ function initMixin(Vue) {
     var startTag, endTag;
     /* istanbul ignore if */
 
-    if (undefined !== 'production' && config.performance && mark) {
+    if ("development" !== 'production' && config.performance && mark) {
       startTag = "vue-perf-start:" + vm._uid;
       endTag = "vue-perf-end:" + vm._uid;
       mark(startTag);
@@ -5106,7 +5106,7 @@ function initMixin(Vue) {
     /* istanbul ignore else */
 
 
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       initProxy(vm);
     } else {
       vm._renderProxy = vm;
@@ -5126,7 +5126,7 @@ function initMixin(Vue) {
     callHook(vm, 'created');
     /* istanbul ignore if */
 
-    if (undefined !== 'production' && config.performance && mark) {
+    if ("development" !== 'production' && config.performance && mark) {
       vm._name = formatComponentName(vm, false);
       mark(endTag);
       measure("vue " + vm._name + " init", startTag, endTag);
@@ -5204,7 +5204,7 @@ function resolveModifiedOptions(Ctor) {
 }
 
 function Vue(options) {
-  if (undefined !== 'production' && !(this instanceof Vue)) {
+  if ("development" !== 'production' && !(this instanceof Vue)) {
     warn('Vue is a constructor and should be called with the `new` keyword');
   }
 
@@ -5276,7 +5276,7 @@ function initExtend(Vue) {
 
     var name = extendOptions.name || Super.options.name;
 
-    if (undefined !== 'production' && name) {
+    if ("development" !== 'production' && name) {
       validateComponentName(name);
     }
 
@@ -5354,7 +5354,7 @@ function initAssetRegisters(Vue) {
         return this.options[type + 's'][id];
       } else {
         /* istanbul ignore if */
-        if (undefined !== 'production' && type === 'component') {
+        if ("development" !== 'production' && type === 'component') {
           validateComponentName(id);
         }
 
@@ -5515,7 +5515,7 @@ function initGlobalAPI(Vue) {
     return config;
   };
 
-  if (undefined !== 'production') {
+  if ("development" !== 'production') {
     configDef.set = function () {
       warn('Do not replace the Vue.config object, set individual fields instead.');
     };
@@ -5768,7 +5768,7 @@ function query(el) {
     var selected = document.querySelector(el);
 
     if (!selected) {
-      undefined !== 'production' && warn('Cannot find element: ' + el);
+      "development" !== 'production' && warn('Cannot find element: ' + el);
       return document.createElement('div');
     }
 
@@ -6014,7 +6014,7 @@ function createPatchFunction(backend) {
     var tag = vnode.tag;
 
     if (isDef(tag)) {
-      if (undefined !== 'production') {
+      if ("development" !== 'production') {
         if (data && data.pre) {
           creatingElmInVPre++;
         }
@@ -6038,7 +6038,7 @@ function createPatchFunction(backend) {
         insert(parentElm, vnode.elm, refElm);
       }
 
-      if (undefined !== 'production' && data && data.pre) {
+      if ("development" !== 'production' && data && data.pre) {
         creatingElmInVPre--;
       }
     } else if (isTrue(vnode.isComment)) {
@@ -6139,7 +6139,7 @@ function createPatchFunction(backend) {
 
   function createChildren(vnode, children, insertedVnodeQueue) {
     if (Array.isArray(children)) {
-      if (undefined !== 'production') {
+      if ("development" !== 'production') {
         checkDuplicateKeys(children);
       }
 
@@ -6294,7 +6294,7 @@ function createPatchFunction(backend) {
 
     var canMove = !removeOnly;
 
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       checkDuplicateKeys(newCh);
     }
 
@@ -6442,7 +6442,7 @@ function createPatchFunction(backend) {
           updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly);
         }
       } else if (isDef(ch)) {
-        if (undefined !== 'production') {
+        if ("development" !== 'production') {
           checkDuplicateKeys(ch);
         }
 
@@ -6500,7 +6500,7 @@ function createPatchFunction(backend) {
     } // assert node match
 
 
-    if (undefined !== 'production') {
+    if ("development" !== 'production') {
       if (!assertNodeMatch(elm, vnode, inVPre)) {
         return false;
       }
@@ -6530,7 +6530,7 @@ function createPatchFunction(backend) {
           if (isDef(i = data) && isDef(i = i.domProps) && isDef(i = i.innerHTML)) {
             if (i !== elm.innerHTML) {
               /* istanbul ignore if */
-              if (undefined !== 'production' && typeof console !== 'undefined' && !hydrationBailed) {
+              if ("development" !== 'production' && typeof console !== 'undefined' && !hydrationBailed) {
                 hydrationBailed = true;
                 console.warn('Parent: ', elm);
                 console.warn('server innerHTML: ', i);
@@ -6557,7 +6557,7 @@ function createPatchFunction(backend) {
 
             if (!childrenMatch || childNode) {
               /* istanbul ignore if */
-              if (undefined !== 'production' && typeof console !== 'undefined' && !hydrationBailed) {
+              if ("development" !== 'production' && typeof console !== 'undefined' && !hydrationBailed) {
                 hydrationBailed = true;
                 console.warn('Parent: ', elm);
                 console.warn('Mismatching childNodes vs. VNodes: ', elm.childNodes, children);
@@ -6636,7 +6636,7 @@ function createPatchFunction(backend) {
             if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
               invokeInsertHook(vnode, insertedVnodeQueue, true);
               return oldVnode;
-            } else if (undefined !== 'production') {
+            } else if ("development" !== 'production') {
               warn('The client-side rendered virtual DOM tree is not matching ' + 'server-rendered content. This is likely caused by incorrect ' + 'HTML markup, for example nesting block-level elements inside ' + '<p>, or missing <tbody>. Bailing hydration and performing ' + 'full client-side render.');
             }
           } // either not server-rendered, or hydration failed.
@@ -7681,7 +7681,7 @@ function enter(vnode, toggleDisplay) {
   var enterCancelledHook = isAppear ? appearCancelled || enterCancelled : enterCancelled;
   var explicitEnterDuration = toNumber(isObject(duration) ? duration.enter : duration);
 
-  if (undefined !== 'production' && explicitEnterDuration != null) {
+  if ("development" !== 'production' && explicitEnterDuration != null) {
     checkDuration(explicitEnterDuration, 'enter', vnode);
   }
 
@@ -7789,7 +7789,7 @@ function leave(vnode, rm) {
   var userWantsControl = getHookArgumentsLength(leave);
   var explicitLeaveDuration = toNumber(isObject(duration) ? duration.leave : duration);
 
-  if (undefined !== 'production' && isDef(explicitLeaveDuration)) {
+  if ("development" !== 'production' && isDef(explicitLeaveDuration)) {
     checkDuration(explicitLeaveDuration, 'leave', vnode);
   }
 
@@ -8020,7 +8020,7 @@ function actuallySetSelected(el, binding, vm) {
   var isMultiple = el.multiple;
 
   if (isMultiple && !Array.isArray(value)) {
-    undefined !== 'production' && warn("<select multiple v-model=\"" + binding.expression + "\"> " + "expects an Array value for its binding, but got " + Object.prototype.toString.call(value).slice(8, -1), vm);
+    "development" !== 'production' && warn("<select multiple v-model=\"" + binding.expression + "\"> " + "expects an Array value for its binding, but got " + Object.prototype.toString.call(value).slice(8, -1), vm);
     return;
   }
 
@@ -8241,13 +8241,13 @@ var Transition = {
     } // warn multiple elements
 
 
-    if (undefined !== 'production' && children.length > 1) {
+    if ("development" !== 'production' && children.length > 1) {
       warn('<transition> can only be used on a single element. Use ' + '<transition-group> for lists.', this.$parent);
     }
 
     var mode = this.mode; // warn invalid mode
 
-    if (undefined !== 'production' && mode && mode !== 'in-out' && mode !== 'out-in') {
+    if ("development" !== 'production' && mode && mode !== 'in-out' && mode !== 'out-in') {
       warn('invalid <transition> mode: ' + mode, this.$parent);
     }
 
@@ -8362,7 +8362,7 @@ var TransitionGroup = {
           children.push(c);
           map[c.key] = c;
           (c.data || (c.data = {})).transition = transitionData;
-        } else if (undefined !== 'production') {
+        } else if ("development" !== 'production') {
           var opts = c.componentOptions;
           var name = opts ? opts.Ctor.options.name || opts.tag || '' : c.tag;
           warn("<transition-group> children must be keyed: <" + name + ">");
@@ -8527,12 +8527,12 @@ if (inBrowser) {
     if (config.devtools) {
       if (devtools) {
         devtools.emit('init', Vue);
-      } else if (undefined !== 'production' && undefined !== 'test') {
+      } else if ("development" !== 'production' && "development" !== 'test') {
         console[console.info ? 'info' : 'log']('Download the Vue Devtools extension for a better development experience:\n' + 'https://github.com/vuejs/vue-devtools');
       }
     }
 
-    if (undefined !== 'production' && undefined !== 'test' && config.productionTip !== false && typeof console !== 'undefined') {
+    if ("development" !== 'production' && "development" !== 'test' && config.productionTip !== false && typeof console !== 'undefined') {
       console[console.info ? 'info' : 'log']("You are running Vue in development mode.\n" + "Make sure to turn on production mode when deploying for production.\n" + "See more tips at https://vuejs.org/guide/deployment.html");
     }
   }, 0);
@@ -53337,11 +53337,7 @@ module.exports = reloadCSS;
 module.exports = {
   "methods": [{
     "name": "Add",
-    "parameters": [{
-      "number1": "System.Decimal"
-    }, {
-      "number2": "System.Decimal"
-    }],
+    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
     "returnType": "Decimal"
   }, {
     "name": "AllApplications",
@@ -53353,11 +53349,7 @@ module.exports = {
     "returnType": "SystemWindow[]"
   }, {
     "name": "AppendText",
-    "parameters": [{
-      "sourceText": "System.String"
-    }, {
-      "addText": "System.String"
-    }],
+    "parameters": [["sourceText", "System.String"], ["addText", "System.String"]],
     "returnType": "String"
   }, {
     "name": "Break",
@@ -53365,23 +53357,15 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "BreakIf",
-    "parameters": [{
-      "value1": "System.Object"
-    }, {
-      "value2": "System.Object"
-    }],
+    "parameters": [["value1", "System.Object"], ["value2", "System.Object"]],
     "returnType": "Boolean"
   }, {
     "name": "BreakIfExpression",
-    "parameters": [{
-      "expression": "System.String"
-    }],
+    "parameters": [["expression", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "ChangeCulture",
-    "parameters": [{
-      "cultureName": "System.String"
-    }],
+    "parameters": [["cultureName", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "ClearStack",
@@ -53389,69 +53373,39 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "CloseHandle",
-    "parameters": [{
-      "handle": "System.IntPtr"
-    }],
+    "parameters": [["handle", "System.IntPtr"]],
     "returnType": "Boolean"
   }, {
     "name": "CloseSettings",
-    "parameters": [{
-      "savePendingChanges": "System.Boolean"
-    }],
+    "parameters": [["savePendingChanges", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "CloseWindow",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Void"
   }, {
     "name": "ConsumePhysicalInput",
-    "parameters": [{
-      "active": "System.Boolean"
-    }],
+    "parameters": [["active", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "ContainsRegex",
-    "parameters": [{
-      "sourceText": "System.String"
-    }, {
-      "regularExpression": "System.String"
-    }],
+    "parameters": [["sourceText", "System.String"], ["regularExpression", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "ContainsText",
-    "parameters": [{
-      "sourceText": "System.String"
-    }, {
-      "searchText": "System.String"
-    }],
+    "parameters": [["sourceText", "System.String"], ["searchText", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "ConvertToType",
-    "parameters": [{
-      "value": "System.Object"
-    }, {
-      "newType": "System.String"
-    }],
+    "parameters": [["value", "System.Object"], ["newType", "System.String"]],
     "returnType": "Object"
   }, {
     "name": "CreateTimer",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "startdelay": "System.Int32"
-    }, {
-      "interval": "System.Int32"
-    }, {
-      "script": "System.String"
-    }],
+    "parameters": [["name", "System.String"], ["startdelay", "System.Int32"], ["interval", "System.Int32"], ["script", "System.String"]],
     "returnType": "Timer"
   }, {
     "name": "Delay",
-    "parameters": [{
-      "milliseconds": "System.Int32"
-    }],
+    "parameters": [["milliseconds", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "DeleteAllTimers",
@@ -53459,57 +53413,39 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "DeleteStoredBool",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteStoredHandle",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteStoredHistoryScript",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteStoredNumber",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteStoredObject",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteStoredPoint",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteStoredRectangle",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteStoredString",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DeleteTimer",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DesktopWindow",
@@ -53537,35 +53473,15 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "DisplayImage",
-    "parameters": [{
-      "image": "System.Drawing.Image"
-    }, {
-      "allowScrollZooming": "System.Boolean"
-    }],
+    "parameters": [["image", "System.Drawing.Image"], ["allowScrollZooming", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "DisplayText",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }, {
-      "title": "System.String"
-    }, {
-      "message": "System.String"
-    }, {
-      "millisecondsToShow": "System.Int32"
-    }, {
-      "backgroundColor": "System.String"
-    }, {
-      "textColor": "System.String"
-    }, {
-      "opacity": "System.String"
-    }],
+    "parameters": [["point", "System.Drawing.Point"], ["title", "System.String"], ["message", "System.String"], ["millisecondsToShow", "System.Int32"], ["backgroundColor", "System.String"], ["textColor", "System.String"], ["opacity", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "DisplayText",
-    "parameters": [{
-      "info": "StrokesPlus.net.Engine.DisplayTextInfo"
-    }],
+    "parameters": [["info", "StrokesPlus.net.Engine.DisplayTextInfo"]],
     "returnType": "Void"
   }, {
     "name": "DisplayTextClose",
@@ -53573,17 +53489,11 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "DisplayTextUpdate",
-    "parameters": [{
-      "info": "StrokesPlus.net.Engine.DisplayTextInfo"
-    }],
+    "parameters": [["info", "StrokesPlus.net.Engine.DisplayTextInfo"]],
     "returnType": "Void"
   }, {
     "name": "Divide",
-    "parameters": [{
-      "number1": "System.Decimal"
-    }, {
-      "number2": "System.Decimal"
-    }],
+    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
     "returnType": "Decimal"
   }, {
     "name": "Else",
@@ -53591,17 +53501,11 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "ElseIf",
-    "parameters": [{
-      "value1": "System.Object"
-    }, {
-      "value2": "System.Object"
-    }],
+    "parameters": [["value1", "System.Object"], ["value2", "System.Object"]],
     "returnType": "Boolean"
   }, {
     "name": "ElseIfExpression",
-    "parameters": [{
-      "expression": "System.String"
-    }],
+    "parameters": [["expression", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "EmptyRecycleBins",
@@ -53629,45 +53533,23 @@ module.exports = {
     "returnType": "List`1"
   }, {
     "name": "Evaluate",
-    "parameters": [{
-      "expression": "System.String"
-    }, {
-      "stack": "System.Collections.Generic.Stack`1[System.Object]"
-    }],
+    "parameters": [["expression", "System.String"], ["stack", "System.Collections.Generic.Stack`1[System.Object]"]],
     "returnType": "Double"
   }, {
     "name": "EvaluateAsBoolean",
-    "parameters": [{
-      "expression": "System.String"
-    }, {
-      "stack": "System.Collections.Generic.Stack`1[System.Object]"
-    }],
+    "parameters": [["expression", "System.String"], ["stack", "System.Collections.Generic.Stack`1[System.Object]"]],
     "returnType": "Boolean"
   }, {
     "name": "ExecutePreviousScript",
-    "parameters": [{
-      "index": "System.Int32"
-    }],
+    "parameters": [["index", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "ExecuteSteps",
-    "parameters": [{
-      "actionVars": "StrokesPlus.net.Hooks.HookState+ActionVars"
-    }, {
-      "wheelTick": "StrokesPlus.net.Code.WinAPIFunctions+WheelTick"
-    }, {
-      "click": "StrokesPlus.net.Code.WinAPIFunctions+Click"
-    }, {
-      "floater": "StrokesPlus.net.Hooks.HookState+FloaterVars"
-    }, {
-      "steps": "System.Collections.Generic.IEnumerable`1[StrokesPlus.net.Code.ActionStep]"
-    }],
+    "parameters": [["actionVars", "StrokesPlus.net.Hooks.HookState+ActionVars"], ["wheelTick", "StrokesPlus.net.Code.WinAPIFunctions+WheelTick"], ["click", "StrokesPlus.net.Code.WinAPIFunctions+Click"], ["floater", "StrokesPlus.net.Hooks.HookState+FloaterVars"], ["steps", "System.Collections.Generic.IEnumerable`1[StrokesPlus.net.Code.ActionStep]"]],
     "returnType": "Void"
   }, {
     "name": "ExecuteStoredScript",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "Exit",
@@ -53675,27 +53557,15 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "ExpandEnvironmentVariables",
-    "parameters": [{
-      "stringToExpand": "System.String"
-    }],
+    "parameters": [["stringToExpand", "System.String"]],
     "returnType": "String"
   }, {
     "name": "ExplorerGetCurrentPath",
-    "parameters": [{
-      "explorerWindow": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["explorerWindow", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "String"
   }, {
     "name": "ExplorerGetItems",
-    "parameters": [{
-      "explorerWindow": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "onlyNames": "System.Boolean"
-    }, {
-      "includeFolders": "System.Boolean"
-    }, {
-      "includeLinks": "System.Boolean"
-    }],
+    "parameters": [["explorerWindow", "ManagedWinapi.Windows.SystemWindow"], ["onlyNames", "System.Boolean"], ["includeFolders", "System.Boolean"], ["includeLinks", "System.Boolean"]],
     "returnType": "String[]"
   }, {
     "name": "ExplorerGetSelectedDesktopFiles",
@@ -53703,29 +53573,15 @@ module.exports = {
     "returnType": "String[]"
   }, {
     "name": "ExplorerGetSelectedFiles",
-    "parameters": [{
-      "explorerWindow": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["explorerWindow", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "String[]"
   }, {
     "name": "FindWindow",
-    "parameters": [{
-      "lpszClass": "System.String"
-    }, {
-      "lpszWindow": "System.String"
-    }],
+    "parameters": [["lpszClass", "System.String"], ["lpszWindow", "System.String"]],
     "returnType": "IntPtr"
   }, {
     "name": "FindWindowEx",
-    "parameters": [{
-      "hwndParent": "System.IntPtr"
-    }, {
-      "hwndChildAfter": "System.IntPtr"
-    }, {
-      "lpszClass": "System.String"
-    }, {
-      "lpszWindow": "System.String"
-    }],
+    "parameters": [["hwndParent", "System.IntPtr"], ["hwndChildAfter", "System.IntPtr"], ["lpszClass", "System.String"], ["lpszWindow", "System.String"]],
     "returnType": "IntPtr"
   }, {
     "name": "ForegroundWindow",
@@ -53753,9 +53609,7 @@ module.exports = {
     "returnType": "PopupMenuInfoEx"
   }, {
     "name": "GetActiveExplorerPath",
-    "parameters": [{
-      "hWnd": "System.IntPtr"
-    }],
+    "parameters": [["hWnd", "System.IntPtr"]],
     "returnType": "String"
   }, {
     "name": "GetAllScreens",
@@ -53763,29 +53617,19 @@ module.exports = {
     "returnType": "Screen[]"
   }, {
     "name": "GetArrayItemByIndex",
-    "parameters": [{
-      "array": "System.Object[]"
-    }, {
-      "index": "System.Int32"
-    }],
+    "parameters": [["array", "System.Object[]"], ["index", "System.Int32"]],
     "returnType": "Object"
   }, {
     "name": "GetArrayItemCount",
-    "parameters": [{
-      "array": "System.Object[]"
-    }],
+    "parameters": [["array", "System.Object[]"]],
     "returnType": "Int32"
   }, {
     "name": "GetBlueValueFromColor",
-    "parameters": [{
-      "color": "System.Drawing.Color"
-    }],
+    "parameters": [["color", "System.Drawing.Color"]],
     "returnType": "Int32"
   }, {
     "name": "GetBoolean",
-    "parameters": [{
-      "value": "System.Boolean"
-    }],
+    "parameters": [["value", "System.Boolean"]],
     "returnType": "Boolean"
   }, {
     "name": "GetCaptureMixer",
@@ -53797,19 +53641,11 @@ module.exports = {
     "returnType": "String"
   }, {
     "name": "GetColorFromHex",
-    "parameters": [{
-      "hexColor": "System.String"
-    }],
+    "parameters": [["hexColor", "System.String"]],
     "returnType": "Color"
   }, {
     "name": "GetColorFromRGB",
-    "parameters": [{
-      "red": "System.String"
-    }, {
-      "green": "System.String"
-    }, {
-      "blue": "System.String"
-    }],
+    "parameters": [["red", "System.String"], ["green", "System.String"], ["blue", "System.String"]],
     "returnType": "Color"
   }, {
     "name": "GetCommunicationsCaptureMixer",
@@ -53825,17 +53661,11 @@ module.exports = {
     "returnType": "Int32"
   }, {
     "name": "GetControlFromPoint",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["point", "System.Drawing.Point"]],
     "returnType": "SystemWindow"
   }, {
     "name": "GetControlFromPointXY",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
     "returnType": "SystemWindow"
   }, {
     "name": "GetCurrentCulture",
@@ -53851,71 +53681,47 @@ module.exports = {
     "returnType": "Point"
   }, {
     "name": "GetExeType",
-    "parameters": [{
-      "file": "System.String"
-    }],
+    "parameters": [["file", "System.String"]],
     "returnType": "ShellFileType"
   }, {
     "name": "GetFileProductVersionInfo",
-    "parameters": [{
-      "filePath": "System.String"
-    }],
+    "parameters": [["filePath", "System.String"]],
     "returnType": "String"
   }, {
     "name": "GetFileVersionInfo",
-    "parameters": [{
-      "filePath": "System.String"
-    }],
+    "parameters": [["filePath", "System.String"]],
     "returnType": "String"
   }, {
     "name": "GetFirstMoveableParentFromPoint",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["point", "System.Drawing.Point"]],
     "returnType": "SystemWindow"
   }, {
     "name": "GetFirstMoveableParentFromPointXY",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
     "returnType": "SystemWindow"
   }, {
     "name": "GetFullPathFromWindows",
-    "parameters": [{
-      "exeName": "System.String"
-    }],
+    "parameters": [["exeName", "System.String"]],
     "returnType": "String"
   }, {
     "name": "GetGreenValueFromColor",
-    "parameters": [{
-      "color": "System.Drawing.Color"
-    }],
+    "parameters": [["color", "System.Drawing.Color"]],
     "returnType": "Int32"
   }, {
+    "name": "GetHelpJson",
+    "parameters": [],
+    "returnType": "String"
+  }, {
     "name": "GetHistoryScript",
-    "parameters": [{
-      "index": "System.Int32"
-    }],
+    "parameters": [["index", "System.Int32"]],
     "returnType": "HistoryScript"
   }, {
     "name": "GetItemsInExplorer",
-    "parameters": [{
-      "hWnd": "System.IntPtr"
-    }, {
-      "onlyNames": "System.Boolean"
-    }, {
-      "includeFolders": "System.Boolean"
-    }, {
-      "includeLinks": "System.Boolean"
-    }],
+    "parameters": [["hWnd", "System.IntPtr"], ["onlyNames", "System.Boolean"], ["includeFolders", "System.Boolean"], ["includeLinks", "System.Boolean"]],
     "returnType": "String[]"
   }, {
     "name": "GetKeyState",
-    "parameters": [{
-      "vk": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["vk", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Int16"
   }, {
     "name": "GetLastError",
@@ -53923,17 +53729,11 @@ module.exports = {
     "returnType": "UInt32"
   }, {
     "name": "GetMacroScript",
-    "parameters": [{
-      "category": "System.String"
-    }, {
-      "name": "System.String"
-    }],
+    "parameters": [["category", "System.String"], ["name", "System.String"]],
     "returnType": "String"
   }, {
     "name": "GetMethod",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "MethodInfo"
   }, {
     "name": "GetMethods",
@@ -53941,9 +53741,7 @@ module.exports = {
     "returnType": "MethodInfo[]"
   }, {
     "name": "GetNumber",
-    "parameters": [{
-      "value": "System.Int32"
-    }],
+    "parameters": [["value", "System.Int32"]],
     "returnType": "Int32"
   }, {
     "name": "GetNumberOfItemsOnStack",
@@ -53951,17 +53749,11 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "GetObjectPropertyByName",
-    "parameters": [{
-      "sourceObject": "System.Object"
-    }, {
-      "propertyName": "System.String"
-    }],
+    "parameters": [["sourceObject", "System.Object"], ["propertyName", "System.String"]],
     "returnType": "Object"
   }, {
     "name": "GetPixelColorFromPoint",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["point", "System.Drawing.Point"]],
     "returnType": "Color"
   }, {
     "name": "GetPlaybackMixer",
@@ -53973,83 +53765,43 @@ module.exports = {
     "returnType": "Int32"
   }, {
     "name": "GetPoint",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
     "returnType": "Point"
   }, {
     "name": "GetRectangle",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }, {
-      "width": "System.Int32"
-    }, {
-      "height": "System.Int32"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"], ["width", "System.Int32"], ["height", "System.Int32"]],
     "returnType": "Rectangle"
   }, {
     "name": "GetRedValueFromColor",
-    "parameters": [{
-      "color": "System.Drawing.Color"
-    }],
+    "parameters": [["color", "System.Drawing.Color"]],
     "returnType": "Int32"
   }, {
     "name": "GetRegionFromPoint",
-    "parameters": [{
-      "rectangle": "System.Drawing.Rectangle"
-    }, {
-      "point": "System.Drawing.Point"
-    }, {
-      "columns": "System.Int32"
-    }, {
-      "rows": "System.Int32"
-    }],
+    "parameters": [["rectangle", "System.Drawing.Rectangle"], ["point", "System.Drawing.Point"], ["columns", "System.Int32"], ["rows", "System.Int32"]],
     "returnType": "RectRegion"
   }, {
     "name": "GetRegions",
-    "parameters": [{
-      "rect": "System.Drawing.Rectangle"
-    }, {
-      "columns": "System.Int32"
-    }, {
-      "rows": "System.Int32"
-    }],
+    "parameters": [["rect", "System.Drawing.Rectangle"], ["columns", "System.Int32"], ["rows", "System.Int32"]],
     "returnType": "RectRegion[]"
   }, {
     "name": "GetScreenFromHandle",
-    "parameters": [{
-      "handle": "System.IntPtr"
-    }],
+    "parameters": [["handle", "System.IntPtr"]],
     "returnType": "Screen"
   }, {
     "name": "GetScreenFromPoint",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["point", "System.Drawing.Point"]],
     "returnType": "Screen"
   }, {
     "name": "GetScreenFromPointXY",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
     "returnType": "Screen"
   }, {
     "name": "GetScreenFromRectangle",
-    "parameters": [{
-      "rectangle": "System.Drawing.Rectangle"
-    }],
+    "parameters": [["rectangle", "System.Drawing.Rectangle"]],
     "returnType": "Screen"
   }, {
     "name": "GetSelectedFilesInExplorer",
-    "parameters": [{
-      "hWnd": "System.IntPtr"
-    }],
+    "parameters": [["hWnd", "System.IntPtr"]],
     "returnType": "String[]"
   }, {
     "name": "GetSelectedFilesOnDesktop",
@@ -54057,69 +53809,47 @@ module.exports = {
     "returnType": "String[]"
   }, {
     "name": "GetStoredBool",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "GetStoredHandle",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "IntPtr"
   }, {
     "name": "GetStoredHistoryScript",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "HistoryScript"
   }, {
     "name": "GetStoredNumber",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Int64"
   }, {
     "name": "GetStoredObject",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Object"
   }, {
     "name": "GetStoredPoint",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Point"
   }, {
     "name": "GetStoredRectangle",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Rectangle"
   }, {
     "name": "GetStoredString",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "String"
   }, {
     "name": "GetString",
-    "parameters": [{
-      "value": "System.String"
-    }],
+    "parameters": [["value", "System.String"]],
     "returnType": "String"
   }, {
     "name": "GetSyncKeyState",
-    "parameters": [{
-      "vk": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["vk", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Int16"
   }, {
     "name": "GetSystemMetricsByIndex",
-    "parameters": [{
-      "index": "System.Int32"
-    }],
+    "parameters": [["index", "System.Int32"]],
     "returnType": "Int32"
   }, {
     "name": "GetTemporaryMacroScript",
@@ -54127,109 +53857,71 @@ module.exports = {
     "returnType": "String"
   }, {
     "name": "GetTextLength",
-    "parameters": [{
-      "sourceText": "System.String"
-    }],
+    "parameters": [["sourceText", "System.String"]],
     "returnType": "Int32"
   }, {
     "name": "GetTimer",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "Timer"
   }, {
     "name": "GetTimerScript",
-    "parameters": [{
-      "name": "System.String"
-    }],
+    "parameters": [["name", "System.String"]],
     "returnType": "String"
   }, {
     "name": "GetTopLevelWindowFromPoint",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["point", "System.Drawing.Point"]],
     "returnType": "SystemWindow"
   }, {
     "name": "GetTopLevelWindowFromPointXY",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
     "returnType": "SystemWindow"
   }, {
     "name": "GetWindowClassName",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "String"
   }, {
     "name": "GetWindowHeight",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Int32"
   }, {
     "name": "GetWindowLocation",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Point"
   }, {
     "name": "GetWindowLocationX",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Int32"
   }, {
     "name": "GetWindowLocationY",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Int32"
   }, {
     "name": "GetWindowMainModuleFileName",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "String"
   }, {
     "name": "GetWindowMainModuleFilePath",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "String"
   }, {
     "name": "GetWindowRectangle",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Rectangle"
   }, {
     "name": "GetWindowRectangleFull",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Rectangle"
   }, {
     "name": "GetWindowText",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "String"
   }, {
     "name": "GetWindowThreadProcessId",
-    "parameters": [{
-      "hWnd": "System.IntPtr"
-    }, {
-      "dwProcessId": "System.UInt32"
-    }],
+    "parameters": [["hWnd", "System.IntPtr"], ["dwProcessId", "System.UInt32"]],
     "returnType": "UInt32"
   }, {
     "name": "GetWindowWidth",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Int32"
   }, {
     "name": "HideMouseCursor",
@@ -54237,111 +53929,55 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "HTMLWindow",
-    "parameters": [{
-      "Title": "System.String"
-    }, {
-      "HTML": "System.String"
-    }, {
-      "ScriptCallback": "System.String"
-    }, {
-      "OnDocumentCreatedScript": "System.String"
-    }, {
-      "ID": "System.String"
-    }, {
-      "IncludeBootstrapJQuery": "System.Boolean"
-    }],
+    "parameters": [["Title", "System.String"], ["HTML", "System.String"], ["ScriptCallback", "System.String"], ["OnDocumentCreatedScript", "System.String"], ["ID", "System.String"], ["IncludeBootstrapJQuery", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "HTMLWindowExecuteScriptAsync",
-    "parameters": [{
-      "Handle": "System.Object"
-    }, {
-      "Script": "System.String"
-    }],
+    "parameters": [["Handle", "System.Object"], ["Script", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "If",
-    "parameters": [{
-      "value1": "System.Object"
-    }, {
-      "value2": "System.Object"
-    }],
+    "parameters": [["value1", "System.Object"], ["value2", "System.Object"]],
     "returnType": "Boolean"
   }, {
     "name": "IfExpression",
-    "parameters": [{
-      "expression": "System.String"
-    }],
+    "parameters": [["expression", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "InputBox",
-    "parameters": [{
-      "title": "System.String"
-    }, {
-      "message": "System.String"
-    }, {
-      "itemList": "System.String"
-    }, {
-      "sortItems": "System.Boolean"
-    }, {
-      "selectedItem": "System.String"
-    }, {
-      "allowDirectInput": "System.Boolean"
-    }],
+    "parameters": [["title", "System.String"], ["message", "System.String"], ["itemList", "System.String"], ["sortItems", "System.Boolean"], ["selectedItem", "System.String"], ["allowDirectInput", "System.Boolean"]],
     "returnType": "String"
   }, {
     "name": "InputBox",
-    "parameters": [{
-      "info": "StrokesPlus.net.Engine.InputBoxInfo"
-    }],
+    "parameters": [["info", "StrokesPlus.net.Engine.InputBoxInfo"]],
     "returnType": "String"
   }, {
     "name": "InvokeObjectMethodByName",
-    "parameters": [{
-      "sourceObject": "System.Object"
-    }, {
-      "methodName": "System.String"
-    }, {
-      "objMethodParameters": "System.Object[]"
-    }],
+    "parameters": [["sourceObject", "System.Object"], ["methodName", "System.String"], ["objMethodParameters", "System.Object[]"]],
     "returnType": "Object"
   }, {
     "name": "InvokeScriptMethod",
-    "parameters": [{
-      "parameters": "System.Object[]"
-    }, {
-      "name": "System.String"
-    }],
+    "parameters": [["parameters", "System.Object[]"], ["name", "System.String"]],
     "returnType": "Object"
   }, {
     "name": "IsAppCommandKey",
-    "parameters": [{
-      "virtualKey": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Boolean"
   }, {
     "name": "IsKeyToggled",
-    "parameters": [{
-      "vk": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["vk", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Boolean"
   }, {
     "name": "IsWindowAlwaysOnTop",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Boolean"
   }, {
     "name": "IsWindowMaximized",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Boolean"
   }, {
     "name": "IsWindowMinimized",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Boolean"
   }, {
     "name": "LastActiveWindow",
@@ -54361,103 +53997,43 @@ module.exports = {
     "returnType": "Boolean"
   }, {
     "name": "Loop",
-    "parameters": [{
-      "numberOfLoops": "System.Int32"
-    }, {
-      "actionVars": "StrokesPlus.net.Hooks.HookState+ActionVars"
-    }, {
-      "wheelTick": "StrokesPlus.net.Code.WinAPIFunctions+WheelTick"
-    }, {
-      "click": "StrokesPlus.net.Code.WinAPIFunctions+Click"
-    }, {
-      "floater": "StrokesPlus.net.Hooks.HookState+FloaterVars"
-    }, {
-      "steps": "System.Collections.Generic.List`1[StrokesPlus.net.Code.ActionStep]"
-    }, {
-      "stack": "System.Collections.Generic.Stack`1[System.Object]"
-    }, {
-      "success": "System.Boolean"
-    }, {
-      "stopIssued": "System.Boolean"
-    }],
+    "parameters": [["numberOfLoops", "System.Int32"], ["actionVars", "StrokesPlus.net.Hooks.HookState+ActionVars"], ["wheelTick", "StrokesPlus.net.Code.WinAPIFunctions+WheelTick"], ["click", "StrokesPlus.net.Code.WinAPIFunctions+Click"], ["floater", "StrokesPlus.net.Hooks.HookState+FloaterVars"], ["steps", "System.Collections.Generic.List`1[StrokesPlus.net.Code.ActionStep]"], ["stack", "System.Collections.Generic.Stack`1[System.Object]"], ["success", "System.Boolean"], ["stopIssued", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "MaximizeOrRestoreWindow",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Void"
   }, {
     "name": "MaximizeWindow",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Void"
   }, {
     "name": "MessageBox",
-    "parameters": [{
-      "message": "System.Object"
-    }, {
-      "title": "System.Object"
-    }],
+    "parameters": [["message", "System.Object"], ["title", "System.Object"]],
     "returnType": "Void"
   }, {
     "name": "MinimizeWindow",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Void"
   }, {
     "name": "MouseClick",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }, {
-      "button": "System.String"
-    }, {
-      "down": "System.Boolean"
-    }, {
-      "up": "System.Boolean"
-    }],
+    "parameters": [["point", "System.Drawing.Point"], ["button", "System.String"], ["down", "System.Boolean"], ["up", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "MouseClick",
-    "parameters": [{
-      "pt": "System.Drawing.Point"
-    }, {
-      "btn": "System.Windows.Forms.MouseButtons"
-    }, {
-      "down": "System.Boolean"
-    }, {
-      "up": "System.Boolean"
-    }],
+    "parameters": [["pt", "System.Drawing.Point"], ["btn", "System.Windows.Forms.MouseButtons"], ["down", "System.Boolean"], ["up", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "MouseClickXY",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }, {
-      "button": "System.String"
-    }, {
-      "down": "System.Boolean"
-    }, {
-      "up": "System.Boolean"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"], ["button", "System.String"], ["down", "System.Boolean"], ["up", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "MouseMove",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["point", "System.Drawing.Point"]],
     "returnType": "Void"
   }, {
     "name": "MouseMoveXY",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "MouseRestrictActive",
@@ -54469,81 +54045,43 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "MouseRestrictToRectangle",
-    "parameters": [{
-      "rectangle": "System.Drawing.Rectangle"
-    }],
+    "parameters": [["rectangle", "System.Drawing.Rectangle"]],
     "returnType": "Void"
   }, {
     "name": "MouseWheel",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }, {
-      "horizontal": "System.Boolean"
-    }, {
-      "delta": "System.Object"
-    }],
+    "parameters": [["point", "System.Drawing.Point"], ["horizontal", "System.Boolean"], ["delta", "System.Object"]],
     "returnType": "Void"
   }, {
     "name": "MouseWheelXY",
-    "parameters": [{
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }, {
-      "horizontal": "System.Boolean"
-    }, {
-      "delta": "System.Object"
-    }],
+    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"], ["horizontal", "System.Boolean"], ["delta", "System.Object"]],
     "returnType": "Void"
   }, {
     "name": "MoveWindowToNextScreen",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Screen"
   }, {
     "name": "MoveWindowToPreviousScreen",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Screen"
   }, {
     "name": "MoveWindowToScreen",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "screenNumber": "System.Object"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["screenNumber", "System.Object"]],
     "returnType": "Screen"
   }, {
     "name": "Multiply",
-    "parameters": [{
-      "number1": "System.Decimal"
-    }, {
-      "number2": "System.Decimal"
-    }],
+    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
     "returnType": "Decimal"
   }, {
     "name": "NativeDelegate",
-    "parameters": [{
-      "functionName": "System.String"
-    }, {
-      "parameterTypes": "System.Object"
-    }, {
-      "returnType": "System.Type"
-    }],
+    "parameters": [["functionName", "System.String"], ["parameterTypes", "System.Object"], ["returnType", "System.Type"]],
     "returnType": "IntPtr"
   }, {
     "name": "NativeDelegateList",
-    "parameters": [{
-      "delegateList": "System.Object"
-    }],
+    "parameters": [["delegateList", "System.Object"]],
     "returnType": "List`1"
   }, {
     "name": "NativeModule",
-    "parameters": [{
-      "moduleName": "System.String"
-    }],
+    "parameters": [["moduleName", "System.String"]],
     "returnType": "ModuleBuilder"
   }, {
     "name": "NextApplication",
@@ -54551,13 +54089,7 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "OpenProcess",
-    "parameters": [{
-      "dwDesiredAccess": "System.UInt32"
-    }, {
-      "bInheritHandle": "System.Boolean"
-    }, {
-      "dwProcessId": "System.UInt32"
-    }],
+    "parameters": [["dwDesiredAccess", "System.UInt32"], ["bInheritHandle", "System.Boolean"], ["dwProcessId", "System.UInt32"]],
     "returnType": "IntPtr"
   }, {
     "name": "OpenSettings",
@@ -54565,27 +54097,19 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "OpenURL",
-    "parameters": [{
-      "url": "System.String"
-    }],
+    "parameters": [["url", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "Pause",
-    "parameters": [{
-      "seconds": "System.Int32"
-    }],
+    "parameters": [["seconds", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "PlaySavedMacro",
-    "parameters": [{
-      "macroName": "System.String"
-    }],
+    "parameters": [["macroName", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "PlaySound",
-    "parameters": [{
-      "filePath": "System.String"
-    }],
+    "parameters": [["filePath", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "PlayTemporaryMacro",
@@ -54593,17 +54117,7 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "ReadProcessMemory",
-    "parameters": [{
-      "hProcess": "System.IntPtr"
-    }, {
-      "lpBaseAddress": "System.IntPtr"
-    }, {
-      "lpBuffer": "System.IntPtr"
-    }, {
-      "nSize": "System.Int32"
-    }, {
-      "vNumberOfBytesRead": "System.UInt32"
-    }],
+    "parameters": [["hProcess", "System.IntPtr"], ["lpBaseAddress", "System.IntPtr"], ["lpBuffer", "System.IntPtr"], ["nSize", "System.Int32"], ["vNumberOfBytesRead", "System.UInt32"]],
     "returnType": "Boolean"
   }, {
     "name": "RecordTemporaryMacro",
@@ -54615,85 +54129,31 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "RegistryDelete",
-    "parameters": [{
-      "baseKey": "Microsoft.Win32.RegistryKey"
-    }, {
-      "subKey": "System.String"
-    }, {
-      "keyName": "System.String"
-    }, {
-      "showErrors": "System.Boolean"
-    }],
+    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
     "returnType": "Boolean"
   }, {
     "name": "RegistryDeleteSubKey",
-    "parameters": [{
-      "baseKey": "Microsoft.Win32.RegistryKey"
-    }, {
-      "subKey": "System.String"
-    }, {
-      "showErrors": "System.Boolean"
-    }],
+    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["showErrors", "System.Boolean"]],
     "returnType": "Boolean"
   }, {
     "name": "RegistryReadMultiString",
-    "parameters": [{
-      "baseKey": "Microsoft.Win32.RegistryKey"
-    }, {
-      "subKey": "System.String"
-    }, {
-      "keyName": "System.String"
-    }, {
-      "showErrors": "System.Boolean"
-    }],
+    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
     "returnType": "String[]"
   }, {
     "name": "RegistryReadNumber",
-    "parameters": [{
-      "baseKey": "Microsoft.Win32.RegistryKey"
-    }, {
-      "subKey": "System.String"
-    }, {
-      "keyName": "System.String"
-    }, {
-      "showErrors": "System.Boolean"
-    }],
+    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
     "returnType": "Int32"
   }, {
     "name": "RegistryReadString",
-    "parameters": [{
-      "baseKey": "Microsoft.Win32.RegistryKey"
-    }, {
-      "subKey": "System.String"
-    }, {
-      "keyName": "System.String"
-    }, {
-      "showErrors": "System.Boolean"
-    }],
+    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
     "returnType": "String"
   }, {
     "name": "RegistryWrite",
-    "parameters": [{
-      "baseKey": "Microsoft.Win32.RegistryKey"
-    }, {
-      "keyName": "System.String"
-    }, {
-      "keyValue": "System.String"
-    }, {
-      "value": "System.Object"
-    }, {
-      "kind": "System.String"
-    }, {
-      "showErrors": "System.Boolean"
-    }],
+    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["keyName", "System.String"], ["keyValue", "System.String"], ["value", "System.Object"], ["kind", "System.String"], ["showErrors", "System.Boolean"]],
     "returnType": "Boolean"
   }, {
     "name": "RelayGesture",
-    "parameters": [{
-      "points": "System.Drawing.Point[]"
-    }, {
-      "button": "System.Windows.Forms.MouseButtons"
-    }],
+    "parameters": [["points", "System.Drawing.Point[]"], ["button", "System.Windows.Forms.MouseButtons"]],
     "returnType": "Void"
   }, {
     "name": "Reload",
@@ -54705,61 +54165,31 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "RemoveItemsFromStack",
-    "parameters": [{
-      "numberOfItems": "System.Int32"
-    }],
+    "parameters": [["numberOfItems", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "ReplaceText",
-    "parameters": [{
-      "sourceText": "System.String"
-    }, {
-      "oldText": "System.String"
-    }, {
-      "newText": "System.String"
-    }],
+    "parameters": [["sourceText", "System.String"], ["oldText", "System.String"], ["newText", "System.String"]],
     "returnType": "String"
   }, {
     "name": "RestoreWindow",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Void"
   }, {
     "name": "Run",
-    "parameters": [{
-      "command": "System.String"
-    }],
+    "parameters": [["command", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "RunOrActivate",
-    "parameters": [{
-      "exeName": "System.String"
-    }],
+    "parameters": [["exeName", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "RunProgram",
-    "parameters": [{
-      "fileName": "System.String"
-    }, {
-      "arguments": "System.String"
-    }, {
-      "verb": "System.String"
-    }, {
-      "windowStyle": "System.String"
-    }, {
-      "useShellExecute": "System.Boolean"
-    }, {
-      "noWindow": "System.Boolean"
-    }, {
-      "waitForExit": "System.Boolean"
-    }],
+    "parameters": [["fileName", "System.String"], ["arguments", "System.String"], ["verb", "System.String"], ["windowStyle", "System.String"], ["useShellExecute", "System.Boolean"], ["noWindow", "System.Boolean"], ["waitForExit", "System.Boolean"]],
     "returnType": "Int32"
   }, {
     "name": "RunStoreApp",
-    "parameters": [{
-      "packageName": "System.String"
-    }],
+    "parameters": [["packageName", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SendAltDown",
@@ -54771,15 +54201,11 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "SendAppCommand",
-    "parameters": [{
-      "virtualKey": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Boolean"
   }, {
     "name": "SendCharacter",
-    "parameters": [{
-      "ch": "System.String"
-    }],
+    "parameters": [["ch", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SendControlDown",
@@ -54791,47 +54217,27 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "SendHotKey",
-    "parameters": [{
-      "hotkey": "StrokesPlus.net.Engine.ActionFunctions+StepHotkey"
-    }],
+    "parameters": [["hotkey", "StrokesPlus.net.Engine.ActionFunctions+StepHotkey"]],
     "returnType": "Void"
   }, {
     "name": "SendKeyDown",
-    "parameters": [{
-      "ch": "System.String"
-    }],
+    "parameters": [["ch", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SendKeys",
-    "parameters": [{
-      "sendKeysString": "System.String"
-    }],
+    "parameters": [["sendKeysString", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SendKeyUp",
-    "parameters": [{
-      "ch": "System.String"
-    }],
+    "parameters": [["ch", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SendMessage",
-    "parameters": [{
-      "hWnd": "System.IntPtr"
-    }, {
-      "Msg": "System.UInt32"
-    }, {
-      "wParam": "System.Int32"
-    }, {
-      "lParam": "System.Int32"
-    }],
+    "parameters": [["hWnd", "System.IntPtr"], ["Msg", "System.UInt32"], ["wParam", "System.Int32"], ["lParam", "System.Int32"]],
     "returnType": "Int32"
   }, {
     "name": "SendModifiedVKeys",
-    "parameters": [{
-      "Modifiers": "System.Object"
-    }, {
-      "Keys": "System.Object"
-    }],
+    "parameters": [["Modifiers", "System.Object"], ["Keys", "System.Object"]],
     "returnType": "Void"
   }, {
     "name": "SendShiftDown",
@@ -54843,33 +54249,23 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "SendString",
-    "parameters": [{
-      "characters": "System.String"
-    }],
+    "parameters": [["characters", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SendUnicodeString",
-    "parameters": [{
-      "str": "System.String"
-    }],
+    "parameters": [["str", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SendVKey",
-    "parameters": [{
-      "virtualKey": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Void"
   }, {
     "name": "SendVKeyDown",
-    "parameters": [{
-      "virtualKey": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Void"
   }, {
     "name": "SendVKeyUp",
-    "parameters": [{
-      "virtualKey": "WindowsInput.Native.VirtualKeyCode"
-    }],
+    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
     "returnType": "Void"
   }, {
     "name": "SendWinDown",
@@ -54881,153 +54277,79 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "set_KeyboardCaptureEnabled",
-    "parameters": [{
-      "value": "System.Boolean"
-    }],
+    "parameters": [["value", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "set_ManualCaptureOnly",
-    "parameters": [{
-      "value": "System.Boolean"
-    }],
+    "parameters": [["value", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "set_MouseCaptureEnabled",
-    "parameters": [{
-      "value": "System.Boolean"
-    }],
+    "parameters": [["value", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "set_PopupMenuInfo",
-    "parameters": [{
-      "value": "StrokesPlus.net.Engine.PopupMenuInfo"
-    }],
+    "parameters": [["value", "StrokesPlus.net.Engine.PopupMenuInfo"]],
     "returnType": "Void"
   }, {
     "name": "set_PopupMenuInfoEx",
-    "parameters": [{
-      "value": "StrokesPlus.net.Engine.PopupMenuInfoEx"
-    }],
+    "parameters": [["value", "StrokesPlus.net.Engine.PopupMenuInfoEx"]],
     "returnType": "Void"
   }, {
     "name": "SetClipboardText",
-    "parameters": [{
-      "text": "System.String"
-    }],
+    "parameters": [["text", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SetCommunicationsVolume",
-    "parameters": [{
-      "newVolumeLevel": "System.Int32"
-    }],
+    "parameters": [["newVolumeLevel", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "SetForegroundWindow",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Void"
   }, {
     "name": "SetMouseCursor",
-    "parameters": [{
-      "cursorType": "System.String"
-    }, {
-      "fileName": "System.String"
-    }],
+    "parameters": [["cursorType", "System.String"], ["fileName", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "SetObjectPropertyByName",
-    "parameters": [{
-      "sourceObject": "System.Object"
-    }, {
-      "propertyName": "System.String"
-    }, {
-      "value": "System.Object"
-    }],
+    "parameters": [["sourceObject", "System.Object"], ["propertyName", "System.String"], ["value", "System.Object"]],
     "returnType": "Void"
   }, {
     "name": "SetPlaybackVolume",
-    "parameters": [{
-      "newVolumeLevel": "System.Int32"
-    }],
+    "parameters": [["newVolumeLevel", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "SetWindowAlwaysOnTop",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "newValue": "System.Boolean"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["newValue", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "SetWindowHeight",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "height": "System.Int32"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["height", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "SetWindowLocation",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["point", "System.Drawing.Point"]],
     "returnType": "Void"
   }, {
     "name": "SetWindowLocationXY",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "X": "System.Int32"
-    }, {
-      "Y": "System.Int32"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["X", "System.Int32"], ["Y", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "SetWindowSize",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "width": "System.Int32"
-    }, {
-      "height": "System.Int32"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["width", "System.Int32"], ["height", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "SetWindowWidth",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }, {
-      "width": "System.Int32"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["width", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "SHGetFileInfo",
-    "parameters": [{
-      "pszPath": "System.String"
-    }, {
-      "dwFileAttributes": "System.UInt32"
-    }, {
-      "psfi": "StrokesPlus.net.Engine.ActionFunctions+SHFILEINFO"
-    }, {
-      "cbSizeFileInfo": "System.UInt32"
-    }, {
-      "uFlags": "System.UInt32"
-    }],
+    "parameters": [["pszPath", "System.String"], ["dwFileAttributes", "System.UInt32"], ["psfi", "StrokesPlus.net.Engine.ActionFunctions+SHFILEINFO"], ["cbSizeFileInfo", "System.UInt32"], ["uFlags", "System.UInt32"]],
     "returnType": "IntPtr"
   }, {
     "name": "ShowBalloonTip",
-    "parameters": [{
-      "title": "System.String"
-    }, {
-      "text": "System.String"
-    }, {
-      "icon": "System.String"
-    }, {
-      "timeout": "System.Object"
-    }],
+    "parameters": [["title", "System.String"], ["text", "System.String"], ["icon", "System.String"], ["timeout", "System.Object"]],
     "returnType": "Void"
   }, {
     "name": "ShowMouseCursor",
@@ -55035,27 +54357,19 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "ShowPopupMenu",
-    "parameters": [{
-      "info": "StrokesPlus.net.Engine.PopupMenuInfo"
-    }],
+    "parameters": [["info", "StrokesPlus.net.Engine.PopupMenuInfo"]],
     "returnType": "Void"
   }, {
     "name": "ShowPopupMenuEx",
-    "parameters": [{
-      "info": "StrokesPlus.net.Engine.PopupMenuInfoEx"
-    }],
+    "parameters": [["info", "StrokesPlus.net.Engine.PopupMenuInfoEx"]],
     "returnType": "Void"
   }, {
     "name": "Sleep",
-    "parameters": [{
-      "milliseconds": "System.Int32"
-    }],
+    "parameters": [["milliseconds", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "StartManualCapture",
-    "parameters": [{
-      "useSecondaryStrokeButton": "System.Boolean"
-    }],
+    "parameters": [["useSecondaryStrokeButton", "System.Boolean"]],
     "returnType": "Boolean"
   }, {
     "name": "Stop",
@@ -55075,75 +54389,39 @@ module.exports = {
     "returnType": "Boolean"
   }, {
     "name": "StoreBool",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "System.Boolean"
-    }],
+    "parameters": [["name", "System.String"], ["value", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "StoreHandle",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "System.IntPtr"
-    }],
+    "parameters": [["name", "System.String"], ["value", "System.IntPtr"]],
     "returnType": "Void"
   }, {
     "name": "StoreHistoryScript",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "StrokesPlus.net.Engine.HistoryScript"
-    }],
+    "parameters": [["name", "System.String"], ["value", "StrokesPlus.net.Engine.HistoryScript"]],
     "returnType": "Void"
   }, {
     "name": "StoreNumber",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "System.Int64"
-    }],
+    "parameters": [["name", "System.String"], ["value", "System.Int64"]],
     "returnType": "Void"
   }, {
     "name": "StoreObject",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "System.Object"
-    }],
+    "parameters": [["name", "System.String"], ["value", "System.Object"]],
     "returnType": "Void"
   }, {
     "name": "StorePoint",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "System.Drawing.Point"
-    }],
+    "parameters": [["name", "System.String"], ["value", "System.Drawing.Point"]],
     "returnType": "Void"
   }, {
     "name": "StoreRectangle",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "System.Drawing.Rectangle"
-    }],
+    "parameters": [["name", "System.String"], ["value", "System.Drawing.Rectangle"]],
     "returnType": "Void"
   }, {
     "name": "StoreString",
-    "parameters": [{
-      "name": "System.String"
-    }, {
-      "value": "System.String"
-    }],
+    "parameters": [["name", "System.String"], ["value", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "Subtract",
-    "parameters": [{
-      "number1": "System.Decimal"
-    }, {
-      "number2": "System.Decimal"
-    }],
+    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
     "returnType": "Decimal"
   }, {
     "name": "ToggleCommunicationsMute",
@@ -55159,15 +54437,11 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "ToggleWindowAlwaysOnTop",
-    "parameters": [{
-      "window": "ManagedWinapi.Windows.SystemWindow"
-    }],
+    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterCloseCustomFloater",
-    "parameters": [{
-      "floaterName": "System.String"
-    }],
+    "parameters": [["floaterName", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterHide",
@@ -55175,9 +54449,7 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "TouchFloaterIsCustomFloaterLoaded",
-    "parameters": [{
-      "floaterName": "System.String"
-    }],
+    "parameters": [["floaterName", "System.String"]],
     "returnType": "Boolean"
   }, {
     "name": "TouchFloaterIsShown",
@@ -55185,69 +54457,39 @@ module.exports = {
     "returnType": "Boolean"
   }, {
     "name": "TouchFloaterLoadCustomFloater",
-    "parameters": [{
-      "floaterName": "System.String"
-    }],
+    "parameters": [["floaterName", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterLoadLayout",
-    "parameters": [{
-      "layoutName": "System.String"
-    }],
+    "parameters": [["layoutName", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterSetCustomFloaterKeyMode",
-    "parameters": [{
-      "floaterName": "System.String"
-    }, {
-      "enabled": "System.Boolean"
-    }],
+    "parameters": [["floaterName", "System.String"], ["enabled", "System.Boolean"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterSetCustomFloaterLocation",
-    "parameters": [{
-      "floaterName": "System.String"
-    }, {
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["floaterName", "System.String"], ["point", "System.Drawing.Point"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterSetCustomFloaterOpacity",
-    "parameters": [{
-      "floaterName": "System.String"
-    }, {
-      "opacity": "System.Single"
-    }],
+    "parameters": [["floaterName", "System.String"], ["opacity", "System.Single"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterSetCustomFloaterSize",
-    "parameters": [{
-      "floaterName": "System.String"
-    }, {
-      "size": "System.Int32"
-    }],
+    "parameters": [["floaterName", "System.String"], ["size", "System.Int32"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterSetCustomFloaterText",
-    "parameters": [{
-      "floaterName": "System.String"
-    }, {
-      "text": "System.String"
-    }],
+    "parameters": [["floaterName", "System.String"], ["text", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterSetCustomFloaterTextColor",
-    "parameters": [{
-      "floaterName": "System.String"
-    }, {
-      "color": "System.Drawing.Color"
-    }],
+    "parameters": [["floaterName", "System.String"], ["color", "System.Drawing.Color"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterSetLocation",
-    "parameters": [{
-      "point": "System.Drawing.Point"
-    }],
+    "parameters": [["point", "System.Drawing.Point"]],
     "returnType": "Void"
   }, {
     "name": "TouchFloaterShow",
@@ -55267,85 +54509,4126 @@ module.exports = {
     "returnType": "Void"
   }, {
     "name": "TraceLogEntry",
-    "parameters": [{
-      "message": "System.String"
-    }],
+    "parameters": [["message", "System.String"]],
     "returnType": "Void"
   }, {
     "name": "VirtualAllocEx",
-    "parameters": [{
-      "hProcess": "System.IntPtr"
-    }, {
-      "lpAddress": "System.IntPtr"
-    }, {
-      "dwSize": "System.UInt32"
-    }, {
-      "flAllocationType": "System.UInt32"
-    }, {
-      "flProtect": "System.UInt32"
-    }],
+    "parameters": [["hProcess", "System.IntPtr"], ["lpAddress", "System.IntPtr"], ["dwSize", "System.UInt32"], ["flAllocationType", "System.UInt32"], ["flProtect", "System.UInt32"]],
     "returnType": "IntPtr"
   }, {
     "name": "VirtualFreeEx",
-    "parameters": [{
-      "hProcess": "System.IntPtr"
-    }, {
-      "lpAddress": "System.IntPtr"
-    }, {
-      "dwSize": "System.UInt32"
-    }, {
-      "dwFreeType": "System.UInt32"
-    }],
+    "parameters": [["hProcess", "System.IntPtr"], ["lpAddress", "System.IntPtr"], ["dwSize", "System.UInt32"], ["dwFreeType", "System.UInt32"]],
     "returnType": "Boolean"
   }, {
     "name": "WindowFromClassOrTitle",
-    "parameters": [{
-      "className": "System.String"
-    }, {
-      "windowTitle": "System.String"
-    }],
+    "parameters": [["className", "System.String"], ["windowTitle", "System.String"]],
     "returnType": "SystemWindow"
   }, {
     "name": "WindowFromHandle",
-    "parameters": [{
-      "handle": "System.IntPtr"
-    }],
+    "parameters": [["handle", "System.IntPtr"]],
     "returnType": "SystemWindow"
   }, {
     "name": "WindowFromPoint",
-    "parameters": [{
-      "pt": "System.Drawing.Point"
-    }, {
-      "topLevelOnly": "System.Boolean"
-    }],
+    "parameters": [["pt", "System.Drawing.Point"], ["topLevelOnly", "System.Boolean"]],
     "returnType": "SystemWindow"
   }, {
     "name": "WindowsFromTitlePartial",
-    "parameters": [{
-      "partialTitle": "System.String"
-    }],
+    "parameters": [["partialTitle", "System.String"]],
     "returnType": "SystemWindow[]"
   }, {
     "name": "WindowsFromTitleRegex",
-    "parameters": [{
-      "regexTitle": "System.String"
-    }],
+    "parameters": [["regexTitle", "System.String"]],
     "returnType": "SystemWindow[]"
   }, {
     "name": "WriteProcessMemory",
-    "parameters": [{
-      "hProcess": "System.IntPtr"
-    }, {
-      "lpBaseAddress": "System.IntPtr"
-    }, {
-      "lpBuffer": "System.IntPtr"
-    }, {
-      "nSize": "System.Int32"
-    }, {
-      "vNumberOfBytesRead": "System.UInt32"
-    }],
+    "parameters": [["hProcess", "System.IntPtr"], ["lpBaseAddress", "System.IntPtr"], ["lpBuffer", "System.IntPtr"], ["nSize", "System.Int32"], ["vNumberOfBytesRead", "System.UInt32"]],
     "returnType": "Boolean"
   }]
+};
+},{}],"help.json":[function(require,module,exports) {
+module.exports = {
+  "SectionScriptObjects": {
+    "Name": "Script Objects",
+    "Description": "These objects are passed into StrokesPlus.net automations which can be used in your steps or script as needed.\r\n\r\nAll regular actions will be passed in an ActionVars object named \"action\".\r\n\r\nGlobal Actions > Mouse Events > Mouse Wheel are passed in a WheelTick object named \"wheel\".\r\n\r\nGlobal Actions > Mouse Events > Mouse Click are passed in a Click object named \"click\".\r\n\r\nFloater events will be passed in a FloaterVars object named \"floater\".",
+    "ActionVars": {
+      "Name": "ActionVars",
+      "Description": "Passed into normal actions, variable name in script: action\r\n\r\n    public class ActionVars\r\n    {\r\n        public string ApplicationName;\r\n        public string CategoryName;\r\n        public string ActionName;\r\n        public string GestureName;\r\n        public MouseButtons StrokeButton;\r\n        public int SynapticFingers; \r\n        public Point[] GesturePoints;\r\n        public int WheelDelta;\r\n        public Point Start;\r\n        public Point End;\r\n        public Rectangle Bounds;\r\n        //see SystemWindow information for more details\r\n        public ManagedWinapi.Windows.SystemWindow Window;\r\n        //see SystemWindow information for more details\r\n        public ManagedWinapi.Windows.SystemWindow Control;\r\n    }"
+    },
+    "Click": {
+      "Name": "Click",
+      "Description": "Passed into Global Actions > Mouse Events > Mouse Click automations, variable name in script: click\r\n\r\n    public class Click\r\n    {\r\n        public MouseButtons Button;\r\n        public bool Down; \r\n        public uint FWKeys;\r\n        public System.Drawing.Point Point;\r\n        public int X { get { return Point.X; } }\r\n        public int Y { get { return Point.Y; } }\r\n        //see SystemWindow information for more details\r\n        public ManagedWinapi.Windows.SystemWindow Window;\r\n        //see SystemWindow information for more details\r\n        public ManagedWinapi.Windows.SystemWindow Control;\r\n    }"
+    },
+    "Wheel": {
+      "Name": "WheelTick",
+      "Description": "Passed into Global Actions > Mouse Events > Mouse Wheel automations, variable name in script: wheel\r\n\r\n    public class WheelTick\r\n    {\r\n        public bool Horizontal;\r\n        public long HWndControl;\r\n        public uint WParam;\r\n        public uint LParam;\r\n        public System.Drawing.Point Point;\r\n        public int X { get { return Point.X; } }\r\n        public int Y { get { return Point.Y; } }\r\n        public short Delta;\r\n        //see SystemWindow information for more details\r\n        public ManagedWinapi.Windows.SystemWindow Window;\r\n        //see SystemWindow information for more details\r\n        public ManagedWinapi.Windows.SystemWindow Control;\r\n    }"
+    },
+    "Floater": {
+      "Name": "FloaterVars",
+      "Description": "Passed into floater events, variable name in script: floater\r\n\r\n    public class FloaterVars\r\n    {\r\n        public string Name;\r\n        public string Text;\r\n        public Color TextColor;\r\n        public bool KeyMode;\r\n        public float Opacity;\r\n        public Point Location; \r\n        public int X;\r\n        public int Y;\r\n        public CustomFloaterSetting Settings;\r\n        public int Size;\r\n    }"
+    },
+    "DisplayTextInfo": {
+      "Name": "DisplayTextInfo",
+      "Description": "Used when calling sp.DisplayText()\r\n\r\n    public class DisplayTextInfo\r\n    {\r\n        public string Title { get; set; }\r\n        public string TitleAlignment { get; set; }\r\n        public string Message { get; set; }\r\n        public string MessageAlignment { get; set; }\r\n        public int Duration { get; set; }\r\n        public double Opacity { get; set; }\r\n        public string Location { get; set; }\r\n        public Font TitleFont { get; set; }\r\n        public Font MessageFont { get; set; }\r\n        public string BackColor { get; set; }\r\n        public string ForeColor { get; set; }\r\n        public int Padding { get; set; }\r\n        public bool UsePrimaryScreen { get; set; }\r\n        public bool ClipToWorkingArea { get; set; } = true;\r\n    }"
+    },
+    "PopupMenuInfo": {
+      "Name": "PopupMenuInfo",
+      "Description": "Used when calling sp.ShowPopupMenu()\r\n\r\n    public class PopupMenuInfo\r\n    {\r\n        public Point Location { get; set; }\r\n        public List<string> Items { get; }\r\n        public string Callback { get; set; }\r\n        public uint SelectedID { get; set; }\r\n    }"
+    },
+    "PopupMenuInfoEx": {
+      "Name": "PopupMenuInfoEx",
+      "Description": "Used when calling sp.ShowPopupMenuEx()\r\n\r\n    public class PopupMenuInfoEx\r\n    {\r\n        public Point Location { get; set; }\r\n        public List<PopupMenuItem> MenuItems { get; set;}\r\n    }"
+    },
+    "PopupMenuItem": {
+      "Name": "PopupMenuItem",
+      "Description": "Used when constructing an instance of PopupMenuInfoEx\r\n\r\n    public class PopupMenuItem\r\n    {\r\n        public Point Text { get; set; } //Use \"-\" for separator\r\n        public string Script { get; set; }\r\n        public List<PopupMenuItem> SubMenuItems { get; set; }\r\n    }"
+    },
+    "InputBoxInfo": {
+      "Name": "InputBoxInfo",
+      "Description": "Used when calling sp.InputBox()\r\n\r\n    public class InputBoxInfo\r\n    {\r\n        public string Title { get; set; }\r\n        public string Message { get; set; }\r\n        public List<string> Items { get ;}\r\n        public string SelectedValue { get; set; }\r\n        public bool AllowDirectInput { get; set; }\r\n        public bool Sort { get; set; }\r\n        public string Result { get; set; }\r\n        public bool ShowAtMouseCursor { get; set; }\r\n    }"
+    }
+  },
+  "SectionExposedObjects": {
+    "Name": "Section.NET and ClearScript",
+    "Description": "These objects are available in all scripts and give you access into the .NET Framework or script engine host functions (ClearScript).\r\n \r\nclr = mscorlib, System, System.Core\r\ndrawing = System.Drawing\r\nforms = System.Windows.Forms\r\nnet = System.Net\r\nhttp = System.Net.Http\r\nhost = ExtendedHostFunctions (see ClearScript help)\r\nclip = System.Windows.Forms.Clipboard\r\nsysinfo = System.Windows.Forms.SystemInformation\r\nspeech = System.Speech\r\n\r\nNativeModules - Any types created by the sp.NativeModule methods\r\nNativeDelegates - Any delegate classes created via sp.NativeDelegate or sp.NativeDelegateList"
+  },
+  "SectionLocateWindow": {
+    "Name": "Locate Windows or Controls",
+    "Description": "Functions for finding or retrieving windows.",
+    "Methods": {
+      "AllApplications": {
+        "Name": "AllApplications",
+        "InternalName": "AllApplications",
+        "Description": "Returns an array of SystemWindow objects for all primary application windows. This may incorrectly skip or include unconventional applications. See also sp.AllWindows().",
+        "Returns": "SystemWindow[]",
+        "SimpleExample": "var wnds = sp.AllApplications();\r\nvar apps = '';\r\nfor (var i = 0, len = wnds.Length; i < len; i++) {\r\n\tapps = apps + 'Class: ' + wnds[i].ClassName + ' Title: ' + wnds[i].Title + '\\r\\n';\r\n}\r\nclip.SetText(apps);\r\n",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "AllWindows": {
+        "Name": "AllWindows",
+        "InternalName": "AllWindows",
+        "Description": "Returns an array of SystemWindow objects for all controls and windows. See also sp.AllApplications().",
+        "Returns": "SystemWindow[]",
+        "SimpleExample": "var wnds = sp.AllWindows();\r\nvar apps = '';\r\nfor (var i = 0, len = wnds.Length; i < len; i++) {\r\n\tapps = apps + 'Class: ' + wnds[i].ClassName + ' Title: ' + wnds[i].Title + '\\r\\n';\r\n}\r\nclip.SetText(apps);\r\n",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "DesktopWindow": {
+        "Name": "DesktopWindow",
+        "InternalName": "DesktopWindow",
+        "Description": "Returns a SystemWindow object for the Desktop window. This is the actual desktop window, not necessarily the window which contains the desktop icons. See also sp.DesktopWindowListView().",
+        "Returns": "SystemWindow",
+        "SimpleExample": "var desktopWindow = sp.DesktopWindow();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "DesktopWindowListView": {
+        "Name": "DesktopWindowListView",
+        "InternalName": "DesktopWindowListView",
+        "Description": "Returns a SystemWindow object for the Desktop ListView window, which is where the desktop icons reside.",
+        "Returns": "SystemWindow",
+        "SimpleExample": "var desktopSurface = sp.DesktopWindowListView();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "ForegroundWindow": {
+        "Name": "ForegroundWindow",
+        "InternalName": "ForegroundWindow",
+        "Description": "Returns a SystemWindow object of the current foreground window",
+        "Returns": "SystemWindow",
+        "SimpleExample": "sp.ForegroundWindow().Center();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "LastActiveWindow": {
+        "Name": "LastActiveWindow",
+        "InternalName": "LastActiveWindow",
+        "Description": "Returns a SystemWindow object for the last active primary window.",
+        "Returns": "SystemWindow",
+        "SimpleExample": "var lastWindow = sp.LastActiveWindow();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "LastApplication": {
+        "Name": "LastApplication",
+        "InternalName": "LastApplication",
+        "Description": "Activates the last active, non-minimized window, similar to Alt+Tab",
+        "Returns": "void",
+        "SimpleExample": "sp.LastApplication();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "LastFocusControl": {
+        "Name": "LastFocusControl",
+        "InternalName": "LastFocusControl",
+        "Description": "Returns a SystemWindow object for the last active control.",
+        "Returns": "SystemWindow",
+        "SimpleExample": "var lastControl = sp.LastFocusControl();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "NextApplication": {
+        "Name": "NextApplication",
+        "InternalName": "NextApplication",
+        "Description": "Activates the next window in the stack",
+        "Returns": "void",
+        "SimpleExample": "sp.NextApplication();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "WindowFromClassOrTitle": {
+        "Name": "WindowFromClassOrTitle",
+        "InternalName": "WindowFromClassOrTitle",
+        "Description": "Returns a SystemWindow object for a control or window based on the class name and/or title.",
+        "Returns": "SystemWindow",
+        "SimpleExample": "var notepad = sp.WindowFromClassOrTitle('Notepad', '')",
+        "FullExample": "",
+        "Parameters": {
+          "className": {
+            "Name": "className",
+            "InternalName": "className",
+            "Description": "Exact name of the control or window class.",
+            "Type": "string",
+            "Order": 1
+          },
+          "windowTitle": {
+            "Name": "windowTitle",
+            "InternalName": "windowTitle",
+            "Description": "Exact title of the control or window class.",
+            "Type": "string",
+            "Order": 2
+          }
+        }
+      },
+      "WindowFromHandle": {
+        "Name": "WindowFromHandle",
+        "InternalName": "WindowFromHandle",
+        "Description": "Returns a SystemWindow object of a window or control from an existing handle",
+        "Returns": "SystemWindow",
+        "SimpleExample": "sp.WindowFromHandle(action.Window.HWnd).Center();",
+        "FullExample": "",
+        "Parameters": {
+          "handle": {
+            "Name": "handle",
+            "InternalName": "handle",
+            "Description": "Handle to the control or window",
+            "Type": "IntPtr",
+            "Order": 1
+          }
+        }
+      },
+      "WindowFromPoint": {
+        "Name": "WindowFromPoint",
+        "InternalName": "WindowFromPoint",
+        "Description": "Returns a SystemWindow object of a control or window (based on topLevelOnly parameter) from a point (coordinate) on the screen",
+        "Returns": "SystemWindow",
+        "SimpleExample": "sp.WindowFromPoint(action.Start, true).Center();",
+        "FullExample": "",
+        "Parameters": {
+          "pt": {
+            "Name": "pt",
+            "InternalName": "pt",
+            "Description": "Coordinates to use in finding the window, e.g. new Point(100, 100), sp.GetCurrentMousePoint(), action.Start",
+            "Type": "Point",
+            "Order": 1
+          },
+          "topLevelOnly": {
+            "Name": "topLevelOnly",
+            "InternalName": "topLevelOnly",
+            "Description": "Pass true to only return the top level window (the main application), false returns the window or control directly below the point.",
+            "Type": "bool",
+            "Order": 2
+          }
+        }
+      },
+      "WindowsFromTitlePartial": {
+        "Name": "WindowsFromTitlePartial",
+        "InternalName": "WindowsFromTitlePartial",
+        "Description": "Returns an array of SystemWindow objects for controls or windows based on a partial title match.",
+        "Returns": "SystemWindow",
+        "SimpleExample": "var notepadmatches = sp.WindowsFromTitlePartial('notepad');",
+        "FullExample": "",
+        "Parameters": {
+          "partialTitle": {
+            "Name": "partialTitle",
+            "InternalName": "partialTitle",
+            "Description": "Partial search string. This is an exact partial match not a wildcard or regular expression match.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "WindowsFromTitleRegex": {
+        "Name": "WindowsFromTitleRegex",
+        "InternalName": "WindowsFromTitleRegex",
+        "Description": "Returns an array of SystemWindow objects for controls or windows based on a regular expression title match.",
+        "Returns": "SystemWindow[]",
+        "SimpleExample": "var matches = sp.WindowsFromTitleRegex(' - Notepad$');",
+        "FullExample": "",
+        "Parameters": {
+          "regexTitle": {
+            "Name": "regexTitle",
+            "InternalName": "regexTitle",
+            "Description": "Regular expression pattern",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      }
+    }
+  },
+  "SectionLanguage": {
+    "Name": "Language/Culture",
+    "Description": "Functions for getting and changing language culture.",
+    "Methods": {
+      "ChangeCulture": {
+        "Name": "ChangeCulture",
+        "InternalName": "ChangeCulture",
+        "Description": "Changes the current language culture to the specified one.",
+        "Returns": "bool",
+        "SimpleExample": "sp.ChangeCulture('en-US');",
+        "FullExample": "",
+        "Parameters": {
+          "cultureName": {
+            "Name": "cultureName",
+            "InternalName": "cultureName",
+            "Description": "The name of the language culture to make the current culture. Examples: 'en-US', 'pl-PL', 'zh-CN'.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetCurrentCulture": {
+        "Name": "GetCurrentCulture",
+        "InternalName": "GetCurrentCulture",
+        "Description": "Returns the current culture code, e.g. en-US, pl-PL.",
+        "Returns": "string",
+        "SimpleExample": "sp.GetCurrentCulture();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionInternal": {
+    "Name": "Internal",
+    "Description": "Functions for working with StrokesPlus.net internals.",
+    "Methods": {
+      "CloseSettings": {
+        "Name": "CloseSettings",
+        "InternalName": "CloseSettings",
+        "Description": "Closes the Settings window, with or without saving changes.",
+        "Returns": "void",
+        "SimpleExample": "sp.CloseSettings(true);",
+        "FullExample": "",
+        "Parameters": {
+          "savePendingChanges": {
+            "Name": "savePendingChanges",
+            "InternalName": "savePendingChanges",
+            "Description": "Indicates where to save (true) or discard (false) any changes.",
+            "Type": "bool",
+            "Order": 1
+          }
+        }
+      },
+      "ConsumePhysicalInput": {
+        "Name": "ConsumePhysicalInput",
+        "InternalName": "ConsumePhysicalInput",
+        "Description": "Consumes ALL physical mouse and keyboard input. NOTE: Be very careful when using this function, if you call it with true and either forget to call it again with false (or the script runs into an error), you may be stuck unable to use the computer!",
+        "Returns": "void",
+        "SimpleExample": "sp.ConsumePhysicalInput(true or false); //Be careful to not pass true and fail to call again passing false!",
+        "FullExample": "",
+        "Parameters": {
+          "active": {
+            "Name": "active",
+            "InternalName": "active",
+            "Description": "True to consume all input, false to allow input.",
+            "Type": "bool",
+            "Order": 1
+          }
+        }
+      },
+      "Disable": {
+        "Name": "Disable",
+        "InternalName": "Disable",
+        "Description": "Disable StrokesPlus.net.",
+        "Returns": "void",
+        "SimpleExample": "sp.Disable();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "DisableCapture": {
+        "Name": "DisableCapture",
+        "InternalName": "DisableCapture",
+        "Description": "Disables the mouse and keyboard hooks.",
+        "Returns": "void",
+        "SimpleExample": "sp.DisableCapture();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "DisableNext": {
+        "Name": "DisableNext",
+        "InternalName": "DisableNext",
+        "Description": "Disables the next stroke or secondary stroke button press from capturing.",
+        "Returns": "void",
+        "SimpleExample": "sp.DisableNext();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "Enable": {
+        "Name": "Enable",
+        "InternalName": "Enable",
+        "Description": "Enables StrokesPlus.net. Note: The only way to execute this would be via timer created by sp.CreateTimer.",
+        "Returns": "void",
+        "SimpleExample": "sp.Enable();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "EnableCapture": {
+        "Name": "EnableCapture",
+        "InternalName": "EnableCapture",
+        "Description": "Enables the mouse and keyboard hooks.",
+        "Returns": "void",
+        "SimpleExample": "sp.EnableCapture();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "ExecutePreviousScript": {
+        "Name": "ExecutePreviousScript",
+        "InternalName": "ExecutePreviousScript",
+        "Description": "Executes one of the previous 5 scripts that were executed. The last 5 scripts are stored in history and the index specifies which one to retrieve. The index is zero based, so 0 is the most recent script, 4 is the oldest script in history.",
+        "Returns": "void",
+        "SimpleExample": "sp.ExecutePreviousScript(0);",
+        "FullExample": "",
+        "Parameters": {
+          "index": {
+            "Name": "index",
+            "InternalName": "index",
+            "Description": "Index of the previous script to execute.",
+            "Type": "int",
+            "Order": 1
+          }
+        }
+      },
+      "ExecuteStoredScript": {
+        "Name": "ExecuteStoredScript",
+        "InternalName": "ExecuteStoredScript",
+        "Description": "Executes a script previously stored via sp.StoreHistoryScript.",
+        "Returns": "void",
+        "SimpleExample": "sp.ExecuteStoredScript('storedscriptname');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the stored history script.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "Exit": {
+        "Name": "Exit",
+        "InternalName": "Exit",
+        "Description": "Stops all timers and scripts, saves settings, and closes StrokesPlus.net.",
+        "Returns": "void",
+        "SimpleExample": "sp.Exit();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "GetHistoryScript": {
+        "Name": "GetHistoryScript",
+        "InternalName": "GetHistoryScript",
+        "Description": "Returns a history script of the specified index. The last 5 scripts are stored in history and the index specifies which one to retrieve. The index is zero based, so 0 is the most recent script, 4 is the oldest script in history.",
+        "Returns": "HistoryScript",
+        "SimpleExample": "sp.GetHistoryScript(0);",
+        "FullExample": "",
+        "Parameters": {
+          "index": {
+            "Name": "index",
+            "InternalName": "index",
+            "Description": "Index of the history script to retrieve.",
+            "Type": "int",
+            "Order": 1
+          }
+        }
+      },
+      "OpenSettings": {
+        "Name": "OpenSettings",
+        "InternalName": "OpenSettings",
+        "Description": "Opens the Settings window.",
+        "Returns": "void",
+        "SimpleExample": "sp.OpenSettings();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "RelayGesture": {
+        "Name": "RelayGesture",
+        "InternalName": "RelayGesture",
+        "Description": "Relays the mouse down, mouse movements, and mouse release based on the points and button specified.",
+        "Returns": "void",
+        "SimpleExample": "sp.RelayGesture(action.GesturePoints, action.StrokeButton);",
+        "FullExample": "",
+        "Parameters": {
+          "points": {
+            "Name": "points",
+            "InternalName": "points",
+            "Description": "Array of Points used to relay the gesture.",
+            "Type": "Point[]",
+            "Order": 1
+          },
+          "button": {
+            "Name": "button",
+            "InternalName": "button",
+            "Description": "The mouse button to be pressed down at the start of points and released at the end.",
+            "Type": "MouseButtons",
+            "Order": 1
+          }
+        }
+      },
+      "Reload": {
+        "Name": "Reload",
+        "InternalName": "Reload",
+        "Description": "Stops all scripts, timers, and reloads StrokesPlus.net.",
+        "Returns": "void",
+        "SimpleExample": "sp.Reload();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "ReloadScriptEnginePool": {
+        "Name": "ReloadScriptEnginePool",
+        "InternalName": "ReloadScriptEnginePool",
+        "Description": "Stops all scripts and reloads the script engine pool.",
+        "Returns": "void",
+        "SimpleExample": "sp.ReloadScriptEnginePool();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "StopAllActions": {
+        "Name": "StopAllActions",
+        "InternalName": "StopAllActions",
+        "Description": "Stops all action step execution.",
+        "Returns": "void",
+        "SimpleExample": "sp.StopAllActionSteps();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "StopAllScripts": {
+        "Name": "StopAllScripts",
+        "InternalName": "StopAllScripts",
+        "Description": "Stops all currently executing scripts.",
+        "Returns": "void",
+        "SimpleExample": "sp.StopAllScripts();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "ToggleTrayIcon": {
+        "Name": "ToggleTrayIcon",
+        "InternalName": "ToggleTrayIcon",
+        "Description": "Toggles the visibility of the StrokesPlus.net tray icon.",
+        "Returns": "void",
+        "SimpleExample": "sp.ToggleTrayIcon();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionTimers": {
+    "Name": "Timers",
+    "Description": "Functions for working with timers.",
+    "Methods": {
+      "CreateTimer": {
+        "Name": "CreateTimer",
+        "InternalName": "CreateTimer",
+        "Description": "Creates a timer that executes a script repeatedly until stopped via sp.DeleteTimer.",
+        "Returns": "System.Threading.Timer",
+        "SimpleExample": "sp.CreateTimer('test', 1000, -1, String.raw`sp.MessageBox('Test', 'Timer');sp.DeleteTimer('test');`);",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the timer.",
+            "Type": "string",
+            "Order": 1
+          },
+          "startdelay": {
+            "Name": "startdelay",
+            "InternalName": "startdelay",
+            "Description": "Number of milliseconds until the timer starts.",
+            "Type": "int",
+            "Order": 2
+          },
+          "interval": {
+            "Name": "interval",
+            "InternalName": "interval",
+            "Description": "Number of millseconds between each timer script execution.",
+            "Type": "int",
+            "Order": 3
+          },
+          "script": {
+            "Name": "script",
+            "InternalName": "script",
+            "Description": "The script to execute upon starting and at each interval.",
+            "Type": "string",
+            "Order": 4
+          }
+        }
+      },
+      "DeleteAllTimers": {
+        "Name": "DeleteAllTimers",
+        "InternalName": "DeleteAllTimers",
+        "Description": "Stops and deletes all timers created via sp.CreateTimer.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteAllTimers();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "DeleteTimer": {
+        "Name": "DeleteTimer",
+        "InternalName": "DeleteTimer",
+        "Description": "Stops and deletes a timer previously created via sp.CreateTimer.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteTimer('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the timer.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetTimer": {
+        "Name": "GetTimer",
+        "InternalName": "GetTimer",
+        "Description": "Returns a timer previously created via sp.CreateTimer.",
+        "Returns": "System.Threading.Timer",
+        "SimpleExample": "var timer = sp.GetTimer('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the timer.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetTimerScript": {
+        "Name": "GetTimerScript",
+        "InternalName": "GetTimerScript",
+        "Description": "Returns the script from the previouly created timer via sp.CreateTimer.",
+        "Returns": "string",
+        "SimpleExample": "var script = sp.GetTimerScript('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the timer.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      }
+    }
+  },
+  "SectionStoreRetrieveData": {
+    "Name": "Store/Retrieve Data",
+    "Description": "Functions for storing, retrieving, and deleting stored data.",
+    "Methods": {
+      "DeleteStoredBool": {
+        "Name": "DeleteStoredBool",
+        "InternalName": "DeleteStoredBool",
+        "Description": "Deletes a boolean previously stored using sp.StoreBool.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredBool('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the boolean.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "DeleteStoredHandle": {
+        "Name": "DeleteStoredHandle",
+        "InternalName": "DeleteStoredHandle",
+        "Description": "Deletes a handle previously stored using sp.StoreHandle.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredHandle('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the handle.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "DeleteStoredHistoryScript": {
+        "Name": "DeleteStoredHistoryScript",
+        "InternalName": "DeleteStoredHistoryScript",
+        "Description": "Deletes a history script previously stored using sp.StoreHistoryScript.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredHistoryScript('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the history script.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "DeleteStoredNumber": {
+        "Name": "DeleteStoredNumber",
+        "InternalName": "DeleteStoredNumber",
+        "Description": "Deletes a number previously stored using sp.StoreNumber.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredNumber('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the number.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "DeleteStoredObject": {
+        "Name": "DeleteStoredObject",
+        "InternalName": "DeleteStoredObject",
+        "Description": "Deletes an object previously stored using sp.StoreObject.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredObject('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the object.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "DeleteStoredPoint": {
+        "Name": "DeleteStoredPoint",
+        "InternalName": "DeleteStoredPoint",
+        "Description": "Deletes a point previously stored point using sp.StorePoint.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredPoint('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the point.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "DeleteStoredRectangle": {
+        "Name": "DeleteStoredRectangle",
+        "InternalName": "DeleteStoredRectangle",
+        "Description": "Deletes a rectangle previously stored using sp.StoreRectangle.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredRectangle('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the rectangle.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "DeleteStoredString": {
+        "Name": "DeleteStoredString",
+        "InternalName": "DeleteStoredString",
+        "Description": "Deletes a string previously stored string using sp.StoreString.",
+        "Returns": "void",
+        "SimpleExample": "sp.DeleteStoredString('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the string.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredBool": {
+        "Name": "GetStoredBool",
+        "InternalName": "GetStoredBool",
+        "Description": "Returns a boolean previously stored using sp.StoreBool.",
+        "Returns": "bool",
+        "SimpleExample": "var storedbool = sp.GetStoredBool('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the boolean.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredHandle": {
+        "Name": "GetStoredHandle",
+        "InternalName": "GetStoredHandle",
+        "Description": "Returns an handle previously stored using sp.StoreHandle.",
+        "Returns": "IntPtr",
+        "SimpleExample": "var storedhandle = sp.GetStoredHandle('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the handle.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredHistoryScript": {
+        "Name": "GetStoredHistoryScript",
+        "InternalName": "GetStoredHistoryScript",
+        "Description": "Returns a history script previously stored using sp.StoreHistoryScript",
+        "Returns": "HistoryScript",
+        "SimpleExample": "var scriptval = sp.GetStoredHistoryScript('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the history script.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredNumber": {
+        "Name": "GetStoredNumber",
+        "InternalName": "GetStoredNumber",
+        "Description": "Returns a number previously stored using sp.StoreNumber.",
+        "Returns": "long",
+        "SimpleExample": "var storednum = sp.GetStoredNumber('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the number.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredObject": {
+        "Name": "GetStoredObject",
+        "InternalName": "GetStoredObject",
+        "Description": "Returns an object previously stored using sp.StoreNumber.",
+        "Returns": "object",
+        "SimpleExample": "var storedobj = sp.GetStoredObject('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the object.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredPoint": {
+        "Name": "GetStoredPoint",
+        "InternalName": "GetStoredPoint",
+        "Description": "Returns a point previously stored using sp.StorePoint.",
+        "Returns": "Point",
+        "SimpleExample": "var storedpoint = sp.GetStoredPoint('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the point.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredRectangle": {
+        "Name": "GetStoredRectangle",
+        "InternalName": "GetStoredRectangle",
+        "Description": "Returns a rectangle previously stored using sp.StoreRectangle.",
+        "Returns": "Rectangle",
+        "SimpleExample": "var storedrect = sp.GetStoredRectangle('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the rectangle.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetStoredString": {
+        "Name": "GetStoredString",
+        "InternalName": "GetStoredString",
+        "Description": "Returns a string previously stored using sp.StoreString.",
+        "Returns": "string",
+        "SimpleExample": "var stringval = sp.GetStoredString('test');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the string.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "StoreBool": {
+        "Name": "StoreBool",
+        "InternalName": "StoreBool",
+        "Description": "Stores a boolean using the specified name. Value can be retrieved via sp.GetStoredBool.",
+        "Returns": "void",
+        "SimpleExample": "sp.StoreBool('test', true);",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the boolean.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the boolean to store.",
+            "Type": "bool",
+            "Order": 2
+          }
+        }
+      },
+      "StoreHandle": {
+        "Name": "StoreHandle",
+        "InternalName": "StoreHandle",
+        "Description": "Stores a handle using the specified name. Value can be retrieved via sp.GetStoredHandle.",
+        "Returns": "void",
+        "SimpleExample": "sp.StoreHandle('test', action.Window.HWnd);",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the handle.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the handle to store.",
+            "Type": "IntPtr",
+            "Order": 2
+          }
+        }
+      },
+      "StoreHistoryScript": {
+        "Name": "StoreHistoryScript",
+        "InternalName": "StoreHistoryScript",
+        "Description": "Stores a history script using the specified name. Value can be retrieved via sp.GetStoredHistoryScript.",
+        "Returns": "void",
+        "SimpleExample": "sp.StoreHistoryScript('test', timer);",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the history script.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the history script to store.",
+            "Type": "HistoryScript",
+            "Order": 2
+          }
+        }
+      },
+      "StoreNumber": {
+        "Name": "StoreNumber",
+        "InternalName": "StoreNumber",
+        "Description": "Stores a number using the specified name. Value can be retrieved via sp.GetStoredNumber.",
+        "Returns": "void",
+        "SimpleExample": "sp.StoreNumber('test', 123);",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the number.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the number to store.",
+            "Type": "long",
+            "Order": 2
+          }
+        }
+      },
+      "StoreObject": {
+        "Name": "StoreObject",
+        "InternalName": "StoreObject",
+        "Description": "Stores an object using the specified name. Value can be retrieved via sp.GetStoredObject.",
+        "Returns": "void",
+        "SimpleExample": "sp.StoreObject('test', 123);",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the object.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the object to store.",
+            "Type": "int",
+            "Order": 2
+          }
+        }
+      },
+      "StorePoint": {
+        "Name": "StorePoint",
+        "InternalName": "StorePoint",
+        "Description": "Stores a point using the specified name. Value can be retrieved via sp.GetStoredPoint.",
+        "Returns": "void",
+        "SimpleExample": "sp.StorePoint('test', new Point(100,100));",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the point.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the point to store.",
+            "Type": "Point",
+            "Order": 2
+          }
+        }
+      },
+      "StoreRectangle": {
+        "Name": "StoreRectangle",
+        "InternalName": "StoreRectangle",
+        "Description": "Stores a rectangle using the specified name. Value can be retrieved via sp.GetStoredRectangle.",
+        "Returns": "void",
+        "SimpleExample": "sp.StoreRectangle('test', action.Window.Rectangle);",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the rectangle.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the rectangle to store.",
+            "Type": "Rectangle",
+            "Order": 2
+          }
+        }
+      },
+      "StoreString": {
+        "Name": "StoreString",
+        "InternalName": "StoreString",
+        "Description": "Stores a string using the specified name. Value can be retrieved via sp.GetStoredString.",
+        "Returns": "void",
+        "SimpleExample": "sp.StoreString('test', 'value');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name used to store the string.",
+            "Type": "string",
+            "Order": 1
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "Value of the string to store.",
+            "Type": "string",
+            "Order": 2
+          }
+        }
+      }
+    }
+  },
+  "SectionInputAndDisplay": {
+    "Name": "Input and Display",
+    "Description": "Functions for displaying and collecting information from the user.",
+    "Methods": {
+      "DisplayImage": {
+        "Name": "DisplayImage",
+        "InternalName": "DisplayImage",
+        "Description": "Displays a popup on the screen containing the image passed in. Click and drag to move the window, press Escape or double-click the window to close.",
+        "Returns": "void",
+        "SimpleExample": "sp.DisplayImage(clip.GetImage(), true); //Assumes an image is on the clipboard, enables mouse wheel scroll zooming",
+        "FullExample": "",
+        "Parameters": {
+          "image": {
+            "Name": "image",
+            "InternalName": "image",
+            "Description": "The .NET Image object to be displayed in the popup window.",
+            "Type": "Image",
+            "Order": 1
+          },
+          "allowScrollZooming": {
+            "Name": "allowScrollZooming",
+            "InternalName": "allowScrollZooming",
+            "Description": "If true, enables mouse wheel scrolling to zoom image in or out.",
+            "Type": "bool",
+            "Order": 2
+          }
+        }
+      },
+      "DisplayText": {
+        "Name": "DisplayText",
+        "InternalName": "DisplayText",
+        "Description": "Displays a popup on the screen containing a title and text. Fonts, colors, opacity, duration, among other properties can be controlled. See DisplayTextInfo for more details.",
+        "Returns": "void",
+        "SimpleExample": "var info = new DisplayTextInfo();\r\ninfo.Title = 'Test';\r\ninfo.TitleAlignment = 'Center';\r\ninfo.Message = 'Message';\r\ninfo.MessageAlignment = 'Left';\r\ninfo.Duration = 2000;\r\n//The transparency of the popup, valid ranges: 0.05 - 1.0  (1.0 is no transparency)\r\ninfo.Opacity = 0.7;\r\n//Location supports location as well, use this format to specify a type: '100,200'\r\n//types: topleft, top, topright, right, bottomright, bottom, bottomleft, left\r\ninfo.Location = 'top'; \r\ninfo.TitleFont = new Font('Segoe UI', 12, host.flags(FontStyle.Bold));\r\ninfo.MessageFont = new Font('Segoe UI Semibold', 12);\r\ninfo.BackColor = 'black';//'56,169,255'; //Also supports RGB\r\ninfo.ForeColor = 'white';\r\ninfo.Padding = 15;\r\n//If true, always displays on primary screen (unless Location is a point type), \r\n//otherwise displays on the screen where the gesture started\r\ninfo.UsePrimaryScreen = true; \r\nsp.DisplayText(info);\r\n",
+        "FullExample": "",
+        "Parameters": {
+          "info": {
+            "Name": "info",
+            "InternalName": "info",
+            "Description": "The DisplayTextInfo object containing the information used to display the popup.",
+            "Type": "DisplayTextInfo",
+            "Order": 1
+          }
+        }
+      },
+      "DisplayTextClose": {
+        "Name": "DisplayTextClose",
+        "InternalName": "DisplayTextClose",
+        "Description": "Closes a popup previously displayed via sp.DisplayText.",
+        "Returns": "void",
+        "SimpleExample": "sp.DisplayTextClose();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "DisplayTextUpdate": {
+        "Name": "DisplayTextUpdate",
+        "InternalName": "DisplayTextUpdate",
+        "Description": "Updates the current popup created by sp.DisplayText. This is far more efficient than closing and displaying a new popup.",
+        "Returns": "void",
+        "SimpleExample": "var info = new DisplayTextInfo();\r\ninfo.Title = 'Test';\r\ninfo.TitleAlignment = 'Center';\r\ninfo.Message = 'Message';\r\ninfo.MessageAlignment = 'Left';\r\ninfo.Duration = 2000;\r\n//The transparency of the popup, valid ranges: 0.05 - 1.0  (1.0 is no transparency)\r\ninfo.Opacity = 0.7;\r\n//Location supports location as well, use this format to specify a type: '100,200'\r\n//types: topleft, top, topright, right, bottomright, bottom, bottomleft, left\r\ninfo.Location = 'top'; \r\ninfo.TitleFont = new Font('Segoe UI', 12, host.flags(FontStyle.Bold));\r\ninfo.MessageFont = new Font('Segoe UI Semibold', 12);\r\ninfo.BackColor = 'black';//'56,169,255'; //Also supports RGBinfo.ForeColor = 'white';\r\ninfo.Padding = 15;\r\n//If true, always displays on primary screen (unless Location is a point type), \r\n//otherwise displays on the screen where the gesture started\r\ninfo.UsePrimaryScreen = true; \r\nsp.DisplayTextUpdate(info);\r\n",
+        "FullExample": "",
+        "Parameters": {
+          "info": {
+            "Name": "info",
+            "InternalName": "info",
+            "Description": "The DisplayTextInfo object containing the information used to display the popup.",
+            "Type": "DisplayTextInfo",
+            "Order": 1
+          }
+        }
+      },
+      "HTMLWindow": {
+        "Name": "HTMLWindow",
+        "InternalName": "HTMLWindow",
+        "Description": "Displays a window which hosts a WebView2 control to display and make interactive HTML windows.",
+        "Returns": "void",
+        "SimpleExample": "",
+        "FullExample": "// This function is called when the HTML window is created, passing the ID and window Handle\r\n// Example of JSON sent on window created:\r\n\r\n//  {\r\n//     \"StrokesPlusHTMLWindow\": {\"ID\" : \"windowID\", \"Handle\" : \"123456\"}\r\n//  }\r\n\r\n// It is also how to pass messages to your S+ script from the HTML window via using\r\n// window.chrome.webview.postMessage \r\n\r\nfunction testWindowCallback(val) \r\n{\r\n    let obj = JSON.parse(val);\r\n\r\n    if (obj.StrokesPlusHTMLWindow) {\r\n        var handle = new IntPtr(parseInt(obj.StrokesPlusHTMLWindow.Handle))\r\n        sp.StoreHandle(\"testWindowHandle\",handle);\r\n        sp.WindowFromHandle(handle).Maximize();\r\n    } \r\n    else if (obj.action)\r\n    {\r\n        switch(obj.action) {\r\n            case \"Close\":\r\n                sp.WindowFromHandle(sp.GetStoredHandle(\"testWindowHandle\")).SendClose();        \r\n                break;\r\n            default:\r\n                sp.MessageBox(obj.action, \"Callback Action\");\r\n                break;\r\n        }\r\n    }\r\n    else\r\n    {\r\n        sp.MessageBox(val, \"Callback Value\");\r\n    }\r\n}\r\n\r\n\r\n\r\n// Create new HTML window\r\n// sp.HTMLWindow(title, HTML, callback, loadScript, windowId, includeBootstrapJQuery);\r\nsp.HTMLWindow(\"Window Title\",\r\n                                `<div class=\"container mt-2\">\r\n                                      <p>Test</p>\r\n                                      <button id=\"buttonOK\" class=\"btn btn-primary\">OK</button>\r\n                                      <button id=\"buttonString\" class=\"btn btn-secondary\">Send String</button>\r\n                                      <button id=\"buttonClose\" class=\"btn btn-default\">Close</button>\r\n                                  </div>\r\n                                  <script>\r\n                                        $('#buttonOK').click(function (b) {\r\n                                            window.chrome.webview.postMessage({ action: 'OK', message: 'clicked OK'});\r\n                                        });\r\n                                        $('#buttonString').click(function (b) {\r\n                                            window.chrome.webview.postMessage(\"Test String\");\r\n                                        });\r\n                                        $('#buttonClose').click(function (b) {\r\n                                            window.chrome.webview.postMessage({ action: 'Close', message: 'clicked Cancel'});\r\n                                        });\r\n                                  </script>`, \r\n    \"testWindowCallback\",                     // script callback (to process data from window.chrome.webview.postMessage)\r\n    \"//alert('testWindow Loaded');\",  // script (within scope of HTML) to be executed on HTML doc load \r\n    \"\",       // window ID, if not supplied, will be a new GUID\r\n    true);  // include Bootstrap 4, JQuery, document wrapper (your HTML will be inserted inside the <body> tag)\r\n                 // false will not include any additional HTML beyond what is passed in from above",
+        "Parameters": {
+          "Title": {
+            "Name": "Title",
+            "InternalName": "Title",
+            "Description": "Title of the window.",
+            "Type": "string",
+            "Order": 1
+          },
+          "HTML": {
+            "Name": "HTML",
+            "InternalName": "HTML",
+            "Description": "HTML to use for the document, if IncludeBootstrapJQuery is true, HTML will be inserted inside the <body> tag, otherwise it will be the entire document.",
+            "Type": "string",
+            "Order": 2
+          },
+          "ScriptCallback": {
+            "Name": "ScriptCallback",
+            "InternalName": "ScriptCallback",
+            "Description": "Name of the callback to function to invoke when window.chrome.webview.postMessage is called from within the HTML window's JavaScript.",
+            "Type": "string",
+            "Order": 3
+          },
+          "OnDocumentCreatedScript": {
+            "Name": "OnDocumentCreatedScript",
+            "InternalName": "OnDocumentCreatedScript",
+            "Description": "JavaScript to execute in the HTML window once the document is created.",
+            "Type": "string",
+            "Order": 4
+          },
+          "ID": {
+            "Name": "ID",
+            "InternalName": "ID",
+            "Description": "Identifier for the window, if blank it will be a new GUID. This is helpful if you have multiple HTML windows open and need to distinguish them.",
+            "Type": "string",
+            "Order": 5
+          },
+          "IncludeBootstrapJQuery": {
+            "Name": "IncludeBootstrapJQuery",
+            "InternalName": "IncludeBootstrapJQuery",
+            "Description": "If true, includes Bootstrap 4 CSS/JS and jQuery 3.51 to the HTML document and inserts the HTML parameter value inside the <body> tag.",
+            "Type": "bool",
+            "Order": 6
+          }
+        }
+      },
+      "HTMLWindowExecuteScriptAsync": {
+        "Name": "HTMLWindowExecuteScriptAsync",
+        "InternalName": "HTMLWindowExecuteScriptAsync",
+        "Description": "Executes JavaScript inside the specified HTML window.",
+        "Returns": "void",
+        "SimpleExample": "",
+        "FullExample": "// Assumes you are using the Example from HTMLWindow\r\n\tsp.HTMLWindowExecuteScriptAsync(sp.GetStoredHandle(\"testWindowHandle\"), \"alert('Hello!');\");",
+        "Parameters": {
+          "Handle": {
+            "Name": "Handle",
+            "InternalName": "Handle",
+            "Description": "Handle of the window.",
+            "Type": "object",
+            "Order": 1
+          },
+          "Script": {
+            "Name": "Script",
+            "InternalName": "Script",
+            "Description": "JavaScript to execute.",
+            "Type": "string",
+            "Order": 2
+          }
+        }
+      },
+      "InputBox": {
+        "Name": "InputBox",
+        "InternalName": "InputBox",
+        "Description": "Displays a window which can be used to collect user input. See InputBoxInfo for more details.",
+        "Returns": "string",
+        "SimpleExample": "var inputBoxInfo = new InputBoxInfo();\r\ninputBoxInfo.Title = 'Title text';\r\ninputBoxInfo.Message = 'Test';\r\ninputBoxInfo.Items.Add('Test Item');\r\ninputBoxInfo.AllowDirectInput = true;\r\ninputBoxInfo.Sort = true;\r\ninputBoxInfo.ShowAtMouseCursor = true;\r\nvar res = sp.InputBox(inputBoxInfo);\r\nif(res != null) {\r\n\tsp.MessageBox(res, 'Result');\r\n}\r\n",
+        "FullExample": "",
+        "Parameters": {
+          "info": {
+            "Name": "info",
+            "InternalName": "info",
+            "Description": "The InputBoxInfo object containing the info used when displaying the input window.",
+            "Type": "InputBoxInfo",
+            "Order": 1
+          }
+        }
+      },
+      "MessageBox": {
+        "Name": "MessageBox",
+        "InternalName": "MessageBox",
+        "Description": "Displays a simple message box with a title and message.",
+        "Returns": "void",
+        "SimpleExample": "sp.MessageBox('Message', 'Title');",
+        "FullExample": "",
+        "Parameters": {
+          "message": {
+            "Name": "message",
+            "InternalName": "message",
+            "Description": "Title of the message box window.",
+            "Type": "object (casted to string)",
+            "Order": 1
+          },
+          "title": {
+            "Name": "title",
+            "InternalName": "title",
+            "Description": "Message of the message box window.",
+            "Type": "object (casted to string)",
+            "Order": 2
+          }
+        }
+      },
+      "ShowBalloonTip": {
+        "Name": "ShowBalloonTip",
+        "InternalName": "ShowBalloonTip",
+        "Description": "Displays a balloon tool window or a toast style notification popup depending on the version of Windows. NOTE: This functionality can be overridden or prevented based on Windows settings and rules that govern notifications.",
+        "Returns": "void",
+        "SimpleExample": "//Types include: Warning, Error, Info, None\r\n//Duration (5000 ms below) can be overridden by Windows Accessibility settings\r\nsp.ShowBalloonTip('Title', 'Message here', 'Info', 5000);\r\n",
+        "FullExample": "",
+        "Parameters": {
+          "title": {
+            "Name": "title",
+            "InternalName": "title",
+            "Description": "Title of the balloon/toast popup.",
+            "Type": "string",
+            "Order": 1
+          },
+          "text": {
+            "Name": "text",
+            "InternalName": "text",
+            "Description": "Message of the balloon/toast popup.",
+            "Type": "string",
+            "Order": 2
+          },
+          "icon": {
+            "Name": "icon",
+            "InternalName": "icon",
+            "Description": "The icon to be used in the ballon/toast popup. Valid values: info, error, or warning.",
+            "Type": "string",
+            "Order": 3
+          },
+          "timeout": {
+            "Name": "timeout",
+            "InternalName": "timeout",
+            "Description": "How long to display the balloon/toast popup.",
+            "Type": "object (casted to int)",
+            "Order": 4
+          }
+        }
+      },
+      "ShowPopupMenu": {
+        "Name": "ShowPopupMenu",
+        "InternalName": "ShowPopupMenu",
+        "Description": "Displays a context menu from which the user can select an item. This requires a global javascript callback to receive the selected item. See PopupMenuInfo and the examples for more information.",
+        "Returns": "void",
+        "SimpleExample": "var popupMenuInfo = new  PopupMenuInfo();\r\npopupMenuInfo.Items.Add('Test 1');\r\npopupMenuInfo.Items.Add('Test 2');\r\npopupMenuInfo.Items.Add('-');\r\npopupMenuInfo.Items.Add('Test 3');\r\npopupMenuInfo.Location = action.End;\r\npopupMenuInfo.Callback = 'PopupMenuCallback';\r\nvar res = sp.ShowPopupMenu(popupMenuInfo);\r\n\r\n//Example callback function to put in your Load Scripts section\r\nfunction PopupMenuCallback(id) {\r\n\tsp.MessageBox(''+id, 'Selected Menu Item');\r\n}\r\n",
+        "FullExample": "",
+        "Parameters": {
+          "info": {
+            "Name": "info",
+            "InternalName": "info",
+            "Description": "The PopupMenuInfo object containing the info used when displaying the popup menu.",
+            "Type": "PopupMenuInfo",
+            "Order": 1
+          }
+        }
+      },
+      "ShowPopupMenuEx": {
+        "Name": "ShowPopupMenuEx",
+        "InternalName": "ShowPopupMenuEx",
+        "Description": "Displays a context menu from which the user can select an item. This is an extended version of ShowPopupMenu that allows for more a complex menu structure and doesn't require a callback.",
+        "Returns": "void",
+        "SimpleExample": "//For script is running in an action, otherwise use a Point instead of action.End\r\nvar popupMenuInfoEx = new PopupMenuInfoEx(action.End);\r\npopupMenuInfoEx.MenuItems.Add(new PopupMenuItem(\"Test\", `sp.MessageBox(\"Test\", \"Test\");`));\r\npopupMenuInfoEx.MenuItems.Add(new PopupMenuItem(\"-\"));\r\nvar mnuSubMenu = new PopupMenuItem(\"Sub Menu\");\r\n    mnuSubMenu.SubMenuItems.Add(new PopupMenuItem(\"Sub Item 1\", `sp.MessageBox(\"Sub Item 1\", \"Sub Item 1\");`));\r\n    var mnuSubSubMenu = new PopupMenuItem(\"Sub Sub Menu\");\r\n        mnuSubSubMenu.SubMenuItems.Add(new PopupMenuItem(\"Sub Sub Item 1\", `sp.MessageBox(\"Sub Sub Item 1\", \"Sub Sub Item 1\");`));\r\n    mnuSubMenu.SubMenuItems.Add(mnuSubSubMenu);\r\n    mnuSubMenu.SubMenuItems.Add(new PopupMenuItem(\"Sub Item 2\", `sp.MessageBox(\"Sub Item 2\", \"Sub Item 2\");`));\r\npopupMenuInfoEx.MenuItems.Add(mnuSubMenu);\r\npopupMenuInfoEx.MenuItems.Add(new PopupMenuItem(\"Last\", `sp.MessageBox(\"Last\", \"Last\");`));\r\npopupMenuInfoEx.MenuItems.Add(new PopupMenuItem(\"-\"));\r\npopupMenuInfoEx.MenuItems.Add(new PopupMenuItem(\"Close Popup\", \"\"));\r\nsp.ShowPopupMenuEx(popupMenuInfoEx);\r\n",
+        "FullExample": "",
+        "Parameters": {
+          "info": {
+            "Name": "info",
+            "InternalName": "info",
+            "Description": "The PopupMenuInfoEx object containing the info used when displaying the popup menu.",
+            "Type": "PopupMenuInfoEx",
+            "Order": 1
+          }
+        }
+      }
+    }
+  },
+  "SectionOperatingSystem": {
+    "Name": "Operating System",
+    "Description": "Functions for working with the operating system.",
+    "Methods": {
+      "EmptyRecycleBins": {
+        "Name": "EmptyRecycleBins",
+        "InternalName": "EmptyRecycleBins",
+        "Description": "Empties ALL recycle bins.",
+        "Returns": "void",
+        "SimpleExample": "sp.EmptyRecycleBins();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "ExpandEnvironmentVariables": {
+        "Name": "ExpandEnvironmentVariables",
+        "InternalName": "ExpandEnvironmentVariables",
+        "Description": "Returns a string with the environment variables expanded.",
+        "Returns": "string",
+        "SimpleExample": "var expanded = sp.ExpandEnvironmentVariables('My profile directory = %userprofile%');",
+        "FullExample": "",
+        "Parameters": {
+          "stringToExpand": {
+            "Name": "stringToExpand",
+            "InternalName": "stringToExpand",
+            "Description": "String containing the environment variables to be expanded.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetActiveExplorerPath": {
+        "Name": "GetActiveExplorerPath",
+        "InternalName": "GetActiveExplorerPath",
+        "Description": "Returns a string containing path of the specified Explorer window.",
+        "Returns": "string[]",
+        "SimpleExample": "var path = sp.GetActiveExplorerPath(action.Window.HWnd);",
+        "FullExample": "var path = sp.GetActiveExplorerPath(action.Window.HWnd);\r\nsp.MessageBox(path, 'Current Path');",
+        "Parameters": {
+          "hWnd": {
+            "Name": "hWnd",
+            "InternalName": "hWnd",
+            "Description": "Handle to the Explorer window.",
+            "Type": "IntPtr",
+            "Order": 1
+          }
+        }
+      },
+      "GetItemsInExplorer": {
+        "Name": "GetItemsInExplorer",
+        "InternalName": "GetItemsInExplorer",
+        "Description": "Returns a array of strings containing each file selected in the specified Explorer window.",
+        "Returns": "string[]",
+        "SimpleExample": "var items = sp.GetItemsInExplorer(action.Window.HWnd, false, true, false);",
+        "FullExample": "var items = sp.GetItemsInExplorer(action.Window.HWnd, false, true, false);\r\nvar str = '';\r\nvar delim = '';\r\nfor(i = 0; i < items.Length; i++)\r\n{\r\n\tstr = str + delim + items[i];\r\n\tdelim = '\\r\\n';\r\n}\r\nif(str.length == 0) str = '(no items)';\r\nsp.MessageBox(str, 'Items(s)');",
+        "Parameters": {
+          "hWnd": {
+            "Name": "hWnd",
+            "InternalName": "hWnd",
+            "Description": "Handle to the Explorer window.",
+            "Type": "IntPtr",
+            "Order": 1
+          },
+          "onlyNames": {
+            "Name": "onlyNames",
+            "InternalName": "onlyNames",
+            "Description": "If true, only return names, not the full path and name.",
+            "Type": "bool",
+            "Order": 2
+          },
+          "includeFolders": {
+            "Name": "includeFolders",
+            "InternalName": "includeFolders",
+            "Description": "If true, also include folders.",
+            "Type": "bool",
+            "Order": 3
+          },
+          "includeLinks": {
+            "Name": "includeLinks",
+            "InternalName": "includeLinks",
+            "Description": "If true, also include link items.",
+            "Type": "bool",
+            "Order": 4
+          }
+        }
+      },
+      "GetSelectedFilesInExplorer": {
+        "Name": "GetSelectedFilesInExplorer",
+        "InternalName": "GetSelectedFilesInExplorer",
+        "Description": "Returns a array of strings containing each file selected in the specified Explorer window.",
+        "Returns": "string[]",
+        "SimpleExample": "var files = sp.GetSelectedFilesInExplorer(action.Window.HWnd);",
+        "FullExample": "var files = sp.GetSelectedFilesInExplorer(action.Window.HWnd);\r\nvar str = '';\r\nvar delim = '';\r\nfor(i = 0; i < files.Length; i++)\r\n{\r\n\tstr = str + delim + files[i];\r\n\tdelim = '\\r\\n';\r\n}\r\nif(str.length == 0) str = '(no files selected)';\r\nsp.MessageBox(str, 'Selected File(s)');",
+        "Parameters": {
+          "hWnd": {
+            "Name": "hWnd",
+            "InternalName": "hWnd",
+            "Description": "Handle to the Explorer window.",
+            "Type": "IntPtr",
+            "Order": 1
+          }
+        }
+      },
+      "GetSelectedFilesOnDesktop": {
+        "Name": "GetSelectedFilesOnDesktop",
+        "InternalName": "GetSelectedFilesOnDesktop",
+        "Description": "Returns a array of strings containing each file selected in the Desktop window list view.",
+        "Returns": "string[]",
+        "SimpleExample": "var files = sp.GetSelectedFilesOnDesktop();",
+        "FullExample": "var files = sp.GetSelectedFilesOnDesktop();\r\nvar str = '';\r\nvar delim = '';\r\nfor(i = 0; i < files.Length; i++)\r\n{\r\n\tstr = str + delim + files[i];\r\n\tdelim = '\\r\\n';\r\n}\r\nif(str.length == 0) str = '(no files selected)';\r\nsp.MessageBox(str, 'Selected File(s)');",
+        "Parameters": {}
+      },
+      "GetSystemMetricsByIndex": {
+        "Name": "GetSystemMetricsByIndex",
+        "InternalName": "GetSystemMetricsByIndex",
+        "Description": "Returns an int value of the specified SystemMetric.",
+        "Returns": "int",
+        "SimpleExample": "var Int32T = host.type('System.Int32');\r\nvar intValue = host.cast(Int32T, SystemMetric.SM_XVIRTUALSCREEN);\r\nsp.GetSystemMetricsByIndex(intValue);",
+        "FullExample": "",
+        "Parameters": {
+          "index": {
+            "Name": "index",
+            "InternalName": "index",
+            "Description": "Index of the desired SystemMetric",
+            "Type": "(int)SystemMetric",
+            "Order": 1
+          }
+        }
+      },
+      "Run": {
+        "Name": "Run",
+        "InternalName": "Run",
+        "Description": "Opens a file or runs a program. This is the same as typing something in the Run dialog (Win+R) and pressing Enter. Use sp.RunProgram for more specific execution options.",
+        "Returns": "void",
+        "SimpleExample": "sp.Run('notepad');",
+        "FullExample": "",
+        "Parameters": {
+          "command": {
+            "Name": "command",
+            "InternalName": "command",
+            "Description": "The file name of the item to execute or open.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "RunOrActivate": {
+        "Name": "RunOrActivate",
+        "InternalName": "RunOrActivate",
+        "Description": "Takes a full path and EXE name and looks to see if there is a window already running for that EXE and activates it, otherwise it runs the EXE.",
+        "Returns": "void",
+        "SimpleExample": "sp.RunOrActivate('C:\\\\Windows\\\\System32\\\\notepad.exe');",
+        "FullExample": "",
+        "Parameters": {
+          "command": {
+            "Name": "command",
+            "InternalName": "command",
+            "Description": "The full path and file name of the program to activate or open.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "RunProgram": {
+        "Name": "RunProgram",
+        "InternalName": "RunProgram",
+        "Description": "Opens a file or runs a program.",
+        "Returns": "int",
+        "SimpleExample": "sp.RunProgram('notepad', '', 'open', 'normal', true, false, false);",
+        "FullExample": "",
+        "Parameters": {
+          "fileName": {
+            "Name": "fileName",
+            "InternalName": "fileName",
+            "Description": "The file name of the item to execute or open.",
+            "Type": "string",
+            "Order": 1
+          },
+          "arguments": {
+            "Name": "arguments",
+            "InternalName": "arguments",
+            "Description": "Command line arguments to pass to the program.",
+            "Type": "string",
+            "Order": 2
+          },
+          "verb": {
+            "Name": "verb",
+            "InternalName": "verb",
+            "Description": "The ShellExecute verb to use, if applicable.",
+            "Type": "string",
+            "Order": 3
+          },
+          "windowStyle": {
+            "Name": "windowStyle",
+            "InternalName": "windowStyle",
+            "Description": "State of the window when started, valid values: hidden, normal, minimized, maximized.",
+            "Type": "string",
+            "Order": 4
+          },
+          "useShellExecute": {
+            "Name": "useShellExecute",
+            "InternalName": "useShellExecute",
+            "Description": "If true, uses the Windows shell to execute the program or open the file. False executes only a program directly.",
+            "Type": "bool",
+            "Order": 5
+          },
+          "noWindow": {
+            "Name": "noWindow",
+            "InternalName": "noWindow",
+            "Description": "Specifies that no window should be created for the process.",
+            "Type": "bool",
+            "Order": 6
+          },
+          "waitForExit": {
+            "Name": "waitForExit",
+            "InternalName": "waitForExit",
+            "Description": "If true, this method will wait until the program has exited, which returns the exit code from the program.",
+            "Type": "bool",
+            "Order": 7
+          }
+        }
+      },
+      "RunStoreApp": {
+        "Name": "RunStoreApp",
+        "InternalName": "RunStoreApp",
+        "Description": "Takes a full or partial Store app package name and activates or runs it. If more than one match is found, the first match will be used. Note there is a slight delay due to enumerating all installed Store apps.",
+        "Returns": "void",
+        "SimpleExample": "sp.RunStoreApp('Microsoft.WindowsCalculator'); //Or just 'Calculator' if there are no other similarly named apps installed.",
+        "FullExample": "",
+        "Parameters": {
+          "packageName": {
+            "Name": "packageName",
+            "InternalName": "packageName",
+            "Description": "The full or partial package name of the Store app.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      }
+    }
+  },
+  "SectionMedia": {
+    "Name": "Media",
+    "Description": "Functions for working with the AudioSwitcher media objects.",
+    "Methods": {
+      "GetCaptureMixer": {
+        "Name": "GetCaptureMixer",
+        "InternalName": "GetCaptureMixer",
+        "Description": "Returns a AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice object which allows controlling the default capture (record) mixer/device.",
+        "Returns": "CoreAudioDevice",
+        "SimpleExample": "var captureMixer = sp.GetCaptureMixer();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "GetCommunicationsCaptureMixer": {
+        "Name": "GetCommunicationsCaptureMixer",
+        "InternalName": "GetCommunicationsCaptureMixer",
+        "Description": "Returns a AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice object which allows controlling the default communications capture (record) mixer/device.",
+        "Returns": "CoreAudioDevice",
+        "SimpleExample": "var commCaptureMixer = sp.GetCommunicationsCaptureMixer();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "GetCommunicationsMixer": {
+        "Name": "GetCommunicationsMixer",
+        "InternalName": "GetCommunicationsMixer",
+        "Description": "Returns a AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice object which allows controlling the default communications mixer/device.",
+        "Returns": "CoreAudioDevice",
+        "SimpleExample": "var commMixer = sp.GetCommunicationsMixer();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "GetCommunicationsVolume": {
+        "Name": "GetCommunicationsVolume",
+        "InternalName": "GetCommunicationsVolume",
+        "Description": "Returns the current volume level of the default communications mixer/device. (0 - 100)",
+        "Returns": "int",
+        "SimpleExample": "var currentVolume = sp.GetCommunicationsVolume();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "GetPlaybackMixer": {
+        "Name": "GetPlaybackMixer",
+        "InternalName": "GetPlaybackMixer",
+        "Description": "Returns a AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice object which allows controlling the default playback mixer/device.",
+        "Returns": "CoreAudioDevice",
+        "SimpleExample": "var playMixer = sp.GetPlaybackMixer();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "GetPlaybackVolume": {
+        "Name": "GetPlaybackVolume",
+        "InternalName": "GetPlaybackVolume",
+        "Description": "Returns the current volume level of the default playback mixer/device. (0 - 100)",
+        "Returns": "int",
+        "SimpleExample": "var currentVolume = sp.GetPlaybackVolume();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "PlaySound": {
+        "Name": "PlaySound",
+        "InternalName": "PlaySound",
+        "Description": "Plays a .wav file. Does not support other sound formats.",
+        "Returns": "void",
+        "SimpleExample": "sp.PlaySound('C:\\\\Windows\\\\Media\\\\ding.wav');",
+        "FullExample": "",
+        "Parameters": {
+          "filePath": {
+            "Name": "filePath",
+            "InternalName": "filePath",
+            "Description": "The full file path of the .wav file to play.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "SetCommunicationsVolume": {
+        "Name": "SetCommunicationsVolume",
+        "InternalName": "SetCommunicationsVolume",
+        "Description": "Sets the volume level of the default communications mixer/device. (0 - 100)",
+        "Returns": "void",
+        "SimpleExample": "sp.SetCommunicationsVolume(50);",
+        "FullExample": "",
+        "Parameters": {
+          "newVolumeLevel": {
+            "Name": "newVolumeLevel",
+            "InternalName": "newVolumeLevel",
+            "Description": "The new volume level.",
+            "Type": "int",
+            "Order": 1
+          }
+        }
+      },
+      "SetPlaybackVolume": {
+        "Name": "SetPlaybackVolume",
+        "InternalName": "SetPlaybackVolume",
+        "Description": "Sets the volume level of the default playback mixer/device. (0 - 100)",
+        "Returns": "void",
+        "SimpleExample": "sp.SetPlaybackVolume(50);",
+        "FullExample": "",
+        "Parameters": {
+          "newVolumeLevel": {
+            "Name": "newVolumeLevel",
+            "InternalName": "newVolumeLevel",
+            "Description": "The new volume level.",
+            "Type": "int",
+            "Order": 1
+          }
+        }
+      },
+      "ToggleCommunicationsMute": {
+        "Name": "ToggleCommunicationsMute",
+        "InternalName": "ToggleCommunicationsMute",
+        "Description": "Toggles mute on the default communications mixer/device.",
+        "Returns": "void",
+        "SimpleExample": "sp.ToggleCommunicationsMute();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "TogglePlaybackMute": {
+        "Name": "TogglePlaybackMute",
+        "InternalName": "TogglePlaybackMute",
+        "Description": "Toggles mute on the default playback mixer/device.",
+        "Returns": "void",
+        "SimpleExample": "sp.TogglePlaybackMute();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionMouse": {
+    "Name": "Mouse",
+    "Description": "Functions for simulating mouse activity.",
+    "Methods": {
+      "GetCurrentMouseCursor": {
+        "Name": "GetCurrentMouseCursor",
+        "InternalName": "GetCurrentMouseCursor",
+        "Description": "Returns the name of the current mouse cursor. NOTE: This will only compare against the standard Windows cursors as defined by the Microsoft 'Cursors Class' properties, e.g. 'AppStarting', 'Arrow', 'Hand', etc. Any custom cursors will not be recognized and the return value will be 'Unknown'.",
+        "Returns": "string",
+        "SimpleExample": "var currentMouseCursor = sp.GetCurrentMouseCursor();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "GetCurrentMousePoint": {
+        "Name": "GetCurrentMousePoint",
+        "InternalName": "GetCurrentMousePoint",
+        "Description": "Returns a point containing the coordinates of the current mouse position.",
+        "Returns": "Point",
+        "SimpleExample": "var currentMouseLocation = sp.GetCurrentMousePoint();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "HideMouseCursor": {
+        "Name": "HideMouseCursor",
+        "InternalName": "HideMouseCursor",
+        "Description": "Hides the mouse cursor. NOTE: This basically makes all cursors transparent and are restored via sp.ShowMouseCursor(). However, this simply resets the mouse cursors to the default icon set, so any custom cursors you have selected will be reverted.",
+        "Returns": "void",
+        "SimpleExample": "sp.HideMouseCursor();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "MouseClick": {
+        "Name": "MouseClick",
+        "InternalName": "MouseClick",
+        "Description": "Simulates pressing and/or releasing a mouse button at a specific location.",
+        "Returns": "void",
+        "SimpleExample": "sp.MouseClick(new Point(100,100), MouseButtons.Left, true, true);",
+        "FullExample": "",
+        "Parameters": {
+          "pt": {
+            "Name": "pt",
+            "InternalName": "pt",
+            "Description": "The location to perform the mouse event(s). Can be an existing point like 'action.Start' or a custom one using 'new Point(x, y).",
+            "Type": "Point",
+            "Order": 1
+          },
+          "btn": {
+            "Name": "btn",
+            "InternalName": "btn",
+            "Description": "The mouse button to use for the event(s).",
+            "Type": "MouseButtons",
+            "Order": 2
+          },
+          "down": {
+            "Name": "down",
+            "InternalName": "down",
+            "Description": "Simulate pressing the specified mouse button down. Pass down and up as true to simulate a full click.",
+            "Type": "bool",
+            "Order": 3
+          },
+          "up": {
+            "Name": "up",
+            "InternalName": "up",
+            "Description": "Simulate releasing the specified mouse button. Pass down and up as true to simulate a full click.",
+            "Type": "bool",
+            "Order": 4
+          }
+        }
+      },
+      "MouseMove": {
+        "Name": "MouseMove",
+        "InternalName": "MouseMove",
+        "Description": "Moves the mouse to the specified location.",
+        "Returns": "void",
+        "SimpleExample": "sp.MouseMove(new Point(100, 100));",
+        "FullExample": "",
+        "Parameters": {
+          "point": {
+            "Name": "point",
+            "InternalName": "point",
+            "Description": "The location to move the mouse cursor to. Can be an existing point like 'action.Start' or a custom one using 'new Point(x, y).",
+            "Type": "Point",
+            "Order": 1
+          }
+        }
+      },
+      "MouseRestrictActive": {
+        "Name": "MouseRestrictActive",
+        "InternalName": "MouseRestrictActive",
+        "Description": "Returns true or false, indicating whether the mouse is being restricted via sp.MouseRestrictToRectangle.",
+        "Returns": "bool",
+        "SimpleExample": "var mouseRestricted = sp.MouseRestrictActive();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "MouseRestrictClear": {
+        "Name": "MouseRestrictClear",
+        "InternalName": "MouseRestrictClear",
+        "Description": "Removes the mouse movement restriction previously set via sp.MouseRestrictToRectangle.",
+        "Returns": "void",
+        "SimpleExample": "sp.MouseRestrictClear();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "MouseRestrictToRectangle": {
+        "Name": "MouseRestrictToRectangle",
+        "InternalName": "MouseRestrictToRectangle",
+        "Description": "Restricts mouse movement to only within the specified rectangle.",
+        "Returns": "void",
+        "SimpleExample": "sp.MouseRestrictToRectangle(action.Window.Rectangle);",
+        "FullExample": "",
+        "Parameters": {
+          "rectangle": {
+            "Name": "rectangle",
+            "InternalName": "rectangle",
+            "Description": "The rectangle (screen coordinates) inside which the mouse cannot leave.",
+            "Type": "Rectangle",
+            "Order": 1
+          }
+        }
+      },
+      "MouseWheel": {
+        "Name": "MouseWheel",
+        "InternalName": "MouseWheel",
+        "Description": "Simulates scrolling the mouse wheel vertically (default) or horizontally.",
+        "Returns": "void",
+        "SimpleExample": "sp.MouseWheel(new Point(100, 100), false, 120);",
+        "FullExample": "",
+        "Parameters": {
+          "point": {
+            "Name": "point",
+            "InternalName": "point",
+            "Description": "The location to perform the mouse event(s). Can be an existing point like 'action.Start' or a custom one using 'new Point(x, y).",
+            "Type": "Point",
+            "Order": 1
+          },
+          "horizontal": {
+            "Name": "horizontal",
+            "InternalName": "horizontal",
+            "Description": "If true, the wheel event is sent as a horizontal scroll, otherwise vertical is used.",
+            "Type": "bool",
+            "Order": 2
+          },
+          "delta": {
+            "Name": "delta",
+            "InternalName": "delta",
+            "Description": "The positive or negative delta (change) to send indicating how far the wheel was scrolled. The standard is in increments of 120 and is recommended, e.g. 120 or -120.",
+            "Type": "object (casted to short)",
+            "Order": 3
+          }
+        }
+      },
+      "SetMouseCursor": {
+        "Name": "SetMouseCursor",
+        "InternalName": "SetMouseCursor",
+        "Description": "Sets the specified system cursor to the cursor loaded from the specified file. This cursor is not saved, reloading Windows or calling sp.ShowMouseCursor() will revert to cursor defined in Control Panel.",
+        "Returns": "void",
+        "SimpleExample": "sp.SetMouseCursor(\"Arrow\", \"C:\\\\Windows\\\\Cursors\\\\aero_arrow_xl.cur\");",
+        "FullExample": "",
+        "Parameters": {
+          "cursorType": {
+            "Name": "cursorType",
+            "InternalName": "cursorType",
+            "Description": "One of the following values: Arrow, IBeam, WaitCursor, Cross, UpArrow, SizeNWSE, SizeNESW, SizeWE, SizeNS, SizeAll, No, Hand, AppStarting, Help",
+            "Type": "string",
+            "Order": 1
+          },
+          "fileName": {
+            "Name": "fileName",
+            "InternalName": "fileName",
+            "Description": "The cursor file to load. File must be .CUR or .ANI file type.",
+            "Type": "string",
+            "Order": 2
+          }
+        }
+      },
+      "ShowMouseCursor": {
+        "Name": "ShowMouseCursor",
+        "InternalName": "ShowMouseCursor",
+        "Description": "Shows the mouse cursor after a call to sp.HideMouseCursor. NOTE: This simply resets all cursors to the Windows default, overwriting any custom cursor selections.",
+        "Returns": "void",
+        "SimpleExample": "sp.ShowMouseCursor();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionFiles": {
+    "Name": "Files",
+    "Description": "Functions for working with files.",
+    "Methods": {
+      "GetFileProductVersionInfo": {
+        "Name": "GetFileProductVersionInfo",
+        "InternalName": "GetFileProductVersionInfo",
+        "Description": "Returns a string represnting the file's product version, as returned by FileVersionInfo.ProductVersion.",
+        "Returns": "string",
+        "SimpleExample": "var version = sp.GetFileProductVersionInfo('C:\\\\Windows\\\\Notepad.exe');",
+        "FullExample": "",
+        "Parameters": {
+          "filePath": {
+            "Name": "filePath",
+            "InternalName": "filePath",
+            "Description": "The full path and name to the file.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetFileVersionInfo": {
+        "Name": "GetFileVersionInfo",
+        "InternalName": "GetFileVersionInfo",
+        "Description": "Returns a string representing the file's version number, in the format of x.x.x.x",
+        "Returns": "string",
+        "SimpleExample": "var version = sp.GetFileVersionInfo('C:\\\\Windows\\\\Notepad.exe');",
+        "FullExample": "",
+        "Parameters": {
+          "filePath": {
+            "Name": "filePath",
+            "InternalName": "filePath",
+            "Description": "The full path and name to the file.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      }
+    }
+  },
+  "SectionKeystrokes": {
+    "Name": "Keystrokes",
+    "Description": "Functions for sending keystrokes.",
+    "Methods": {
+      "GetKeyState": {
+        "Name": "GetKeyState",
+        "InternalName": "GetKeyState",
+        "Description": "Returns a short (number) containing the key state data for the specified key. See the GetKeyState Microsoft documentation for key state data details.",
+        "Returns": "short",
+        "SimpleExample": "var isShiftDown = sp.GetKeyState(vk.SHIFT) & 0x8000",
+        "FullExample": "if(sp.GetKeyState(vk.SHIFT) & 0x8000)\r\n{\r\n   sp.MessageBox(\"Shift is Down\", \"Shift State\");\r\n}",
+        "Parameters": {
+          "vk": {
+            "Name": "vk",
+            "InternalName": "vk",
+            "Description": "The VirtualKeyCode (vk.XX) value to get the state for.",
+            "Type": "VirtualKeyCode",
+            "Order": 1
+          }
+        }
+      },
+      "IsKeyToggled": {
+        "Name": "IsKeyToggled",
+        "InternalName": "IsKeyToggled",
+        "Description": "Returns true if the specified key is toggled on. This is intended for the Caps, Num, and Scroll lock keys.",
+        "Returns": "bool",
+        "SimpleExample": "var isCapsLockOn = sp.IsKeyToggled(vk.CAPITAL);",
+        "FullExample": "",
+        "Parameters": {
+          "vk": {
+            "Name": "vk",
+            "InternalName": "vk",
+            "Description": "The VirtualKeyCode (vk.XX) value to check.",
+            "Type": "VirtualKeyCode",
+            "Order": 1
+          }
+        }
+      },
+      "SendAltDown": {
+        "Name": "SendAltDown",
+        "InternalName": "SendAltDown",
+        "Description": "Simulates pressing the left Alt key down.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendAltDown();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendAltUp": {
+        "Name": "SendAltUp",
+        "InternalName": "SendAltUp",
+        "Description": "Simulates releasing the left Alt key.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendAltUp();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendCharacter": {
+        "Name": "SendCharacter",
+        "InternalName": "SendCharacter",
+        "Description": "Simulates pressing and releasing the specified character.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendCharacter('a');",
+        "FullExample": "",
+        "Parameters": {
+          "ch": {
+            "Name": "ch",
+            "InternalName": "ch",
+            "Description": "Value of the character to send.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "SendControlDown": {
+        "Name": "SendControlDown",
+        "InternalName": "SendControlDown",
+        "Description": "Simulates pressing the left Control key down.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendControlDown();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendControlUp": {
+        "Name": "SendControlUp",
+        "InternalName": "SendControlUp",
+        "Description": "Simulates releasing the left Control key.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendControlUp();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendKeyDown": {
+        "Name": "SendKeyDown",
+        "InternalName": "SendKeyDown",
+        "Description": "Simulates pressing the specified character key down.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendKeyDown('a');",
+        "FullExample": "",
+        "Parameters": {
+          "ch": {
+            "Name": "ch",
+            "InternalName": "ch",
+            "Description": "Value of the character to send.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "SendKeys": {
+        "Name": "SendKeys",
+        "InternalName": "SendKeys",
+        "Description": "Simulates sending a sequence of keystrokes using the Microsoft SendKeys.SendWait() method. Search the internet for 'SendKeys Class' to find specific rules and keywords when using this action.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendKeys('^a');",
+        "FullExample": "",
+        "Parameters": {
+          "sendKeysString": {
+            "Name": "sendKeysString",
+            "InternalName": "sendKeysString",
+            "Description": "The SendKeys compatible sequence of keystrokes to send.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "SendKeyUp": {
+        "Name": "SendKeyUp",
+        "InternalName": "SendKeyUp",
+        "Description": "Simulates releasing the specified character.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendKeyUp('a');",
+        "FullExample": "",
+        "Parameters": {
+          "ch": {
+            "Name": "ch",
+            "InternalName": "ch",
+            "Description": "Values of the character key.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "SendModifiedVKeys": {
+        "Name": "SendModifiedVKeys",
+        "InternalName": "SendModifiedVKeys",
+        "Description": "Simulates pressing a key combination, like Ctrl+S, Win+E, etc. The modifiers are held down, the keys are sent, then the modifiers are released.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendModifiedVKeys([vk.LCONTROL, vk.LMENU], [vk.VK_A, vk.VK_C]);",
+        "FullExample": "",
+        "Parameters": {
+          "Modifiers": {
+            "Name": "Modifiers",
+            "InternalName": "Modifiers",
+            "Description": "Single (vk.XX) or array ([vk.XX, vk.XX]) of VirtualKeyCode modifier value(s). Modifiers are Control, Alt, Shift, and Win keys.",
+            "Type": "dynamic",
+            "Order": 1
+          },
+          "Keys": {
+            "Name": "Keys",
+            "InternalName": "Keys",
+            "Description": "Single (vk.XX) or array ([vk.XX, vk.XX]) of VirtualKeyCode values to send after the modifiers have been pressed down.",
+            "Type": "dynamic",
+            "Order": 2
+          }
+        }
+      },
+      "SendShiftDown": {
+        "Name": "SendShiftDown",
+        "InternalName": "SendShiftDown",
+        "Description": "Simulates pressing the left Shift key down.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendShiftDown();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendShiftUp": {
+        "Name": "SendShiftUp",
+        "InternalName": "SendShiftUp",
+        "Description": "Simulates releasing the left Shift key.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendShiftUp();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendString": {
+        "Name": "SendString",
+        "InternalName": "SendString",
+        "Description": "Simulates sending a sequence of characters.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendString('This is a test');",
+        "FullExample": "",
+        "Parameters": {
+          "characters": {
+            "Name": "characters",
+            "InternalName": "characters",
+            "Description": "Sequence of characters to send.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "SendUnicodeString": {
+        "Name": "SendUnicodeString",
+        "InternalName": "SendUnicodeString",
+        "Description": "Simulates sending a sequence of Unicode characters. Not sure if this function is required, I wanted to provide multiple methods for international users.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendUnicodeString('‽');",
+        "FullExample": "",
+        "Parameters": {
+          "str": {
+            "Name": "str",
+            "InternalName": "str",
+            "Description": "Sequence of characters to send.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "SendVKey": {
+        "Name": "SendVKey",
+        "InternalName": "SendVKey",
+        "Description": "Simulates pressing and releasing the specified VirtualKeyCode.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendVKey(vk.CONTROL);",
+        "FullExample": "",
+        "Parameters": {
+          "virtualKey": {
+            "Name": "virtualKey",
+            "InternalName": "virtualKey",
+            "Description": "The VirtualKeyCode (vk.XX) value to send.",
+            "Type": "VirtualKeyCode",
+            "Order": 1
+          }
+        }
+      },
+      "SendVKeyDown": {
+        "Name": "SendVKeyDown",
+        "InternalName": "SendVKeyDown",
+        "Description": "Simulates pressing the specified virtual key down.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendVKeyDown(vk.CONTROL);",
+        "FullExample": "",
+        "Parameters": {
+          "virtualKey": {
+            "Name": "virtualKey",
+            "InternalName": "virtualKey",
+            "Description": "Value of the virtual key to send (vk.XX).",
+            "Type": "VirtualKeyCode",
+            "Order": 1
+          }
+        }
+      },
+      "SendVKeyUp": {
+        "Name": "SendVKeyUp",
+        "InternalName": "SendVKeyUp",
+        "Description": "Simulates releasing the specified VirtualKeyCode.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendVKeyUp(vk.CONTROL);",
+        "FullExample": "",
+        "Parameters": {
+          "virtualKey": {
+            "Name": "virtualKey",
+            "InternalName": "virtualKey",
+            "Description": "The VirtualKeyCode (vk.XX) value to send.",
+            "Type": "VirtualKeyCode",
+            "Order": 1
+          }
+        }
+      },
+      "SendWinDown": {
+        "Name": "SendWinDown",
+        "InternalName": "SendWinDown",
+        "Description": "Simulates pressing the left Win key down.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendWinDown();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendWinUp": {
+        "Name": "SendWinUp",
+        "InternalName": "SendWinUp",
+        "Description": "Simulates releasing the left Win key.",
+        "Returns": "void",
+        "SimpleExample": "sp.SendWinUp();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionMacros": {
+    "Name": "Macros",
+    "Description": "Functions for working with stored macros and recording/playing temporary ones.",
+    "Methods": {
+      "GetMacroScript": {
+        "Name": "GetMacroScript",
+        "InternalName": "GetMacroScript",
+        "Description": "Returns the full script for the specified macro.",
+        "Returns": "string",
+        "SimpleExample": "sp.GetMacroScript('categoryname', 'macroname');",
+        "FullExample": "",
+        "Parameters": {
+          "category": {
+            "Name": "category",
+            "InternalName": "category",
+            "Description": "Name of the category to whih the macro belongs.",
+            "Type": "string",
+            "Order": 1
+          },
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the macro.",
+            "Type": "string",
+            "Order": 2
+          }
+        }
+      },
+      "GetTemporaryMacroScript": {
+        "Name": "GetTemporaryMacroScript",
+        "InternalName": "GetTemporaryMacroScript",
+        "Description": "Returns the script of the last temporary macro.",
+        "Returns": "string",
+        "SimpleExample": "var lastscript = sp.GetTemporaryMacroScript();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "PlayTemporaryMacro": {
+        "Name": "PlayTemporaryMacro",
+        "InternalName": "PlayTemporaryMacro",
+        "Description": "Plays the last temporary macro. If you use this in a hotkey, you should add a sp.Sleep(1000); before calling this function to ensure you release the hotkeys before the macro starts or the keys could be stuck in the down state, or send the key up events for the keys used in the hotkey as shown in the full example.",
+        "Returns": "string",
+        "SimpleExample": "//IMPORTANT: If calling this from a hotkey, make sure to add a sp.Sleep(1000); before calling this function to ensure you release the hotkeys before the macro starts or the keys could be stuck in the down state, or send the key up events for the keys used in the hotkey as shown in the full example.\r\nsp.PlayTemporaryMacro();",
+        "FullExample": "//Here I have a hotkey which is Control+Win+A, so I will send the up event for all combinations of the keys first to make sure none of them get stuck in the down state.\r\nsp.SendVKeyUp(vk.LCONTROL);\r\nsp.SendVKeyUp(vk.RCONTROL);\r\nsp.SendVKeyUp(vk.CONTROL);\r\nsp.SendVKeyUp(vk.LWIN);\r\nsp.SendVKeyUp(vk.RWIN);\r\nsp.SendVKeyUp(vk.VK_A);\r\nsp.PlayTemporaryMacro();",
+        "Parameters": {}
+      },
+      "RecordTemporaryMacro": {
+        "Name": "RecordTemporaryMacro",
+        "InternalName": "RecordTemporaryMacro",
+        "Description": "Starts recording a temporary macro. No messages show, you must remember to press Ctrl+Break (Pause) to stop recording.",
+        "Returns": "string",
+        "SimpleExample": "//Note: If calling this from a hotkey, you should add a sp.Sleep(1000); before the calling this function, to ensure when you release the hotkey that those aren't recorded.\r\nsp.RecordTemporaryMacro();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionUtilities": {
+    "Name": "Utilities",
+    "Description": "Utility functions for scripts.",
+    "Methods": {
+      "GetMethod": {
+        "Name": "GetMethod",
+        "InternalName": "GetMethod",
+        "Description": "Returns a MethodInfo object for the specified function.",
+        "Returns": "System.Reflection.MethodInfo",
+        "SimpleExample": "sp.GetMethod('GetMethod');",
+        "FullExample": "",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the sp.(Function), e.g. 'GetMethod'.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "GetMethods": {
+        "Name": "GetMethods",
+        "InternalName": "GetMethods",
+        "Description": "Returns an array of MethodInfo for all sp functions.",
+        "Returns": "System.Reflection.MethodInfo[]",
+        "SimpleExample": "var spms = sp.GetMethods();",
+        "FullExample": "var spms = sp.GetMethods();\r\nvar s = '';\r\nfor(m=0;m<spms.Count();m++){\r\n\ts = s + 'Method: ' + spms[m].Name + '(';\r\n\tvar comma = '';\r\n\tfor(i=0;i<spms[m].GetParameters().Count();i++) {\r\n\t\ts = s + comma + spms[m].GetParameters()[i].ParameterType.ToString() + ' ' + spms[m].GetParameters()[i].Name\r\n\t\tcomma = ', ';\r\n\t}\r\n\ts = s + ')\r\nReturns: ' + spms[m].ReturnType.Name + '\\n\\n';\r\n}\r\nclip.SetText(s);",
+        "Parameters": {}
+      },
+      "GetPixelColorFromPoint": {
+        "Name": "GetPixelColorFromPoint",
+        "InternalName": "GetPixelColorFromPoint",
+        "Description": "Returns a Color struct for the pixel at the location of the point passed in.",
+        "Returns": "System.Drawing.Color",
+        "SimpleExample": "sp.GetPixelColorFromPoint(new Point(100, 100));",
+        "FullExample": "",
+        "Parameters": {
+          "point": {
+            "Name": "point",
+            "InternalName": "point",
+            "Description": "Location on the screen to find the pixel's color.",
+            "Type": "Point",
+            "Order": 1
+          }
+        }
+      },
+      "GetPoint": {
+        "Name": "GetPoint",
+        "InternalName": "GetPoint",
+        "Description": "(deprecated) Returns a point based on the the x and y coordinates passed in. Use 'new Point(x,y)' instead.",
+        "Returns": "Point",
+        "SimpleExample": "sp.GetPoint(100, 100);",
+        "FullExample": "",
+        "Parameters": {
+          "X": {
+            "Name": "X",
+            "InternalName": "X",
+            "Description": "Left coordinate.",
+            "Type": "int",
+            "Order": 1
+          },
+          "Y": {
+            "Name": "Y",
+            "InternalName": "Y",
+            "Description": "Top coordinate.",
+            "Type": "int",
+            "Order": 2
+          }
+        }
+      },
+      "Pause": {
+        "Name": "Pause",
+        "InternalName": "Pause",
+        "Description": "Wait for the specified seconds before continuing execution. Use sp.Sleep for short or precise delays.",
+        "Returns": "void",
+        "SimpleExample": "sp.Pause(2); //Wait two seconds",
+        "FullExample": "",
+        "Parameters": {
+          "seconds": {
+            "Name": "seconds",
+            "InternalName": "seconds",
+            "Description": "The duration in seconds to wait.",
+            "Type": "int",
+            "Order": 1
+          }
+        }
+      },
+      "Sleep": {
+        "Name": "Sleep",
+        "InternalName": "Sleep",
+        "Description": "Wait for the specified millseconds before continuing execution. This is a high resolution timer which should only be used for short pauses.",
+        "Returns": "void",
+        "SimpleExample": "sp.Sleep(100);",
+        "FullExample": "",
+        "Parameters": {
+          "milliseconds": {
+            "Name": "milliseconds",
+            "InternalName": "milliseconds",
+            "Description": "The duration in milliseconds to wait.",
+            "Type": "int",
+            "Order": 1
+          }
+        }
+      }
+    }
+  },
+  "SectionRegions": {
+    "Name": "Regions",
+    "Description": "Functions for working with StrokesPlus.net regions.",
+    "Methods": {
+      "GetRegionFromPoint": {
+        "Name": "GetRegionFromPoint",
+        "InternalName": "GetRegionFromPoint",
+        "Description": "Returns a RectRegion based on the location of the point within the rectangle passed in, which is divided into regions based on the number of columns and rows specified. This could be used to have a action perform different logic based on the location of a point within the area of the screen or application window, for example.",
+        "Returns": "RectRegion",
+        "SimpleExample": "var columns = 3;\r\nvar rows = 3;\r\nvar region = sp.GetRegionFromPoint(action.Window.Rectangle, action.Start, columns, rows);\r\n",
+        "FullExample": "",
+        "Parameters": {
+          "rect": {
+            "Name": "rect",
+            "InternalName": "rect",
+            "Description": "The rectangle representing the area which will be divided into regions and returned.",
+            "Type": "Rectangle",
+            "Order": 1
+          },
+          "point": {
+            "Name": "point",
+            "InternalName": "point",
+            "Description": "The point to use when determining the region in which the point exists within the rectangle.",
+            "Type": "Point",
+            "Order": 2
+          },
+          "columns": {
+            "Name": "columns",
+            "InternalName": "columns",
+            "Description": "The number of columns to divide the rectangle into.",
+            "Type": "int",
+            "Order": 3
+          },
+          "rows": {
+            "Name": "rows",
+            "InternalName": "rows",
+            "Description": "The number of row to divide the rectangle into.",
+            "Type": "int",
+            "Order": 4
+          }
+        }
+      },
+      "GetRegions": {
+        "Name": "GetRegions",
+        "InternalName": "GetRegions",
+        "Description": "Returns an array of RectRegion based on the rectangle passed in along with the number of columns and rows specified. This could be used to have a action perform different logic based on the area of the screen or application window, for example.",
+        "Returns": "RectRegion[]",
+        "SimpleExample": "sp.GetRegions(action.Window.Rectangle, 3, 3);",
+        "FullExample": "",
+        "Parameters": {
+          "rect": {
+            "Name": "rect",
+            "InternalName": "rect",
+            "Description": "The rectangle representing the area which will be divided into regions and returned.",
+            "Type": "Rectangle",
+            "Order": 1
+          },
+          "columns": {
+            "Name": "columns",
+            "InternalName": "columns",
+            "Description": "The number of columns to divide the rectangle into.",
+            "Type": "int",
+            "Order": 2
+          },
+          "rows": {
+            "Name": "rows",
+            "InternalName": "rows",
+            "Description": "The number of row to divide the rectangle into.",
+            "Type": "int",
+            "Order": 3
+          }
+        }
+      }
+    }
+  },
+  "SectionNativeDynamic": {
+    "Name": "Native and Dynamic",
+    "Description": "These methods allow you to build dynamic modules, types, and methods via System.Reflection, as well as create delegate pointers for callbacks to script functions.\r\n\r\nSee the Extensions category for additional related extension methods relating to these methods.\r\n\t\r\nSee this post for more details: https://forum.strokesplus.net/posts/m11783-Example---Test-Code-for-Native-Binding",
+    "Methods": {
+      "NativeDelegate": {
+        "Name": "NativeDelegate",
+        "InternalName": "NativeDelegate",
+        "Description": "Compiles a custom static C# class to host the delegate for a native API callback pointer.",
+        "Returns": "IntPtr",
+        "SimpleExample": "var IntPtrT = host.typeOf(clr.System.IntPtr);\r\nvar BooleanT = host.typeOf(clr.System.Boolean);\r\n\r\n//Create the JavaScript function\r\nfunction EnumWindowsProc(hWnd, lParam)\r\n{\r\n\t//Do something in the callback, invoked by the API callee\r\n\treturn true;\r\n}\r\n//Create the delegate, the returned pointer can by passed to an API as a callback pointer\r\nvar delPtr = sp.NativeDelegate(\"EnumWindowsProc\", [IntPtrT, IntPtrT], BooleanT);",
+        "FullExample": "",
+        "Parameters": {
+          "functionName": {
+            "Name": "functionName",
+            "InternalName": "functionName",
+            "Description": "Name of the JavaScript function for which this delegate will reference and invoke.",
+            "Type": "string",
+            "Order": 1
+          },
+          "parameterTypes": {
+            "Name": "parameterTypes",
+            "InternalName": "parameterTypes",
+            "Description": "Array of .NET types to indicate the type of the parameters for the callback (in order).",
+            "Type": "Type[]",
+            "Order": 2
+          },
+          "returnType": {
+            "Name": "returnType",
+            "InternalName": "returnType",
+            "Description": "(optional) The .NET type which the function returns, null for void.",
+            "Type": "Type",
+            "Order": 3
+          }
+        }
+      },
+      "NativeDelegateList": {
+        "Name": "NativeDelegateList",
+        "InternalName": "NativeDelegateList",
+        "Description": "Creates a custom class for multiple function delegates at the same time.",
+        "Returns": "List<KeyValuePair<string,IntPtr>>",
+        "SimpleExample": "",
+        "FullExample": "var IntPtrT = host.typeOf(clr.System.IntPtr);\r\nvar BooleanT = host.typeOf(clr.System.Boolean);\r\n\r\n//Create the JavaScript functions\r\nfunction EnumWindowsProc(hWnd, lParam)\r\n{\r\n\t//Do something in the callback, invoked by the API callee\r\n\treturn true;\r\n}\r\nfunction EnumWindowsProcA(hWnd, lParam)\r\n{\r\n\t//Do something in the callback, invoked by the API callee\r\n\treturn true;\r\n}\r\nvar fnptrList = sp.NativeDelegateList([[\"EnumWindowsProc\", [IntPtrT, IntPtrT], BooleanT],\r\n                                       [\"EnumWindowsProcA\", [IntPtrT, IntPtrT], BooleanT]]);\r\n\r\n// fnptrList[0].Key == \"EnumWindowsProc\"\r\n// fnptrList[0].Value.ToInt64() == 2484548244844\r\n\r\n// fnptrList[1].Key == \"EnumWindowsProcA\"\r\n// fnptrList[1].Value.ToInt64() == 2484548243804",
+        "Parameters": {
+          "delegateList": {
+            "Name": "delegateList",
+            "InternalName": "delegateList",
+            "Description": "Array of parameters which match the NativeDelegate function. For example: [[\"EnumWindowsProc\", [IntPtrT, IntPtrT], BooleanT],[\"EnumWindowsProcA\", [IntPtrT, IntPtrT], BooleanT]]",
+            "Type": "dynamic array",
+            "Order": 1
+          }
+        }
+      },
+      "NativeModule": {
+        "Name": "NativeModule",
+        "InternalName": "NativeModule",
+        "Description": "Retrieves (or creates) a native module as a ModuleBuilder. Default is the module if no name is provided. This ModuleBuilder lets you create custom types, methods, PInvokes, enums via System.Reflection.Emit.",
+        "Returns": "ModuleBuilder",
+        "SimpleExample": "var defaultModBuilder = sp.NativeModule();\r\nvar apiModBuilder = sp.NativeModule(\"WinAPI\");",
+        "FullExample": "",
+        "Parameters": {
+          "moduleName": {
+            "Name": "moduleName",
+            "InternalName": "moduleName",
+            "Description": "Name of the module (or leave blank for Default).",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "RefreshNativeModules": {
+        "Name": "RefreshNativeModules",
+        "InternalName": "RefreshNativeModules",
+        "Description": "Refreshes the dynamic native modules and delegates within the script engine type list. These would be any types or objects within NativeModules. or NativeDelegates.",
+        "Returns": "void",
+        "SimpleExample": "sp.RefreshNativeModules();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionRegistry": {
+    "Name": "Registry",
+    "Description": "Functions for working with the Windows Registry.",
+    "Methods": {
+      "RegistryDelete": {
+        "Name": "RegistryDelete",
+        "InternalName": "RegistryDelete",
+        "Description": "Deletes the specified key.",
+        "Returns": "bool",
+        "SimpleExample": "",
+        "FullExample": "",
+        "Parameters": {
+          "baseKey": {
+            "Name": "baseKey",
+            "InternalName": "baseKey",
+            "Description": "RegistryKey representing the registry key where the keyName exists.",
+            "Type": "RegistryKey",
+            "Order": 1
+          },
+          "subKey": {
+            "Name": "subKey",
+            "InternalName": "subKey",
+            "Description": "Name of the subkey within the baseKey to delete.",
+            "Type": "string",
+            "Order": 2
+          },
+          "keyName": {
+            "Name": "keyName",
+            "InternalName": "keyName",
+            "Description": "The key to delete from the keyName.",
+            "Type": "string",
+            "Order": 3
+          },
+          "showErrors": {
+            "Name": "showErrors",
+            "InternalName": "showErrors",
+            "Description": "Displays an error message box, if the action was not successful.",
+            "Type": "bool",
+            "Order": 4
+          }
+        }
+      },
+      "RegistryDeleteSubKey": {
+        "Name": "RegistryDeleteSubKey",
+        "InternalName": "RegistryDeleteSubKey",
+        "Description": "Deletes the specified registry subkey.",
+        "Returns": "bool",
+        "SimpleExample": "",
+        "FullExample": "",
+        "Parameters": {
+          "baseKey": {
+            "Name": "baseKey",
+            "InternalName": "baseKey",
+            "Description": "RegistryKey representing the registry key where the keyName exists.",
+            "Type": "RegistryKey",
+            "Order": 1
+          },
+          "subKey": {
+            "Name": "subKey",
+            "InternalName": "subKey",
+            "Description": "Name of the subkey within the baseKey to delete.",
+            "Type": "string",
+            "Order": 2
+          },
+          "showErrors": {
+            "Name": "showErrors",
+            "InternalName": "showErrors",
+            "Description": "Displays an error message box, if the action was not successful.",
+            "Type": "bool",
+            "Order": 3
+          }
+        }
+      },
+      "RegistryReadMultiString": {
+        "Name": "RegistryReadMultiString",
+        "InternalName": "RegistryReadMultiString",
+        "Description": "Reads the specified registry key and return an array of strings.",
+        "Returns": "string[]",
+        "SimpleExample": "",
+        "FullExample": "",
+        "Parameters": {
+          "baseKey": {
+            "Name": "baseKey",
+            "InternalName": "baseKey",
+            "Description": "RegistryKey representing the registry key where the keyName exists.",
+            "Type": "RegistryKey",
+            "Order": 1
+          },
+          "subKey": {
+            "Name": "subKey",
+            "InternalName": "subKey",
+            "Description": "Name of the subkey within the baseKey to read the value from.",
+            "Type": "string",
+            "Order": 2
+          },
+          "keyName": {
+            "Name": "keyName",
+            "InternalName": "keyName",
+            "Description": "Name of the key within the subkey to read the value from.",
+            "Type": "string",
+            "Order": 3
+          },
+          "showErrors": {
+            "Name": "showErrors",
+            "InternalName": "showErrors",
+            "Description": "Displays an error message box, if the action was not successful.",
+            "Type": "bool",
+            "Order": 3
+          }
+        }
+      },
+      "RegistryReadNumber": {
+        "Name": "RegistryReadNumber",
+        "InternalName": "RegistryReadNumber",
+        "Description": "Reads the specified registry key and return the number.",
+        "Returns": "int",
+        "SimpleExample": "",
+        "FullExample": "",
+        "Parameters": {
+          "baseKey": {
+            "Name": "baseKey",
+            "InternalName": "baseKey",
+            "Description": "RegistryKey representing the registry key where the keyName exists.",
+            "Type": "RegistryKey",
+            "Order": 1
+          },
+          "subKey": {
+            "Name": "subKey",
+            "InternalName": "subKey",
+            "Description": "Name of the subkey within the baseKey to read the value from.",
+            "Type": "string",
+            "Order": 2
+          },
+          "keyName": {
+            "Name": "keyName",
+            "InternalName": "keyName",
+            "Description": "Name of the key within the subkey to read the value from.",
+            "Type": "string",
+            "Order": 3
+          },
+          "showErrors": {
+            "Name": "showErrors",
+            "InternalName": "showErrors",
+            "Description": "Displays an error message box, if the action was not successful.",
+            "Type": "bool",
+            "Order": 3
+          }
+        }
+      },
+      "RegistryReadString": {
+        "Name": "RegistryReadString",
+        "InternalName": "RegistryReadString",
+        "Description": "Reads the specified registry key and return the string.",
+        "Returns": "string",
+        "SimpleExample": "",
+        "FullExample": "",
+        "Parameters": {
+          "baseKey": {
+            "Name": "baseKey",
+            "InternalName": "baseKey",
+            "Description": "RegistryKey representing the registry key where the keyName exists.",
+            "Type": "RegistryKey",
+            "Order": 1
+          },
+          "subKey": {
+            "Name": "subKey",
+            "InternalName": "subKey",
+            "Description": "Name of the subkey within the baseKey to read the value from.",
+            "Type": "string",
+            "Order": 2
+          },
+          "keyName": {
+            "Name": "keyName",
+            "InternalName": "keyName",
+            "Description": "Name of the key within the subkey to read the value from.",
+            "Type": "string",
+            "Order": 3
+          },
+          "showErrors": {
+            "Name": "showErrors",
+            "InternalName": "showErrors",
+            "Description": "Displays an error message box, if the action was not successful.",
+            "Type": "bool",
+            "Order": 3
+          }
+        }
+      },
+      "RegistryWrite": {
+        "Name": "RegistryWrite",
+        "InternalName": "RegistryWrite",
+        "Description": "Writes a key/value to the registry.",
+        "Returns": "bool",
+        "SimpleExample": "",
+        "FullExample": "",
+        "Parameters": {
+          "baseKey": {
+            "Name": "baseKey",
+            "InternalName": "baseKey",
+            "Description": "RegistryKey representing the registry key where the keyName exists.",
+            "Type": "RegistryKey",
+            "Order": 1
+          },
+          "keyName": {
+            "Name": "keyName",
+            "InternalName": "keyName",
+            "Description": "Name of the subkey within the baseKey to store the value in.",
+            "Type": "string",
+            "Order": 2
+          },
+          "keyValue": {
+            "Name": "keyValue",
+            "InternalName": "keyValue",
+            "Description": "The name of the key to write.",
+            "Type": "string",
+            "Order": 3
+          },
+          "value": {
+            "Name": "value",
+            "InternalName": "value",
+            "Description": "The value to store.",
+            "Type": "object",
+            "Order": 4
+          },
+          "kind": {
+            "Name": "kind",
+            "InternalName": "kind",
+            "Description": "The type of value to store, valid options: binary, dword, expandstring, multistring, none, qword, string, unknown.",
+            "Type": "string",
+            "Order": 5
+          },
+          "showErrors": {
+            "Name": "showErrors",
+            "InternalName": "showErrors",
+            "Description": "Displays an error message box, if the action was not successful.",
+            "Type": "bool",
+            "Order": 6
+          }
+        }
+      }
+    }
+  },
+  "SectionFloaters": {
+    "Name": "Floaters",
+    "Description": "Functions for working with floaters",
+    "Methods": {
+      "TouchFloaterCloseCustomFloater": {
+        "Name": "TouchFloaterCloseCustomFloater",
+        "InternalName": "TouchFloaterCloseCustomFloater",
+        "Description": "Close a custom floater by name. Only works if floaters are currently shown.",
+        "Returns": "bool",
+        "SimpleExample": "sp.TouchFloaterCloseCustomFloater('FloaterName');",
+        "FullExample": "",
+        "Parameters": {
+          "floaterName": {
+            "Name": "floaterName",
+            "InternalName": "floaterName",
+            "Description": "Name of the custom floater to close.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "TouchFloaterHide": {
+        "Name": "TouchFloaterHide",
+        "InternalName": "TouchFloaterHide",
+        "Description": "Hides the floaters.",
+        "Returns": "void",
+        "SimpleExample": "sp.TouchFloaterHide();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "TouchFloaterIsCustomFloaterLoaded": {
+        "Name": "TouchFloaterIsCustomFloaterLoaded",
+        "InternalName": "TouchFloaterIsCustomFloaterLoaded",
+        "Description": "Returns true if the floater matching the name is currently loaded.",
+        "Returns": "bool",
+        "SimpleExample": "sp.TouchFloaterIsCustomFloaterLoaded('FloaterName');",
+        "FullExample": "",
+        "Parameters": {
+          "floaterName": {
+            "Name": "floaterName",
+            "InternalName": "floaterName",
+            "Description": "Name of the custom floater.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "TouchFloaterIsShown": {
+        "Name": "TouchFloaterIsShown",
+        "InternalName": "TouchFloaterIsShown",
+        "Description": "Returns true if the main floater is shown.",
+        "Returns": "bool",
+        "SimpleExample": "sp.TouchFloaterIsShown();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "TouchFloaterLoadCustomFloater": {
+        "Name": "TouchFloaterLoadCustomFloater",
+        "InternalName": "TouchFloaterLoadCustomFloater",
+        "Description": "Load a custom floater by name. Only works if floaters are currently shown.",
+        "Returns": "bool",
+        "SimpleExample": "sp.TouchFloaterLoadCustomFloater('FloaterName');",
+        "FullExample": "",
+        "Parameters": {
+          "floaterName": {
+            "Name": "floaterName",
+            "InternalName": "floaterName",
+            "Description": "Name of the custom floater to load.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "TouchFloaterLoadLayout": {
+        "Name": "TouchFloaterLoadLayout",
+        "InternalName": "TouchFloaterLoadLayout",
+        "Description": "Load a floater layout by name. Only works if floaters are currently shown.",
+        "Returns": "bool",
+        "SimpleExample": "sp.TouchFloaterLoadLayout('LayoutName');",
+        "FullExample": "",
+        "Parameters": {
+          "layoutName": {
+            "Name": "layoutName",
+            "InternalName": "layoutName",
+            "Description": "Name of the floater layout to load.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "TouchFloaterSetCustomFloaterLocation": {
+        "Name": "TouchFloaterSetCustomFloaterLocation",
+        "InternalName": "TouchFloaterSetCustomFloaterLocation",
+        "Description": "Move a custom floater to a new location. Only works if floaters are currently shown.",
+        "Returns": "bool",
+        "SimpleExample": "sp.TouchFloaterSetCustomFloaterLocation('FloaterName', new Point(100,100));",
+        "FullExample": "",
+        "Parameters": {
+          "floaterName": {
+            "Name": "floaterName",
+            "InternalName": "floaterName",
+            "Description": "Name of the custom floater to move.",
+            "Type": "string",
+            "Order": 1
+          },
+          "point": {
+            "Name": "point",
+            "InternalName": "point",
+            "Description": "Point representing the new location.",
+            "Type": "Point",
+            "Order": 2
+          }
+        }
+      },
+      "TouchFloaterSetLocation": {
+        "Name": "TouchFloaterSetLocation",
+        "InternalName": "TouchFloaterSetLocation",
+        "Description": "Move a custom floater to a new location. Only works if floaters are currently shown.",
+        "Returns": "bool",
+        "SimpleExample": "sp.TouchFloaterSetLocation(new Point(100,100));",
+        "FullExample": "",
+        "Parameters": {
+          "point": {
+            "Name": "point",
+            "InternalName": "point",
+            "Description": "Point representing the new location.",
+            "Type": "Point",
+            "Order": 3
+          }
+        }
+      },
+      "TouchFloaterShow": {
+        "Name": "TouchFloaterShow",
+        "InternalName": "TouchFloaterShow",
+        "Description": "Shows the main floater.",
+        "Returns": "void",
+        "SimpleExample": "sp.TouchFloaterShow();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "TouchFloatersReset": {
+        "Name": "TouchFloatersReset",
+        "InternalName": "TouchFloatersReset",
+        "Description": "Resets the main floaters to their default positions.",
+        "Returns": "void",
+        "SimpleExample": "sp.TouchFloatersReset();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "TouchFloaterToggle": {
+        "Name": "TouchFloaterToggle",
+        "InternalName": "TouchFloaterToggle",
+        "Description": "Toggles the visibility of the floaters.",
+        "Returns": "void",
+        "SimpleExample": "sp.TouchFloaterToggle();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "TouchFloaterToggleOthers": {
+        "Name": "TouchFloaterToggleOthers",
+        "InternalName": "TouchFloaterToggleOthers",
+        "Description": "Toggles the visibility of the non-primary floaters.",
+        "Returns": "void",
+        "SimpleExample": "sp.TouchFloaterToggleOthers();",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    }
+  },
+  "SectionExtensions": {
+    "Name": "Extensions",
+    "Description": "These are extensions to existing .NET types which are specific to StrokesPlus.net.",
+    "Methods": {
+      "ModuleBuilder.CreateType": {
+        "Name": "ModuleBuilder.CreateType",
+        "InternalName": "ModuleBuilder.CreateType",
+        "Description": "Alias for ModuleBuilder.DefineType to simplify obtaining an instantiated System.Reflection.Emit.TypeBuilder object. This creates a finalized type, so it cannot be altered, only added to via nested elements.",
+        "Returns": "TypeBuilder",
+        "SimpleExample": "var typesTB = sp.NativeModule().CreateType(\"Types\", \"Class,Public,SequentialLayout,Serializable\");",
+        "FullExample": "",
+        "Parameters": {
+          "typeName": {
+            "Name": "typeName",
+            "InternalName": "typeName",
+            "Description": "The name of the type to create.",
+            "Type": "string",
+            "Order": 1
+          },
+          "typeAttributes": {
+            "Name": "typeAttributes",
+            "InternalName": "typeAttributes",
+            "Description": "Comma-separated list of TypeAttributes to apply to the type.",
+            "Type": "string",
+            "Order": 2
+          }
+        }
+      },
+      "ModuleBuilder.DefineEnum": {
+        "Name": "ModuleBuilder.DefineEnum",
+        "InternalName": "ModuleBuilder.DefineEnum",
+        "Description": "Overload for ModuleBuilder.DefineEnum to simplify obtaining an instantiated System.Reflection.Emit.EnumBuilder object.",
+        "Returns": "EnumBuilder",
+        "SimpleExample": "sp.NativeModule().DefineEnum(\"TestEnum\",\r\n                             \"Low,High\",\r\n                             [0,1]).Create();",
+        "FullExample": "",
+        "Parameters": {
+          "enumName": {
+            "Name": "enumName",
+            "InternalName": "enumName",
+            "Description": "The name of the enum to create.",
+            "Type": "string",
+            "Order": 1
+          },
+          "names": {
+            "Name": "names",
+            "InternalName": "names",
+            "Description": "Comma-separated list of names for the enum fields.",
+            "Type": "string",
+            "Order": 2
+          },
+          "values": {
+            "Name": "values",
+            "InternalName": "values",
+            "Description": "Array of values for each field (same order and count).",
+            "Type": "int[] (or valid underlyingType of: byte, sbyte, short, ushort, int, uint, long, and ulong",
+            "Order": 3
+          },
+          "typeAttributes": {
+            "Name": "typeAttributes",
+            "InternalName": "typeAttributes",
+            "Description": "(optional) Comma-separated list of TypeAtrtribute for the enum.",
+            "Type": "string",
+            "Order": 4
+          },
+          "underlyingType": {
+            "Name": "underlyingType",
+            "InternalName": "underlyingType",
+            "Description": "(optional) Valid enum type of: byte, sbyte, short, ushort, int, uint, long, and ulong",
+            "Type": "Type",
+            "Order": 5
+          }
+        }
+      },
+      "ModuleBuilder.DefineType": {
+        "Name": "ModuleBuilder.DefineType",
+        "InternalName": "ModuleBuilder.DefineType",
+        "Description": "Overload for ModuleBuilder.DefineType to simplify obtaining an instantiated System.Reflection.Emit.TypeBuilder object. This defines the type, but does not create it, so the type can still be defined further.",
+        "Returns": "TypeBuilder",
+        "SimpleExample": "var user32TB = sp.NativeModule().DefineType(\"User32\", \"Class,Public,SequentialLayout,Serializable\");\r\n//Make additional fields/methods/nested types here\r\nuser32TB.Create();",
+        "FullExample": "",
+        "Parameters": {
+          "typeName": {
+            "Name": "typeName",
+            "InternalName": "typeName",
+            "Description": "The name of the type to create.",
+            "Type": "string",
+            "Order": 1
+          },
+          "typeAttributes": {
+            "Name": "typeAttributes",
+            "InternalName": "typeAttributes",
+            "Description": "Comma-separated list of TypeAttributes to apply to the type.",
+            "Type": "string",
+            "Order": 2
+          }
+        }
+      },
+      "TypeBuilder.Create": {
+        "Name": "TypeBuilder.Create",
+        "InternalName": "TypeBuilder.Create",
+        "Description": "Calls TypeBuilder.CreateType() and refreshes the script engine types.",
+        "Returns": "Type",
+        "SimpleExample": "var myTypeTB = sp.NativeModule().DefineType(\"MyType\", \"Class,Public,SequentialLayout,Serializable\");\r\nmyTypeTB.Create();\r\nvar newType = new NativeModules.MyType();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "TypeBuilder.DefineNestedEnum": {
+        "Name": "TypeBuilder.DefineNestedEnum",
+        "InternalName": "TypeBuilder.DefineNestedEnum",
+        "Description": "Alias for TypeBuilder.DefineNestedType to simplify obtaining an instantiated System.Reflection.Emit.TypeBuilder object.",
+        "Returns": "TypeBuilder",
+        "SimpleExample": "var typesTB = sp.NativeModule().CreateType(\"Types\", \"Class,Public,SequentialLayout,Serializable\");\r\ntypesTB.DefineNestedEnum(\"NestedEnum\",\r\n                         \"Low,High\",\r\n                         [0,1]).Create();",
+        "FullExample": "",
+        "Parameters": {
+          "enumName": {
+            "Name": "enumName",
+            "InternalName": "enumName",
+            "Description": "The name of the enum to create.",
+            "Type": "string",
+            "Order": 1
+          },
+          "names": {
+            "Name": "names",
+            "InternalName": "names",
+            "Description": "Comma-separated list of names for the enum fields.",
+            "Type": "string",
+            "Order": 2
+          },
+          "values": {
+            "Name": "values",
+            "InternalName": "values",
+            "Description": "Array of values for each field (same order and count).",
+            "Type": "int[] (or valid underlyingType of: byte, sbyte, short, ushort, int, uint, long, and ulong",
+            "Order": 3
+          },
+          "typeAttributes": {
+            "Name": "typeAttributes",
+            "InternalName": "typeAttributes",
+            "Description": "(optional) Comma-separated list of TypeAtrtribute for the enum.",
+            "Type": "string",
+            "Order": 4
+          },
+          "underlyingType": {
+            "Name": "underlyingType",
+            "InternalName": "underlyingType",
+            "Description": "(optional) Valid enum type of: byte, sbyte, short, ushort, int, uint, long, and ulong",
+            "Type": "Type",
+            "Order": 5
+          }
+        }
+      },
+      "TypeBuilder.DefineNestedStruct": {
+        "Name": "TypeBuilder.DefineNestedStruct",
+        "InternalName": "TypeBuilder.DefineNestedStruct",
+        "Description": "Alias for TypeBuilder.DefineNestedType to simplify obtaining an instantiated System.Reflection.Emit.TypeBuilder object.",
+        "Returns": "TypeBuilder",
+        "SimpleExample": "var typesTB = sp.NativeModule().CreateType(\"Types\", \"Class,Public,SequentialLayout,Serializable\");\r\ntypesTB.DefineNestedStruct(\"RECT\", \r\n                           \"Left,Top,Right,Bottom\", \r\n                           [Int32T,Int32T,Int32T,Int32T]).Create();",
+        "FullExample": "",
+        "Parameters": {
+          "structName": {
+            "Name": "structName",
+            "InternalName": "structName",
+            "Description": "Name of the struct to create.",
+            "Type": "string",
+            "Order": 1
+          },
+          "fieldNames": {
+            "Name": "fieldNames",
+            "InternalName": "fieldNames",
+            "Description": "Comma-separated list of field names for this struct.",
+            "Type": "string",
+            "Order": 2
+          },
+          "fieldTypes": {
+            "Name": "fieldTypes",
+            "InternalName": "fieldTypes",
+            "Description": "Array of .NET types for each of the field names (same order and count).",
+            "Type": "Type[]",
+            "Order": 3
+          },
+          "fieldMarshalAs": {
+            "Name": "fieldMarshalAs",
+            "InternalName": "fieldMarshalAs",
+            "Description": "(optional) Array of System.Runtime.InteropServices.UnmanagedType for each of of the field names (same order and count).",
+            "Type": "UnmanagedType[]",
+            "Order": 4
+          },
+          "fieldMarshalArg": {
+            "Name": "fieldMarshalArg",
+            "InternalName": "fieldMarshalArg",
+            "Description": "(optional) Only used for UnmanagedType.ByValArray fields to set the SizeConst value, but array length must have same count as fieldMarshalAs, use 0 for irrelevant fields.",
+            "Type": "int[]",
+            "Order": 5
+          },
+          "structLayout": {
+            "Name": "structLayout",
+            "InternalName": "structLayout",
+            "Description": "(optional) Custom string array to combine TypeAttribute and StructLayoutAttribute values (either set can be omitted). Example: ['Explicit,Unicode','Size=8,Pack=4']",
+            "Type": "string[]",
+            "Order": 6
+          },
+          "fieldOffsets": {
+            "Name": "fieldOffsets",
+            "InternalName": "fieldOffsets",
+            "Description": "(optional) Comma-separated list of System.Reflection.FieldAttribute for each of of the field names (same order and count).",
+            "Type": "string",
+            "Order": 7
+          },
+          "fieldAttributes": {
+            "Name": "fieldAttributes",
+            "InternalName": "fieldAttributes",
+            "Description": "(optional) Comma-separated list of System.Reflection.FieldAttribute for each of of the field names (same order and count).",
+            "Type": "string",
+            "Order": 8
+          }
+        }
+      },
+      "TypeBuilder.DefinePInvokeMethod": {
+        "Name": "TypeBuilder.DefinePInvokeMethod",
+        "InternalName": "TypeBuilder.DefinePInvokeMethod",
+        "Description": "Overload for TypeBuilder.DefinePInvokeMethod to simplify obtaining an instantiated System.Reflection.Emit.MethodBuilder object.",
+        "Returns": "",
+        "SimpleExample": "var IntPtrT = host.typeOf(clr.System.IntPtr);\r\nvar BooleanT = host.typeOf(clr.System.Boolean);\r\nvar user32TB = sp.NativeModule().DefineType('User32', 'Class,Public,SequentialLayout,Serializable');\r\nuser32TB.DefinePInvokeMethod('EnumWindows',\r\n\t'user32.dll',\r\n\t[IntPtrT, IntPtrT],\r\n\tBooleanT,\r\n\t'PreserveSig');\r\nuser32TB.Create()   ",
+        "FullExample": "",
+        "Parameters": {
+          "entryName": {
+            "Name": "entryName",
+            "InternalName": "entryName",
+            "Description": "Name of the entry in the specified DLL.",
+            "Type": "string",
+            "Order": 1
+          },
+          "dllName": {
+            "Name": "dllName",
+            "InternalName": "dllName",
+            "Description": "Path and name of DLL where entryName exists.",
+            "Type": "string",
+            "Order": 2
+          },
+          "parameterTypes": {
+            "Name": "parameterTypes",
+            "InternalName": "parameterTypes",
+            "Description": "Array or .NET types which represent the type and order of the entry parameters.",
+            "Type": "Type[]",
+            "Order": 3
+          },
+          "returnType": {
+            "Name": "returnType",
+            "InternalName": "returnType",
+            "Description": "(optional) Type of value returned by the DLL method.",
+            "Type": "Type",
+            "Order": 4
+          },
+          "methodImplFlags": {
+            "Name": "methodImplFlags",
+            "InternalName": "methodImplFlags",
+            "Description": "(optional) Comma-separated list of System.Reflection.MethodImplAttributes.",
+            "Type": "string",
+            "Order": 5
+          },
+          "methodName": {
+            "Name": "methodName",
+            "InternalName": "methodName",
+            "Description": "(optional) Name for the method as it will be exposed by the type (defaults to entryName).",
+            "Type": "string",
+            "Order": 6
+          },
+          "methodAttributes": {
+            "Name": "methodAttributes",
+            "InternalName": "methodAttributes",
+            "Description": "(optional) Comma-separated list of System.Reflection.MethodAttributes",
+            "Type": "string",
+            "Order": 7
+          },
+          "dllImportAttributes": {
+            "Name": "dllImportAttributes",
+            "InternalName": "dllImportAttributes",
+            "Description": "(optional) Comma-separated list of name=value for DllImport attribute properties. e.g. 'SetLastError=true,CharSet=Unicode,'",
+            "Type": "string",
+            "Order": 8
+          },
+          "callingConvention": {
+            "Name": "callingConvention",
+            "InternalName": "callingConvention",
+            "Description": "(optional) Comma-separaed list of System.Reflection.CallingConventions to pass to DefinePInvokeMethod when creating the method.",
+            "Type": "string",
+            "Order": 9
+          },
+          "nativeCallingConvention": {
+            "Name": "nativeCallingConvention",
+            "InternalName": "nativeCallingConvention",
+            "Description": "(optional) System.Runtime.InteropServices.CallingConvention to pass to DefinePInvokeMethod when creating the method.",
+            "Type": "string",
+            "Order": 9
+          },
+          "nativeCharSet": {
+            "Name": "nativeCharSet",
+            "InternalName": "nativeCharSet",
+            "Description": "(optional) System.Runtime.InteropServices.CharSet to pass to DefinePInvokeMethod when creating the method.",
+            "Type": "string",
+            "Order": 11
+          }
+        }
+      },
+      "TypeBuilder.NewMethod": {
+        "Name": "TypeBuilder.NewMethod",
+        "InternalName": "TypeBuilder.NewMethod",
+        "Description": "Alias for TypeBuilder.DefineMethod to simplify obtaining an instantiated System.Reflection.Emit.MethodBuilder object.",
+        "Returns": "MethodBuilder",
+        "SimpleExample": "",
+        "FullExample": "if(!NativeModules.MyType)\r\n{\r\n    var StringT = host.typeOf(clr.System.String);\r\n    var emit = clr.System.Reflection.Emit;\r\n\r\n    myTypeTB = sp.NativeModule().DefineType(\"MyType\", \"Class,Public,SequentialLayout,Serializable\");\r\n\r\n    var myMethod = myTypeTB.NewMethod(\"MyMethod\",\r\n                                      [StringT], \r\n                                      StringT, \r\n                                      \"Public\",\r\n                                      \"Standard\"\r\n    );\r\n\r\n    //Additional code necessary to build method, below is a simple example\r\n    var myMethodIL = myMethod.GetILGenerator();\r\n\r\n    myMethodIL.Emit(emit.OpCodes.Ldstr, \"Hi! \");\r\n    myMethodIL.Emit(emit.OpCodes.Ldarg_1);\r\n\r\n    var conCatParamTypes = new List(clr.System.Type);\r\n    conCatParamTypes.Add(StringT);\r\n    conCatParamTypes.Add(StringT);\r\n    var infoMethod = StringT.GetMethod(\"Concat\", conCatParamTypes.ToArray());\r\n\r\n    myMethodIL.Emit(emit.OpCodes.Call, infoMethod);\r\n    myMethodIL.Emit(emit.OpCodes.Ret);\r\n\r\n    myTypeTB.Create();\r\n}\r\n\r\nvar newType  = new NativeModules.MyType();\r\nvar result = newType.MyMethod(\"Test\");\r\n\r\nsp.MessageBox(`Result: ${result}`, \"Success!\")",
+        "Parameters": {
+          "name": {
+            "Name": "name",
+            "InternalName": "name",
+            "Description": "Name of the method to define.",
+            "Type": "string",
+            "Order": 1
+          },
+          "parameterTypes": {
+            "Name": "parameterTypes",
+            "InternalName": "parameterTypes",
+            "Description": "Array of .NET Types for the method parameters (in order)",
+            "Type": "Type[]",
+            "Order": 2
+          },
+          "returnType": {
+            "Name": "returnType",
+            "InternalName": "returnType",
+            "Description": "(optional) .NET type for the method, null for void",
+            "Type": "Type",
+            "Order": 3
+          },
+          "methodAttributes": {
+            "Name": "methodAttributes",
+            "InternalName": "methodAttributes",
+            "Description": "(optional) Comma-separated list of System.Reflection.MethodAttributes.",
+            "Type": "string",
+            "Order": 4
+          },
+          "callingConventions": {
+            "Name": "callingConventions",
+            "InternalName": "callingConventions",
+            "Description": "(optional) Comma-separated list of System.Reflection.CallingConventions",
+            "Type": "string",
+            "Order": 5
+          }
+        }
+      },
+      "MethodBuilder.AddMethodImplAttributes": {
+        "Name": "MethodBuilder.AddMethodImplAttributes",
+        "InternalName": "MethodBuilder.AddMethodImplAttributes",
+        "Description": "Adds a MethodImplAttributes flag to the current value.",
+        "Returns": "void",
+        "SimpleExample": "myMethodBuilder.AddMethodImplAttributes(\"clr.System.Reflection.MethodImplAttributes.Managed\");",
+        "FullExample": "",
+        "Parameters": {
+          "attributes": {
+            "Name": "attributes",
+            "InternalName": "attributes",
+            "Description": "Comma-separated list of System.Reflection.MethodImplAttributes.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "EnumBuilder.Create": {
+        "Name": "EnumBuilder.Create",
+        "InternalName": "EnumBuilder.Create",
+        "Description": "Calls EnumBuilder.CreateType() and refreshes the script engine types.",
+        "Returns": "Type",
+        "SimpleExample": "sp.NativeModule().DefineEnum(\"TestEnum\",\r\n                             \"Low,High\",\r\n                             [0,1]).Create();",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "IEnumerable.Distinct": {
+        "Name": "IEnumerable.Distinct",
+        "InternalName": "IEnumerable.Distinct",
+        "Description": "Accepts a property name to select distinct and return a new List<T>.",
+        "Returns": "List<T>",
+        "SimpleExample": "var newDistinctList = myList.Distinct(\"propertyName\");",
+        "FullExample": "",
+        "Parameters": {
+          "element": {
+            "Name": "element",
+            "InternalName": "element",
+            "Description": "Name of the property to perform the distinct operation against.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "IEnumerable.forEach": {
+        "Name": "IEnumerable.forEach",
+        "InternalName": "IEnumerable.forEach",
+        "Description": "Provides a method of iterating over the elements of an IEnumerable and performing an action.",
+        "Returns": "void",
+        "SimpleExample": "someList.forEach((item,i) => \r\n{\r\n    //do something with item object, i = index of current item\r\n});",
+        "FullExample": "",
+        "Parameters": {
+          "action": {
+            "Name": "action",
+            "InternalName": "action",
+            "Description": "Action (function) to perform on each item.",
+            "Type": "object (script function)",
+            "Order": 1
+          }
+        }
+      },
+      "IEnumerable.OrderBy": {
+        "Name": "IEnumerable.OrderBy",
+        "InternalName": "IEnumerable.OrderBy",
+        "Description": "Sorts an IEnumerable by a single property name and flag for descending.",
+        "Returns": "IEnumerable<T>",
+        "SimpleExample": "var mySortedList = myList.OrderBy(\"PropertyName\");\r\nvar myDescSortedList = myList.OrderBy(\"PropertyName desc\");",
+        "FullExample": "",
+        "Parameters": {
+          "sortExpression": {
+            "Name": "sortExpression",
+            "InternalName": "sortExpression",
+            "Description": "Specifies the property name to sort by, and an optional space followed by \"desc\" to signal descending sort order.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "IEnumerable.OrderByMultiple": {
+        "Name": "IEnumerable.OrderByMultiple",
+        "InternalName": "IEnumerable.OrderByMultiple",
+        "Description": "Sorts an IEnumerable based on the string passed in.",
+        "Returns": "IEnumerable<T>",
+        "SimpleExample": "var mySortedList = myList.OrderByMultiple(\"Category|0,Description|1\");",
+        "FullExample": "",
+        "Parameters": {
+          "queryString": {
+            "Name": "queryString",
+            "InternalName": "queryString",
+            "Description": "Custom format string used to parse out the sorting operations. Property|Sort where Sort 0 = ascending and Sort 1 = descending. For example: \"Category|0,Description|1\". - sort by Category ASC first, then by Description DESC.",
+            "Type": "string",
+            "Order": 1
+          }
+        }
+      },
+      "IEnumerable.Where": {
+        "Name": "IEnumerable.Where",
+        "InternalName": "IEnumerable.Where",
+        "Description": "Applies a boolean predicate against the IEnumerable and returns an IEnumerable<T>.",
+        "Returns": "IEnumerable<T>",
+        "SimpleExample": "var filteredList = myList.Where(i => i.Property == \"value\");",
+        "FullExample": "",
+        "Parameters": {
+          "pred": {
+            "Name": "pred",
+            "InternalName": "pred",
+            "Description": "Boolean predicate.",
+            "Type": "dynamic (JavaScript arrow function as boolean)",
+            "Order": 1
+          }
+        }
+      }
+    }
+  },
+  "SectionSystemWindow": {
+    "Name": "SystemWindow",
+    "Description": "This is a list of the methods and properties in the SystemWindow class. \r\n\r\nThe SystemWindow class is the default object for a window (or control) in StrokesPlus.net.\r\n\r\nFor example, action.Window and action.Control are both SystemWindow objects.\r\n\r\nsp.ForegroundWindow() is also a SystemWindow as are any of the objects returned by the various sp. functions which return a window or windows.\r\n\r\nIt's important to note that some of these may not apply to all windows/controls, depending on the type. Also, some of the methods not included here may not be easily called from script, such as FilterDescendantWindows(bool directOnly, Predicate<SystemWindow> predicate) since building a predicate in script may be a challenge and probably not needed for most people. This is why I have added various sp. functions which end up calling those methods, to provide a friendly wrapper for the end user.\r\n\r\nThe return types are either project specific (StrokesPlus.net or a dependency), or they are native .NET Framework types. So if you're looking for a list of properties/methods of one of the return types below, try searching MSDN. For example the Process property is a .NET framework System.Diagnostics.Process class, which has many methods/properties like .Kill()\r\n\r\nExamples:\r\n\r\n// Action script, center the window where the gesture started\r\naction.Window.Center();\r\n\r\n// Action script, get the name of the executable where the gesture started\r\nvar exeName = action.Window.Process.MainModule.ModuleName;\r\n\r\n// Action script, maximize or minimize window where the gesture started\r\nif(action.Window.Maximized) {\r\n  action.Window.Restore();\r\n} else {\r\n  action.Window.Maximize();\r\n}\r\n\r\n// Action script, get the title of the window where the gesture started\r\nvar title = action.Window.Title;\r\n\r\n// Action script, move window where the gesture started to the previous screen\r\naction.Window.MoveToPreviousScreen();\r\n\r\n// Any script, center the foreground window\r\nsp.ForegroundWindow().Center();\r\n\r\n// Any script, find all notepad windows, move them to all to the location 100, 100 and resize them to 400 x 400\r\nvar matches = sp.WindowsFromTitleRegex(\"- Notepad$\");\r\nfor (var i = 0, len = matches.Length; i < len; i++) {\r\n  var wnd = matches[i];\r\n  while (wnd.ParentSymmetric != null) {\r\n    wnd = wnd.ParentSymmetric;\r\n  }\r\n  var pos = wnd.Position;\r\n  pos.Left = 100;\r\n  pos.Top = 100;\r\n  pos.Right = 400;\r\n  pos.Bottom = 400;\r\n  wnd.Position = pos;\r\n}",
+    "Methods": {
+      "Activate": {
+        "Name": "Activate",
+        "InternalName": "Activate",
+        "Description": "Restores, shows, and brings the window to the foreground.",
+        "Returns": "void",
+        "SimpleExample": ".Activate()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "AllScreens": {
+        "Name": "AllScreens",
+        "InternalName": "AllScreens",
+        "Description": "Returns an array of Screen objects containing all screens as defined by Windows.",
+        "Returns": "Screen[]",
+        "SimpleExample": ".AllScreens()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "BringToFront": {
+        "Name": "BringToFront",
+        "InternalName": "BringToFront",
+        "Description": "Sets the window as the foregroup window.",
+        "Returns": "void",
+        "SimpleExample": ".BringToFront()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "Center": {
+        "Name": "Center",
+        "InternalName": "Center",
+        "Description": "Centers the window on the screen where the window resides.",
+        "Returns": "void",
+        "SimpleExample": ".Center()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "ClientPointToScreenPoint": {
+        "Name": "ClientPointToScreenPoint",
+        "InternalName": "ClientPointToScreenPoint",
+        "Description": "Returns a Point translated from client coordinates to screen coordinates relative to the upper-left corner of the screen.",
+        "Returns": "Point",
+        "SimpleExample": ".ClientPointToScreenPoint(new Point(0,0));",
+        "FullExample": "",
+        "Parameters": {
+          "clientPoint": {
+            "Name": "clientPoint",
+            "InternalName": "clientPoint",
+            "Description": "The client Point to translate to a screen point.",
+            "Type": "Point",
+            "Order": 1
+          }
+        }
+      },
+      "ClipToScreen": {
+        "Name": "ClipToScreen",
+        "InternalName": "ClipToScreen",
+        "Description": "Clips the window to the screen where the window resides.",
+        "Returns": "void",
+        "SimpleExample": ".ClipToScreen()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "EnsureVisible": {
+        "Name": "EnsureVisible",
+        "InternalName": "EnsureVisible",
+        "Description": "Moves the window to ensure it's displayed as fully as it can be on the current or closest screen.",
+        "Returns": "void",
+        "SimpleExample": ".EnsureVisible()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "FitToScreen": {
+        "Name": "FitToScreen",
+        "InternalName": "FitToScreen",
+        "Description": "Fits the window on the screen where the window resides.",
+        "Returns": "void",
+        "SimpleExample": ".FitToScreen()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "Highlight": {
+        "Name": "Highlight",
+        "InternalName": "Highlight",
+        "Description": "Highlights the window with a red border. Not very consistent or reliable.",
+        "Returns": "void",
+        "SimpleExample": ".Highlight()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "IsDescendantOf": {
+        "Name": "IsDescendantOf",
+        "InternalName": "IsDescendantOf",
+        "Description": "Returns true if this object is a child of the ancestor object.",
+        "Returns": "bool",
+        "SimpleExample": ".IsDescendantOf(window)",
+        "FullExample": "",
+        "Parameters": {
+          "ancestor": {
+            "Name": "ancestor",
+            "InternalName": "ancestor",
+            "Description": "The SystemWindow object to search through children.",
+            "Type": "SystemWindow",
+            "Order": 1
+          }
+        }
+      },
+      "Maximize": {
+        "Name": "Maximize",
+        "InternalName": "Maximize",
+        "Description": "Maximizes the window.",
+        "Returns": "void",
+        "SimpleExample": ".Maximize()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "Minimize": {
+        "Name": "Minimize",
+        "InternalName": "Minimize",
+        "Description": "Minimizes the window.",
+        "Returns": "void",
+        "SimpleExample": ".Minimize()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "MoveToNextScreen": {
+        "Name": "MoveToNextScreen",
+        "InternalName": "MoveToNextScreen",
+        "Description": "Moves the window to the next screen as defined in Windows, returns the new Screen.",
+        "Returns": "Screen",
+        "SimpleExample": ".MoveToNextScreen()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "MoveToPreviousScreen": {
+        "Name": "MoveToPreviousScreen",
+        "InternalName": "MoveToPreviousScreen",
+        "Description": "Moves the window to the previous screen as defined in Windows, returns the new Screen.",
+        "Returns": "Screen",
+        "SimpleExample": ".MoveToPreviousScreen()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "MoveToScreen": {
+        "Name": "MoveToScreen",
+        "InternalName": "MoveToScreen",
+        "Description": "Moves the window to the specified screen number (index) as defined in Windows or Screen object, returns the new Screen.",
+        "Returns": "Screen",
+        "SimpleExample": ".MoveToScreen(0);\r\n.MoveToScreen(Screen.FromPoint(sp.GetCurrentMousePoint()));",
+        "FullExample": "",
+        "Parameters": {
+          "number or screen": {
+            "Name": "number or screen",
+            "InternalName": "number or screen",
+            "Description": "The index of the screen to send the window to or a Screen object. See AllScreens to get all screen which can be used to determine the screen indexes.",
+            "Type": "object (Screen object or casts to int)",
+            "Order": 1
+          }
+        }
+      },
+      "PostMessageObj": {
+        "Name": "PostMessageObj",
+        "InternalName": "PostMessageObj",
+        "Description": "Posts a message to the control or window.",
+        "Returns": "void",
+        "SimpleExample": ".PostMessageObj(message, wParam, lParam);",
+        "FullExample": "",
+        "Parameters": {
+          "message": {
+            "Name": "message",
+            "InternalName": "message",
+            "Description": "The message value to post, casted to uint.",
+            "Type": "object (casts to uint)",
+            "Order": 1
+          },
+          "wParam": {
+            "Name": "wParam",
+            "InternalName": "wParam",
+            "Description": "The wParam value to post, casted to IntPtr.",
+            "Type": "object (casts to int then IntPtr)",
+            "Order": 2
+          },
+          "lParam": {
+            "Name": "lParam",
+            "InternalName": "lParam",
+            "Description": "The lParam value to post, casted to IntPtr.",
+            "Type": "object (casts to int then IntPtr)",
+            "Order": 3
+          }
+        }
+      },
+      "Refresh": {
+        "Name": "Refresh",
+        "InternalName": "Refresh",
+        "Description": "If supported, invalidates the client area of the window and forces a redraw.",
+        "Returns": "void",
+        "SimpleExample": ".Refresh()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "Restore": {
+        "Name": "Restore",
+        "InternalName": "Restore",
+        "Description": "Restores the window.",
+        "Returns": "void",
+        "SimpleExample": ".Restore()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "ScreenFromPoint": {
+        "Name": "ScreenFromPoint",
+        "InternalName": "ScreenFromPoint",
+        "Description": "Returns a screen based on a location.",
+        "Returns": "Screen",
+        "SimpleExample": ".ScreenFromPoint(new Point(100,100)",
+        "FullExample": "",
+        "Parameters": {
+          "pt": {
+            "Name": "pt",
+            "InternalName": "pt",
+            "Description": "The screen coordinates to use for locating the screen.",
+            "Type": "Point",
+            "Order": 1
+          }
+        }
+      },
+      "ScreenPointToClientPoint": {
+        "Name": "ScreenPointToClientPoint",
+        "InternalName": "ScreenPointToClientPoint",
+        "Description": "Returns a Point translated from screen coordinates to client coordinates relative to the upper-left corner of the window's client area.",
+        "Returns": "Point",
+        "SimpleExample": ".ScreenPointToClientPoint(new Point(0,0));",
+        "FullExample": "",
+        "Parameters": {
+          "screenPoint": {
+            "Name": "screenPoint",
+            "InternalName": "screenPoint",
+            "Description": "The screen Point to translate to a client point.",
+            "Type": "Point",
+            "Order": 1
+          }
+        }
+      },
+      "SendClose": {
+        "Name": "SendClose",
+        "InternalName": "SendClose",
+        "Description": "Sends the WM_CLOSE message to the window.",
+        "Returns": "void",
+        "SimpleExample": ".SendClose()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SendMessageGetTextObj": {
+        "Name": "SendMessageGetTextObj",
+        "InternalName": "SendMessageGetTextObj",
+        "Description": "Sends a get text message to the control or window and returns a string containing the text.",
+        "Returns": "string",
+        "SimpleExample": ".SendMessageGetTextObj(message, wParam, length);",
+        "FullExample": "",
+        "Parameters": {
+          "message": {
+            "Name": "message",
+            "InternalName": "message",
+            "Description": "The message value to post, casted to uint.",
+            "Type": "object (casts to uint)",
+            "Order": 1
+          },
+          "length": {
+            "Name": "length",
+            "InternalName": "length",
+            "Description": "The length of text to retrieve, casted to int.",
+            "Type": "object (casts to int)",
+            "Order": 2
+          }
+        }
+      },
+      "SendMessageObj": {
+        "Name": "SendMessageObj",
+        "InternalName": "SendMessageObj",
+        "Description": "Sends a message to the control or window.",
+        "Returns": "IntPtr",
+        "SimpleExample": ".SendMessageObj(message, wParam, lParam);",
+        "FullExample": "",
+        "Parameters": {
+          "message": {
+            "Name": "message",
+            "InternalName": "message",
+            "Description": "The message value to post, casted to uint.",
+            "Type": "object (casts to uint)",
+            "Order": 1
+          },
+          "wParam": {
+            "Name": "wParam",
+            "InternalName": "wParam",
+            "Description": "The wParam value to post, casted to IntPtr.",
+            "Type": "object (casts to int then IntPtr)",
+            "Order": 2
+          },
+          "lParam": {
+            "Name": "lParam",
+            "InternalName": "lParam",
+            "Description": "The lParam value to post, casted to IntPtr.",
+            "Type": "object (casts to int then IntPtr)",
+            "Order": 3
+          }
+        }
+      },
+      "SendMessageSetTextObj": {
+        "Name": "SendMessageSetTextObj",
+        "InternalName": "SendMessageSetTextObj",
+        "Description": "Sends a set text message to the control or window.",
+        "Returns": "IntPtr",
+        "SimpleExample": ".SendMessageSetTextObj(message, wParam, lParam, useAnsi);",
+        "FullExample": "",
+        "Parameters": {
+          "message": {
+            "Name": "message",
+            "InternalName": "message",
+            "Description": "The message value to post, casted to uint.",
+            "Type": "object (casts to uint)",
+            "Order": 1
+          },
+          "wParam": {
+            "Name": "wParam",
+            "InternalName": "wParam",
+            "Description": "The wParam value to post, casted to IntPtr.",
+            "Type": "object (casts to int then IntPtr)",
+            "Order": 2
+          },
+          "lParam": {
+            "Name": "lParam",
+            "InternalName": "lParam",
+            "Description": "The lParam value to post, casted to IntPtr.",
+            "Type": "object (casts to int then IntPtr)",
+            "Order": 3
+          },
+          "useAnsi": {
+            "Name": "useAnsi",
+            "InternalName": "useAnsi",
+            "Description": "Pass true to specificy ANSI mode, false for Unicode.",
+            "Type": "object (casts to bool)",
+            "Order": 4
+          }
+        }
+      },
+      "SendToBottom": {
+        "Name": "SendToBottom",
+        "InternalName": "SendToBottom",
+        "Description": "Sends the window to the bottom of the window stack/z-index.",
+        "Returns": "void",
+        "SimpleExample": ".SendToBottom()",
+        "FullExample": "",
+        "Parameters": {}
+      },
+      "SupportsSelection": {
+        "Name": "SupportsSelection",
+        "InternalName": "SupportsSelection",
+        "Description": "Returns true if the control supports selections via messaging (DLGC_HASSETSEL)",
+        "Returns": "bool",
+        "SimpleExample": ".SupportsSelection",
+        "FullExample": "",
+        "Parameters": {}
+      }
+    },
+    "Properties": {
+      "AbsoluteRectangle": {
+        "Name": "AbsoluteRectangle",
+        "InternalName": "AbsoluteRectangle",
+        "Description": "Returns a Rectangle object for the window frame, including window borders.",
+        "SimpleExample": ".AbsoluteRectangle",
+        "FullExample": ""
+      },
+      "AllChildWindows": {
+        "Name": "AllChildWindows",
+        "InternalName": "AllChildWindows",
+        "Description": "Returns as array of SystemWindow objects for direct child controls or window.",
+        "SimpleExample": ".AllChildWindows",
+        "FullExample": ""
+      },
+      "AllDescendantWindows": {
+        "Name": "AllDescendantWindows",
+        "InternalName": "AllDescendantWindows",
+        "Description": "Returns as array of SystemWindow objects for all descendant controls or window.",
+        "SimpleExample": ".AllDescendantWindows",
+        "FullExample": ""
+      },
+      "Alpha": {
+        "Name": "Alpha",
+        "InternalName": "Alpha",
+        "Description": "Gets or sets the transparency of the window (0 - 255 where 0 is invisible).",
+        "SimpleExample": ".Alpha = 128",
+        "FullExample": ""
+      },
+      "CheckState": {
+        "Name": "CheckState",
+        "InternalName": "CheckState",
+        "Description": "Whether this control, which is a check box or radio button, is checked.",
+        "SimpleExample": ".CheckState",
+        "FullExample": ""
+      },
+      "ClassName": {
+        "Name": "ClassName",
+        "InternalName": "ClassName",
+        "Description": "Gets the class name of the control or window.",
+        "SimpleExample": ".ClassName",
+        "FullExample": ""
+      },
+      "ClientRectangle": {
+        "Name": "ClientRectangle",
+        "InternalName": "ClientRectangle",
+        "Description": "Returns a Rectangle object for the client position of the control or window on the screen. ClientRectangle always starts with the top left of 0,0.",
+        "SimpleExample": ".ClientRectangle",
+        "FullExample": ""
+      },
+      "ColorKey": {
+        "Name": "ColorKey",
+        "InternalName": "ColorKey",
+        "Description": "Gets or sets the color key (transparent color) of the window, use Color.Transparent to remove the color key. Some applications behave erratically and cannot be clicked.",
+        "SimpleExample": ".ColorKey = Color.White; //See Color struct docs for known colors\r\n.ColorKey = Color.FromArgb(255, 255, 255); //RGB\r\n.ColorKey = Color.Transparent; //Remove color key",
+        "FullExample": ""
+      },
+      "CommandLine": {
+        "Name": "CommandLine",
+        "InternalName": "CommandLine",
+        "Description": "Gets the command line for the process via WMI.",
+        "SimpleExample": ".CommandLine",
+        "FullExample": ""
+      },
+      "DialogID": {
+        "Name": "DialogID",
+        "InternalName": "DialogID",
+        "Description": "Returns the dialog ID for the control or window.",
+        "SimpleExample": ".DialogID",
+        "FullExample": ""
+      },
+      "Enabled": {
+        "Name": "Enabled",
+        "InternalName": "Enabled",
+        "Description": "Gets or sets the enabled state of the control or window.",
+        "SimpleExample": ".Enabled",
+        "FullExample": ""
+      },
+      "FirstMoveableParent": {
+        "Name": "FirstMoveableParent",
+        "InternalName": "FirstMoveableParent",
+        "Description": "Returns a SystemWindow object for first parent window which is moveable; a window which has a system menu. If the window itself is moveable, it returns itself. If no matching parent is found, returns null.",
+        "SimpleExample": ".FirstMoveableParent",
+        "FullExample": ""
+      },
+      "GetRootOwnerWindow": {
+        "Name": "GetRootOwnerWindow",
+        "InternalName": "GetRootOwnerWindow",
+        "Description": "Returns a SystemWindow object for the root owner control or window.",
+        "SimpleExample": ".GetRootOwnerWindow",
+        "FullExample": ""
+      },
+      "HWnd": {
+        "Name": "HWnd",
+        "InternalName": "HWnd",
+        "Description": "Returns the handle to the control or window.",
+        "SimpleExample": ".HWnd",
+        "FullExample": ""
+      },
+      "Image": {
+        "Name": "Image",
+        "InternalName": "Image",
+        "Description": "Returns an image object of the window, similar to Alt+Print Screen.",
+        "SimpleExample": ".Image",
+        "FullExample": ""
+      },
+      "IsCloaked": {
+        "Name": "IsCloaked",
+        "InternalName": "IsCloaked",
+        "Description": "Returns true if the window is cloaked, such as background Win8/10 apps or windows in a different virtual desktop.",
+        "SimpleExample": ".IsCloaked",
+        "FullExample": ""
+      },
+      "IsImmersive": {
+        "Name": "IsImmersive",
+        "InternalName": "IsImmersive",
+        "Description": "Returns true if the window is flagged as immersive, which is generally a Windows 8 Metro/Store type app.",
+        "SimpleExample": ".IsImmersive",
+        "FullExample": ""
+      },
+      "IsUnicode": {
+        "Name": "IsUnicode",
+        "InternalName": "IsUnicode",
+        "Description": "Returns true if the windows is flagged as Unicode.",
+        "SimpleExample": ".IsUnicode",
+        "FullExample": ""
+      },
+      "LegacyModuleName": {
+        "Name": "LegacyModuleName",
+        "InternalName": "LegacyModuleName",
+        "Description": "Returns the module name for this control or window's process using a direct WinAPI call.",
+        "SimpleExample": ".LegacyModuleName",
+        "FullExample": ""
+      },
+      "Location": {
+        "Name": "Location",
+        "InternalName": "Location",
+        "Description": "The location of the control or window inside its parent or on the screen, does not include window borders.",
+        "SimpleExample": ".Location",
+        "FullExample": ""
+      },
+      "Maximized": {
+        "Name": "Maximized",
+        "InternalName": "Maximized",
+        "Description": "Returns true if the window is maximized.",
+        "SimpleExample": ".Maximized",
+        "FullExample": ""
+      },
+      "Minimized": {
+        "Name": "Minimized",
+        "InternalName": "Minimized",
+        "Description": "Returns true if the window in minimized.",
+        "SimpleExample": ".Minimized",
+        "FullExample": ""
+      },
+      "Movable": {
+        "Name": "Movable",
+        "InternalName": "Movable",
+        "Description": "Returns true if the window has the WS_SYSMENU flag.",
+        "SimpleExample": ".Movable",
+        "FullExample": ""
+      },
+      "Parent": {
+        "Name": "Parent",
+        "InternalName": "Parent",
+        "Description": "Returns a SystemWindow object for the parent control or window.",
+        "SimpleExample": ".Parent",
+        "FullExample": ""
+      },
+      "ParentSymmetric": {
+        "Name": "ParentSymmetric",
+        "InternalName": "ParentSymmetric",
+        "Description": "Returns a SystemWindow object for the parent control or window, but only if the control or window is a descendant of the .Parent.",
+        "SimpleExample": ".ParentSymmetric",
+        "FullExample": ""
+      },
+      "Position": {
+        "Name": "Position",
+        "InternalName": "Position",
+        "Description": "Returns a RECT object for the control or window position inside its parent or in workspace coordinates. Use Rectangle for absolute coordinates without borders, and AbsoluteRectangle for full rectangle.",
+        "SimpleExample": ".Position",
+        "FullExample": ""
+      },
+      "Process": {
+        "Name": "Process",
+        "InternalName": "Process",
+        "Description": "Returns the Process object for the control or window.",
+        "SimpleExample": ".Process",
+        "FullExample": ""
+      },
+      "RealParent": {
+        "Name": "RealParent",
+        "InternalName": "RealParent",
+        "Description": "Returns a SystemWindow object for the parent control or window, using a different set of rules to determine parent.",
+        "SimpleExample": ".RealParent",
+        "FullExample": ""
+      },
+      "RECT": {
+        "Name": "RECT",
+        "InternalName": "RECT",
+        "Description": "Returns a RECT object for the absolute position of the control or window on the screen, does not include window frame borders. Probably more convenient to use .Rectangle instead. Use .Position for relative location of controls.",
+        "SimpleExample": ".RECT",
+        "FullExample": ""
+      },
+      "Rectangle": {
+        "Name": "Rectangle",
+        "InternalName": "Rectangle",
+        "Description": "Returns a Rectangle object for the position of the control or window on the screen, does not include window frame borders. Use .Position for relative location of controls and AbsoluteRectangle for full rectangle.",
+        "SimpleExample": ".Rectangle",
+        "FullExample": ""
+      },
+      "RectangleF": {
+        "Name": "RectangleF",
+        "InternalName": "RectangleF",
+        "Description": "Returns a RectangleF (float) object for the position of the control or window on the screen, does not include window frame borders.",
+        "SimpleExample": ".RectangleF",
+        "FullExample": ""
+      },
+      "Region": {
+        "Name": "Region",
+        "InternalName": "Region",
+        "Description": "Gets (if defined) or sets the region of the control or window.",
+        "SimpleExample": ".Region",
+        "FullExample": ""
+      },
+      "Resizable": {
+        "Name": "Resizable",
+        "InternalName": "Resizable",
+        "Description": "Returns true if the window has the WS_THICKFRAME flag.",
+        "SimpleExample": ".Resizable",
+        "FullExample": ""
+      },
+      "RootWindow": {
+        "Name": "RootWindow",
+        "InternalName": "RootWindow",
+        "Description": "Returns a SystemWindow object for the root control or window.",
+        "SimpleExample": ".RootWindow",
+        "FullExample": ""
+      },
+      "Screen": {
+        "Name": "Screen",
+        "InternalName": "Screen",
+        "Description": "Gets the Screen object for the screen where the window currently resides.",
+        "SimpleExample": ".Screen",
+        "FullExample": ""
+      },
+      "Size": {
+        "Name": "Size",
+        "InternalName": "Size",
+        "Description": "The size of the control or window, excluding window borders.",
+        "SimpleExample": ".Size",
+        "FullExample": ""
+      },
+      "Text": {
+        "Name": "Text",
+        "InternalName": "Text",
+        "Description": "Gets or sets the text of the control, if supported.",
+        "SimpleExample": ".Text",
+        "FullExample": ""
+      },
+      "Thread": {
+        "Name": "Thread",
+        "InternalName": "Thread",
+        "Description": "Returns the ProcessThread object for the control or window.",
+        "SimpleExample": ".Thread",
+        "FullExample": ""
+      },
+      "Title": {
+        "Name": "Title",
+        "InternalName": "Title",
+        "Description": "Gets or sets the title/text of the control or window.",
+        "SimpleExample": ".Title",
+        "FullExample": ""
+      },
+      "TopMost": {
+        "Name": "TopMost",
+        "InternalName": "TopMost",
+        "Description": "Gets or sets the top most status of the control or window.",
+        "SimpleExample": ".TopMost",
+        "FullExample": ""
+      },
+      "VisibilityFlag": {
+        "Name": "VisibilityFlag",
+        "InternalName": "VisibilityFlag",
+        "Description": "Gets or sets the visibility status of the control or window.",
+        "SimpleExample": ".VisibilityFlag",
+        "FullExample": ""
+      },
+      "Visible": {
+        "Name": "Visible",
+        "InternalName": "Visible",
+        "Description": "Gets the visible status of the control or window.",
+        "SimpleExample": ".Visible",
+        "FullExample": ""
+      },
+      "WindowAbove": {
+        "Name": "WindowAbove",
+        "InternalName": "WindowAbove",
+        "Description": "Gets the SystemWindow object for the window above.",
+        "SimpleExample": ".WindowAbove",
+        "FullExample": ""
+      },
+      "WindowBelow": {
+        "Name": "WindowBelow",
+        "InternalName": "WindowBelow",
+        "Description": "Gets the SystemWindow object for the window below.",
+        "SimpleExample": ".WindowBelow",
+        "FullExample": ""
+      },
+      "WindowState": {
+        "Name": "WindowState",
+        "InternalName": "WindowState",
+        "Description": "Returns the window state of the window.",
+        "SimpleExample": ".WindowState",
+        "FullExample": ""
+      }
+    }
+  }
 };
 },{}],"../../node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
 var Vue // late bind
@@ -55632,69 +58915,74 @@ exports.default = void 0;
 
 var _output = require("../output.json");
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _help = _interopRequireDefault(require("../help.json"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var _default = {
-  name: 'app',
+  name: "app",
   data: function data() {
     return {
       methods: _output.methods,
       drawer: false,
-      items: [{
-        icon: 'mdi-view-dashboard',
-        title: 'Home',
-        path: ''
-      }]
+      leftCol: 4,
+      rightCol: 8
     };
+  },
+  computed: {
+    items: function items() {
+      var id = 1;
+      var sections = Object.entries(_help.default).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            section = _ref2[1];
+
+        var children = [];
+
+        if (_help.default[key].Methods) {
+          var sectionMethods = Object.keys(_help.default[key].Methods);
+          console.log(sectionMethods);
+          children = sectionMethods.map(function (methodName) {
+            return {
+              id: id++,
+              name: methodName,
+              children: []
+            };
+          });
+        }
+
+        return {
+          id: id++,
+          name: section.Name,
+          children: children
+        };
+      });
+      console.log(sections);
+      return sections;
+    }
   }
 };
 exports.default = _default;
-        var $852b0c = exports.default || module.exports;
+        var $fd78de = exports.default || module.exports;
       
-      if (typeof $852b0c === 'function') {
-        $852b0c = $852b0c.options;
+      if (typeof $fd78de === 'function') {
+        $fd78de = $fd78de.options;
       }
     
         /* template */
-        Object.assign($852b0c, (function () {
+        Object.assign($fd78de, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -55705,27 +58993,28 @@ exports.default = _default;
     [
       _c("div", { attrs: { id: "background" } }),
       _vm._v(" "),
+      _c("v-navigation-drawer", { attrs: { app: "", clipped: "" } }, [
+        _c(
+          "ul",
+          _vm._l(_vm.methods, function(m, i) {
+            return _c("li", { key: i }, [_vm._v(_vm._s(m.name))])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
       _c(
         "v-app-bar",
-        { attrs: { app: "", color: "indigo", dark: "" } },
+        { attrs: { app: "", color: "indigo", dark: "", "clipped-left": "" } },
         [
-          _c("v-app-bar-nav-icon", {
-            on: {
-              click: function($event) {
-                $event.stopPropagation()
-                _vm.drawer = !_vm.drawer
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("sp.GetMethods()")]),
+          _c("v-toolbar-title", [_vm._v("StrokesPlus Docs")]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
           _c(
             "v-btn",
             { attrs: { icon: "" }, on: { click: _vm.logout } },
-            [_c("v-icon", [_vm._v("exit_to_app")])],
+            [_c("v-icon", [_vm._v("cloud")])],
             1
           )
         ],
@@ -55740,43 +59029,94 @@ exports.default = _default;
             { attrs: { fluid: "" } },
             [
               _c(
-                "v-expansion-panels",
-                _vm._l(_vm.methods, function(m, i) {
-                  return _c(
-                    "v-expansion-panel",
-                    { key: i },
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: _vm.leftCol } },
                     [
-                      _c("v-expansion-panel-header", [
-                        _vm._v(
-                          "\n            " +
-                            _vm._s(m.name) +
-                            "(): " +
-                            _vm._s(m.returnType) +
-                            "\n          "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("v-expansion-panel-content", [
-                        _c(
-                          "ul",
-                          _vm._l(m.parameters, function(p) {
-                            return _c("li", [
-                              _vm._v(
-                                "\n                " +
-                                  _vm._s(Object.keys(p).pop()) +
-                                  " " +
-                                  _vm._s(_vm.value) +
-                                  "\n              "
-                              )
-                            ])
-                          }),
-                          0
-                        )
-                      ])
+                      _c("v-treeview", {
+                        attrs: {
+                          items: _vm.items,
+                          activatable: "",
+                          hoverable: "",
+                          "open-on-click": "",
+                          dense: ""
+                        }
+                      })
                     ],
                     1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: _vm.rightCol } },
+                    _vm._l(_vm.methods, function(m, i) {
+                      return _c(
+                        "v-card",
+                        {
+                          key: i,
+                          staticClass: "mx-auto my-5",
+                          attrs: { "max-width": "500" }
+                        },
+                        [
+                          _c("v-card-text", [
+                            _c("div", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "text--primary font-weight-black"
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "font-italic font-weight-thin"
+                                    },
+                                    [_vm._v("sp.")]
+                                  ),
+                                  _vm._v(
+                                    _vm._s(m.name) + "():\n                  "
+                                  ),
+                                  _c(
+                                    "span",
+                                    { staticClass: "blue--text body-2" },
+                                    [_vm._v(_vm._s(m.returnType))]
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "text--primary" }, [
+                              _c(
+                                "ul",
+                                _vm._l(m.parameters, function(p) {
+                                  return _c("li", { key: p }, [
+                                    _c(
+                                      "span",
+                                      { staticClass: "grey--text body-2" },
+                                      [_vm._v(_vm._s(p[0]))]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      { staticClass: "blue--text body-2" },
+                                      [_vm._v(_vm._s(p[1]))]
+                                    )
+                                  ])
+                                }),
+                                0
+                              )
+                            ])
+                          ])
+                        ],
+                        1
+                      )
+                    }),
+                    1
                   )
-                }),
+                ],
                 1
               )
             ],
@@ -55788,11 +59128,11 @@ exports.default = _default;
       _vm._v(" "),
       _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
         _c("span", { staticClass: "white--text body-2" }, [
-          _vm._v("Made by "),
+          _vm._v("Made by\n      "),
           _c(
             "a",
             {
-              staticClass: "cyan-text lighten-4",
+              staticClass: "blue--text",
               attrs: { href: "http://kevinhill.codes" }
             },
             [_vm._v("Kevin Hill")]
@@ -55823,16 +59163,16 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$852b0c', $852b0c);
+            api.createRecord('$fd78de', $fd78de);
           } else {
-            api.reload('$852b0c', $852b0c);
+            api.reload('$fd78de', $fd78de);
           }
         }
 
         
       }
     })();
-},{"../output.json":"output.json","vue-hot-reload-api":"../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../node_modules/vue/dist/vue.runtime.esm.js"}],"js/index.js":[function(require,module,exports) {
+},{"../output.json":"output.json","../help.json":"help.json","vue-hot-reload-api":"../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../node_modules/vue/dist/vue.runtime.esm.js"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -55886,7 +59226,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61774" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2596" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
