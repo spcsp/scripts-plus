@@ -1,3 +1,3 @@
-const sp = require("./StrokesPlusDotnet");
+const { sp } = require("./StrokesPlusDotnet");
 
 sp.notify('Hello!');

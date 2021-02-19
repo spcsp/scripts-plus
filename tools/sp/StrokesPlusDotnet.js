@@ -1,4 +1,7 @@
+const path = require("path");
 const execa = require("execa");
+const { match } = require("minta");
+const { Select } = require("enquirer");
 
 const raw = fp => "String.raw`" + fp + "`";
 
@@ -9,12 +12,12 @@ class StrokesPlusDotnet {
 
   constructor(config = {}) {
     this.exePath = config.exePath || "C:\\Program Files\\StrokesPlus.net\\StrokesPlus.net.exe";
+    this.tasks = [
+      'reload',
+      'settings'
+    ];
   }
-
-  sp(fn) {
-    return (...args) => this.exec(`sp["${fn}"]()`);    
-  }
-
+  
   async exec(src) {
     return execa(this.exePath, [`--script=${src}`]);
   }
@@ -38,6 +41,37 @@ class StrokesPlusDotnet {
   notify(msg) {
     this.exec(`sp.ShowBalloonTip("StrokesPlusDotnet", "${msg}", "Info", 5000)`);
   }
+  
+  execLocalFile(file) {
+    if (file.endsWith(/\.sp\.?js$/)) {
+      const absPath = path.resolve(process.cwd(), file);
+      
+      return this.evalFile(absPath);
+    } else {
+      throw Error("+ Strokes Plus CLI +\nThis tool can be used to run script files through the StrokesPlus Script Engine,\nAs well as a few other goodies thrown in.\nTry `cli.cmd reload`")
+    }
+  }
+  
+  async cliTaskRunner() {
+    const prompt = new Select({
+      name: 'task',
+      message: 'Select a task',
+      choices: this.tasks
+    });
+
+    const task = await prompt.run();
+          
+    if (task === "reload") {
+      this.reload();
+    }
+    
+    if (task === "settings") {
+      this.settings();
+    }
+  }
 }
 
-module.exports = new StrokesPlusDotnet();
+module.exports = { 
+  StrokesPlusDotnet,
+  sp: new StrokesPlusDotnet(),
+};
