@@ -8,7 +8,7 @@ const apps = require("./apps");
 
 const balloon = require("./balloon");
 
-function ScriptsPlus(config) {
+function ScriptsPlus(config = {}) {
   const autoloaded = config.autoload ? autoload(config.autoload) : {};
 
   return {

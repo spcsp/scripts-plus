@@ -1,4 +1,4 @@
-const app = require("../src/node/StrokesPlusDotnet");
+const app = require("../lib/StrokesPlusDotnet");
 
 const testFile = require.resolve("./testFile");
 

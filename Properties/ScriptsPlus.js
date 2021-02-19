@@ -39,6 +39,8 @@ module.exports = alert;
   \********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 const json = __webpack_require__(/*! ./json */ "./src/json.js");
 
 const {
@@ -48,11 +50,12 @@ const {
 
 class Api {
   constructor() {
+    _defineProperty(this, "_result", "");
+
     this.client = new HttpClient();
     this.client.BaseAddress = new Uri("http://localhost:3000");
     this.client.DefaultRequestHeaders.Add("User-Agent", "ScriptsPlus");
     this.client.DefaultRequestHeaders.Accept.Add(new Headers.MediaTypeWithQualityHeaderValue("application/json"));
-    this._result = "";
   }
 
   get(url) {
@@ -883,7 +886,7 @@ const apps = __webpack_require__(/*! ./apps */ "./src/apps/index.js");
 
 const balloon = __webpack_require__(/*! ./balloon */ "./src/balloon.js");
 
-function ScriptsPlus(config) {
+function ScriptsPlus(config = {}) {
   const autoloaded = config.autoload ? autoload(config.autoload) : {};
   return {
     apps,

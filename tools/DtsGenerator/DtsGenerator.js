@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const app = require("../../src/node/StrokesPlusDotnet");
+const app = require("../lib/StrokesPlusDotnet");
 
 const { onCreateOrUpdate, raw } = require("../lib");
 

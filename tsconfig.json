@@ -15,8 +15,8 @@
     ]
   },
   "include": [
-    "./src/**",
-    "./tools/**"
+    "./src",
+    "./tools"
   ],
   "exclude": [
     "Gruntfile.js"
