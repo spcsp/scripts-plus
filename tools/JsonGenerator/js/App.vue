@@ -2,16 +2,19 @@
   <v-app id="inspire">
     <div id="background"></div>
 
-    <v-navigation-drawer app clipped>
-      <ul>
-        <li v-for="(m, i) in methods" :key="i">{{ m.name }}</li>
-      </ul>
+    <v-navigation-drawer
+      app
+      clipped
+      temporary
+      v-model="drawer"
+    >
     </v-navigation-drawer>
 
     <v-app-bar app color="indigo" dark clipped-left>
-      <v-toolbar-title>StrokesPlus Docs</v-toolbar-title>
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+      <v-toolbar-title>Script Help</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="logout">
+      <v-btn icon>
         <v-icon>cloud</v-icon>
       </v-btn>
     </v-app-bar>
@@ -21,40 +24,32 @@
         <v-row>
           <v-col :cols="leftCol">
             <v-treeview
-              :items="items"
-              activatable
-              hoverable
-              open-on-click
               dense
-            ></v-treeview>
-          </v-col>
-          <v-col :cols="rightCol">
-            <v-card
-              class="mx-auto my-5"
-              max-width="500"
-              v-for="(m, i) in methods"
-              :key="i"
+              hoverable
+              activatable
+              active-class="LB"
+              open-on-click
+              return-object
+              :items="items"
             >
-              <v-card-text>
-                <div>
-                  <span class="text--primary font-weight-black">
-                    <span class="font-italic font-weight-thin">sp.</span
-                    >{{ m.name }}():
-                    <span class="blue--text body-2">{{ m.returnType }}</span>
-                  </span>
-                </div>
-
-                <div class="text--primary">
-                  <ul>
-                    <li v-for="p in m.parameters" :key="p">
-                      <span class="grey--text body-2">{{ p[0] }}</span
-                      >&nbsp;<span class="blue--text body-2">{{ p[1] }}</span>
-                    </li>
-                  </ul>
-                </div>
-              </v-card-text>
-            </v-card>
+              <template slot="label" slot-scope="{ item }">
+                <a @click="selectItem(item)">{{ item.name }}</a>
+              </template>
+            </v-treeview>
           </v-col>
+
+          <v-col :cols="centerCol">
+
+            <v-container v-for="item in items" :key="item.id">
+              <p class="text-h4 ml-n4">{{ item.name }}</p>
+              <div v-if="item.children.length > 0">
+                <HelpEntry v-for="entry in item.children" :key="entry.id" :entry="entry"></HelpEntry>
+              </div>
+            </v-container>
+          </v-col>
+<!--           
+          <v-col :cols="rightCol">
+          </v-col>   -->
         </v-row>
       </v-container>
     </v-main>
@@ -69,17 +64,29 @@
 </template>
 
 <script>
-import { methods } from "../output.json";
 import help from "../help.json";
+import HelpEntry from "./HelpEntry.vue";
 
 export default {
   name: "app",
+  components: {
+    HelpEntry
+  },
   data: () => ({
-    methods,
     drawer: false,
-    leftCol: 4,
-    rightCol: 8,
+    selection: [],
+    leftCol: 3,
+    centerCol: 9,
+    rightCol: 2,
+    open: [3],
+    search: null,
+    caseSensitive: false,
   }),
+  methods: {
+    selectItem(item) {
+      console.log(item)
+    }
+  },
   computed: {
     items() {
       let id = 1;
@@ -90,12 +97,11 @@ export default {
         if (help[key].Methods) {
           const sectionMethods = Object.keys(help[key].Methods);
 
-          console.log(sectionMethods);
           children = sectionMethods.map(methodName => {
             return {
               id: id++,
               name: methodName,
-              children: [],
+              ...help[key].Methods[methodName]
             };
           });
         }
@@ -103,14 +109,23 @@ export default {
         return {
           id: id++,
           name: section.Name,
-          children,
+          children
         };
       });
 
-      console.log(sections);
-
       return sections;
+    },
+    filter() {
+      return this.caseSensitive
+        ? (item, search, textKey) => item[textKey].indexOf(search) > -1
+        : undefined;
     },
   },
 };
 </script>
+
+<style>
+.LB {
+  border-left: 2px solid blue;
+}
+</style>

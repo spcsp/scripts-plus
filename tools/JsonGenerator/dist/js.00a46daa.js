@@ -53333,1219 +53333,7 @@ module.exports = reloadCSS;
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"./..\\fonts\\materialdesignicons-webfont.eot":[["materialdesignicons-webfont.b1550160.eot","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.eot"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.eot"],"./..\\fonts\\materialdesignicons-webfont.woff2":[["materialdesignicons-webfont.e82b46ec.woff2","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"],"./..\\fonts\\materialdesignicons-webfont.woff":[["materialdesignicons-webfont.c7629758.woff","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff"],"./..\\fonts\\materialdesignicons-webfont.ttf":[["materialdesignicons-webfont.9507192e.ttf","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.ttf"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.ttf"],"_css_loader":"../../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"output.json":[function(require,module,exports) {
-module.exports = {
-  "methods": [{
-    "name": "Add",
-    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
-    "returnType": "Decimal"
-  }, {
-    "name": "AllApplications",
-    "parameters": [],
-    "returnType": "SystemWindow[]"
-  }, {
-    "name": "AllWindows",
-    "parameters": [],
-    "returnType": "SystemWindow[]"
-  }, {
-    "name": "AppendText",
-    "parameters": [["sourceText", "System.String"], ["addText", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "Break",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "BreakIf",
-    "parameters": [["value1", "System.Object"], ["value2", "System.Object"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "BreakIfExpression",
-    "parameters": [["expression", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "ChangeCulture",
-    "parameters": [["cultureName", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "ClearStack",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "CloseHandle",
-    "parameters": [["handle", "System.IntPtr"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "CloseSettings",
-    "parameters": [["savePendingChanges", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "CloseWindow",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Void"
-  }, {
-    "name": "ConsumePhysicalInput",
-    "parameters": [["active", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "ContainsRegex",
-    "parameters": [["sourceText", "System.String"], ["regularExpression", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "ContainsText",
-    "parameters": [["sourceText", "System.String"], ["searchText", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "ConvertToType",
-    "parameters": [["value", "System.Object"], ["newType", "System.String"]],
-    "returnType": "Object"
-  }, {
-    "name": "CreateTimer",
-    "parameters": [["name", "System.String"], ["startdelay", "System.Int32"], ["interval", "System.Int32"], ["script", "System.String"]],
-    "returnType": "Timer"
-  }, {
-    "name": "Delay",
-    "parameters": [["milliseconds", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteAllTimers",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredBool",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredHandle",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredHistoryScript",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredNumber",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredObject",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredPoint",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredRectangle",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteStoredString",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DeleteTimer",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DesktopWindow",
-    "parameters": [],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "DesktopWindowListView",
-    "parameters": [],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "DestroyCursors",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "Disable",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "DisableCapture",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "DisableNext",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "DisplayImage",
-    "parameters": [["image", "System.Drawing.Image"], ["allowScrollZooming", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "DisplayText",
-    "parameters": [["point", "System.Drawing.Point"], ["title", "System.String"], ["message", "System.String"], ["millisecondsToShow", "System.Int32"], ["backgroundColor", "System.String"], ["textColor", "System.String"], ["opacity", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "DisplayText",
-    "parameters": [["info", "StrokesPlus.net.Engine.DisplayTextInfo"]],
-    "returnType": "Void"
-  }, {
-    "name": "DisplayTextClose",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "DisplayTextUpdate",
-    "parameters": [["info", "StrokesPlus.net.Engine.DisplayTextInfo"]],
-    "returnType": "Void"
-  }, {
-    "name": "Divide",
-    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
-    "returnType": "Decimal"
-  }, {
-    "name": "Else",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "ElseIf",
-    "parameters": [["value1", "System.Object"], ["value2", "System.Object"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "ElseIfExpression",
-    "parameters": [["expression", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "EmptyRecycleBins",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "Enable",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "EnableCapture",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "EndIf",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "EndLoop",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "EngineList",
-    "parameters": [],
-    "returnType": "List`1"
-  }, {
-    "name": "Evaluate",
-    "parameters": [["expression", "System.String"], ["stack", "System.Collections.Generic.Stack`1[System.Object]"]],
-    "returnType": "Double"
-  }, {
-    "name": "EvaluateAsBoolean",
-    "parameters": [["expression", "System.String"], ["stack", "System.Collections.Generic.Stack`1[System.Object]"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "ExecutePreviousScript",
-    "parameters": [["index", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "ExecuteSteps",
-    "parameters": [["actionVars", "StrokesPlus.net.Hooks.HookState+ActionVars"], ["wheelTick", "StrokesPlus.net.Code.WinAPIFunctions+WheelTick"], ["click", "StrokesPlus.net.Code.WinAPIFunctions+Click"], ["floater", "StrokesPlus.net.Hooks.HookState+FloaterVars"], ["steps", "System.Collections.Generic.IEnumerable`1[StrokesPlus.net.Code.ActionStep]"]],
-    "returnType": "Void"
-  }, {
-    "name": "ExecuteStoredScript",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "Exit",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "ExpandEnvironmentVariables",
-    "parameters": [["stringToExpand", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "ExplorerGetCurrentPath",
-    "parameters": [["explorerWindow", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "String"
-  }, {
-    "name": "ExplorerGetItems",
-    "parameters": [["explorerWindow", "ManagedWinapi.Windows.SystemWindow"], ["onlyNames", "System.Boolean"], ["includeFolders", "System.Boolean"], ["includeLinks", "System.Boolean"]],
-    "returnType": "String[]"
-  }, {
-    "name": "ExplorerGetSelectedDesktopFiles",
-    "parameters": [],
-    "returnType": "String[]"
-  }, {
-    "name": "ExplorerGetSelectedFiles",
-    "parameters": [["explorerWindow", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "String[]"
-  }, {
-    "name": "FindWindow",
-    "parameters": [["lpszClass", "System.String"], ["lpszWindow", "System.String"]],
-    "returnType": "IntPtr"
-  }, {
-    "name": "FindWindowEx",
-    "parameters": [["hwndParent", "System.IntPtr"], ["hwndChildAfter", "System.IntPtr"], ["lpszClass", "System.String"], ["lpszWindow", "System.String"]],
-    "returnType": "IntPtr"
-  }, {
-    "name": "ForegroundWindow",
-    "parameters": [],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "get_KeyboardCaptureEnabled",
-    "parameters": [],
-    "returnType": "Boolean"
-  }, {
-    "name": "get_ManualCaptureOnly",
-    "parameters": [],
-    "returnType": "Boolean"
-  }, {
-    "name": "get_MouseCaptureEnabled",
-    "parameters": [],
-    "returnType": "Boolean"
-  }, {
-    "name": "get_PopupMenuInfo",
-    "parameters": [],
-    "returnType": "PopupMenuInfo"
-  }, {
-    "name": "get_PopupMenuInfoEx",
-    "parameters": [],
-    "returnType": "PopupMenuInfoEx"
-  }, {
-    "name": "GetActiveExplorerPath",
-    "parameters": [["hWnd", "System.IntPtr"]],
-    "returnType": "String"
-  }, {
-    "name": "GetAllScreens",
-    "parameters": [],
-    "returnType": "Screen[]"
-  }, {
-    "name": "GetArrayItemByIndex",
-    "parameters": [["array", "System.Object[]"], ["index", "System.Int32"]],
-    "returnType": "Object"
-  }, {
-    "name": "GetArrayItemCount",
-    "parameters": [["array", "System.Object[]"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetBlueValueFromColor",
-    "parameters": [["color", "System.Drawing.Color"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetBoolean",
-    "parameters": [["value", "System.Boolean"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "GetCaptureMixer",
-    "parameters": [],
-    "returnType": "CoreAudioDevice"
-  }, {
-    "name": "GetClipboardText",
-    "parameters": [],
-    "returnType": "String"
-  }, {
-    "name": "GetColorFromHex",
-    "parameters": [["hexColor", "System.String"]],
-    "returnType": "Color"
-  }, {
-    "name": "GetColorFromRGB",
-    "parameters": [["red", "System.String"], ["green", "System.String"], ["blue", "System.String"]],
-    "returnType": "Color"
-  }, {
-    "name": "GetCommunicationsCaptureMixer",
-    "parameters": [],
-    "returnType": "CoreAudioDevice"
-  }, {
-    "name": "GetCommunicationsMixer",
-    "parameters": [],
-    "returnType": "CoreAudioDevice"
-  }, {
-    "name": "GetCommunicationsVolume",
-    "parameters": [],
-    "returnType": "Int32"
-  }, {
-    "name": "GetControlFromPoint",
-    "parameters": [["point", "System.Drawing.Point"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "GetControlFromPointXY",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "GetCurrentCulture",
-    "parameters": [],
-    "returnType": "String"
-  }, {
-    "name": "GetCurrentMouseCursor",
-    "parameters": [],
-    "returnType": "String"
-  }, {
-    "name": "GetCurrentMousePoint",
-    "parameters": [],
-    "returnType": "Point"
-  }, {
-    "name": "GetExeType",
-    "parameters": [["file", "System.String"]],
-    "returnType": "ShellFileType"
-  }, {
-    "name": "GetFileProductVersionInfo",
-    "parameters": [["filePath", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "GetFileVersionInfo",
-    "parameters": [["filePath", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "GetFirstMoveableParentFromPoint",
-    "parameters": [["point", "System.Drawing.Point"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "GetFirstMoveableParentFromPointXY",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "GetFullPathFromWindows",
-    "parameters": [["exeName", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "GetGreenValueFromColor",
-    "parameters": [["color", "System.Drawing.Color"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetHelpJson",
-    "parameters": [],
-    "returnType": "String"
-  }, {
-    "name": "GetHistoryScript",
-    "parameters": [["index", "System.Int32"]],
-    "returnType": "HistoryScript"
-  }, {
-    "name": "GetItemsInExplorer",
-    "parameters": [["hWnd", "System.IntPtr"], ["onlyNames", "System.Boolean"], ["includeFolders", "System.Boolean"], ["includeLinks", "System.Boolean"]],
-    "returnType": "String[]"
-  }, {
-    "name": "GetKeyState",
-    "parameters": [["vk", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Int16"
-  }, {
-    "name": "GetLastError",
-    "parameters": [],
-    "returnType": "UInt32"
-  }, {
-    "name": "GetMacroScript",
-    "parameters": [["category", "System.String"], ["name", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "GetMethod",
-    "parameters": [["name", "System.String"]],
-    "returnType": "MethodInfo"
-  }, {
-    "name": "GetMethods",
-    "parameters": [],
-    "returnType": "MethodInfo[]"
-  }, {
-    "name": "GetNumber",
-    "parameters": [["value", "System.Int32"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetNumberOfItemsOnStack",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "GetObjectPropertyByName",
-    "parameters": [["sourceObject", "System.Object"], ["propertyName", "System.String"]],
-    "returnType": "Object"
-  }, {
-    "name": "GetPixelColorFromPoint",
-    "parameters": [["point", "System.Drawing.Point"]],
-    "returnType": "Color"
-  }, {
-    "name": "GetPlaybackMixer",
-    "parameters": [],
-    "returnType": "CoreAudioDevice"
-  }, {
-    "name": "GetPlaybackVolume",
-    "parameters": [],
-    "returnType": "Int32"
-  }, {
-    "name": "GetPoint",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
-    "returnType": "Point"
-  }, {
-    "name": "GetRectangle",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"], ["width", "System.Int32"], ["height", "System.Int32"]],
-    "returnType": "Rectangle"
-  }, {
-    "name": "GetRedValueFromColor",
-    "parameters": [["color", "System.Drawing.Color"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetRegionFromPoint",
-    "parameters": [["rectangle", "System.Drawing.Rectangle"], ["point", "System.Drawing.Point"], ["columns", "System.Int32"], ["rows", "System.Int32"]],
-    "returnType": "RectRegion"
-  }, {
-    "name": "GetRegions",
-    "parameters": [["rect", "System.Drawing.Rectangle"], ["columns", "System.Int32"], ["rows", "System.Int32"]],
-    "returnType": "RectRegion[]"
-  }, {
-    "name": "GetScreenFromHandle",
-    "parameters": [["handle", "System.IntPtr"]],
-    "returnType": "Screen"
-  }, {
-    "name": "GetScreenFromPoint",
-    "parameters": [["point", "System.Drawing.Point"]],
-    "returnType": "Screen"
-  }, {
-    "name": "GetScreenFromPointXY",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
-    "returnType": "Screen"
-  }, {
-    "name": "GetScreenFromRectangle",
-    "parameters": [["rectangle", "System.Drawing.Rectangle"]],
-    "returnType": "Screen"
-  }, {
-    "name": "GetSelectedFilesInExplorer",
-    "parameters": [["hWnd", "System.IntPtr"]],
-    "returnType": "String[]"
-  }, {
-    "name": "GetSelectedFilesOnDesktop",
-    "parameters": [],
-    "returnType": "String[]"
-  }, {
-    "name": "GetStoredBool",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "GetStoredHandle",
-    "parameters": [["name", "System.String"]],
-    "returnType": "IntPtr"
-  }, {
-    "name": "GetStoredHistoryScript",
-    "parameters": [["name", "System.String"]],
-    "returnType": "HistoryScript"
-  }, {
-    "name": "GetStoredNumber",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Int64"
-  }, {
-    "name": "GetStoredObject",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Object"
-  }, {
-    "name": "GetStoredPoint",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Point"
-  }, {
-    "name": "GetStoredRectangle",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Rectangle"
-  }, {
-    "name": "GetStoredString",
-    "parameters": [["name", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "GetString",
-    "parameters": [["value", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "GetSyncKeyState",
-    "parameters": [["vk", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Int16"
-  }, {
-    "name": "GetSystemMetricsByIndex",
-    "parameters": [["index", "System.Int32"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetTemporaryMacroScript",
-    "parameters": [],
-    "returnType": "String"
-  }, {
-    "name": "GetTextLength",
-    "parameters": [["sourceText", "System.String"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetTimer",
-    "parameters": [["name", "System.String"]],
-    "returnType": "Timer"
-  }, {
-    "name": "GetTimerScript",
-    "parameters": [["name", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "GetTopLevelWindowFromPoint",
-    "parameters": [["point", "System.Drawing.Point"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "GetTopLevelWindowFromPointXY",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "GetWindowClassName",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "String"
-  }, {
-    "name": "GetWindowHeight",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetWindowLocation",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Point"
-  }, {
-    "name": "GetWindowLocationX",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetWindowLocationY",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Int32"
-  }, {
-    "name": "GetWindowMainModuleFileName",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "String"
-  }, {
-    "name": "GetWindowMainModuleFilePath",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "String"
-  }, {
-    "name": "GetWindowRectangle",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Rectangle"
-  }, {
-    "name": "GetWindowRectangleFull",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Rectangle"
-  }, {
-    "name": "GetWindowText",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "String"
-  }, {
-    "name": "GetWindowThreadProcessId",
-    "parameters": [["hWnd", "System.IntPtr"], ["dwProcessId", "System.UInt32"]],
-    "returnType": "UInt32"
-  }, {
-    "name": "GetWindowWidth",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Int32"
-  }, {
-    "name": "HideMouseCursor",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "HTMLWindow",
-    "parameters": [["Title", "System.String"], ["HTML", "System.String"], ["ScriptCallback", "System.String"], ["OnDocumentCreatedScript", "System.String"], ["ID", "System.String"], ["IncludeBootstrapJQuery", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "HTMLWindowExecuteScriptAsync",
-    "parameters": [["Handle", "System.Object"], ["Script", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "If",
-    "parameters": [["value1", "System.Object"], ["value2", "System.Object"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "IfExpression",
-    "parameters": [["expression", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "InputBox",
-    "parameters": [["title", "System.String"], ["message", "System.String"], ["itemList", "System.String"], ["sortItems", "System.Boolean"], ["selectedItem", "System.String"], ["allowDirectInput", "System.Boolean"]],
-    "returnType": "String"
-  }, {
-    "name": "InputBox",
-    "parameters": [["info", "StrokesPlus.net.Engine.InputBoxInfo"]],
-    "returnType": "String"
-  }, {
-    "name": "InvokeObjectMethodByName",
-    "parameters": [["sourceObject", "System.Object"], ["methodName", "System.String"], ["objMethodParameters", "System.Object[]"]],
-    "returnType": "Object"
-  }, {
-    "name": "InvokeScriptMethod",
-    "parameters": [["parameters", "System.Object[]"], ["name", "System.String"]],
-    "returnType": "Object"
-  }, {
-    "name": "IsAppCommandKey",
-    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "IsKeyToggled",
-    "parameters": [["vk", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "IsWindowAlwaysOnTop",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "IsWindowMaximized",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "IsWindowMinimized",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "LastActiveWindow",
-    "parameters": [],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "LastApplication",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "LastFocusControl",
-    "parameters": [],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "LockWorkStation",
-    "parameters": [],
-    "returnType": "Boolean"
-  }, {
-    "name": "Loop",
-    "parameters": [["numberOfLoops", "System.Int32"], ["actionVars", "StrokesPlus.net.Hooks.HookState+ActionVars"], ["wheelTick", "StrokesPlus.net.Code.WinAPIFunctions+WheelTick"], ["click", "StrokesPlus.net.Code.WinAPIFunctions+Click"], ["floater", "StrokesPlus.net.Hooks.HookState+FloaterVars"], ["steps", "System.Collections.Generic.List`1[StrokesPlus.net.Code.ActionStep]"], ["stack", "System.Collections.Generic.Stack`1[System.Object]"], ["success", "System.Boolean"], ["stopIssued", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "MaximizeOrRestoreWindow",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Void"
-  }, {
-    "name": "MaximizeWindow",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Void"
-  }, {
-    "name": "MessageBox",
-    "parameters": [["message", "System.Object"], ["title", "System.Object"]],
-    "returnType": "Void"
-  }, {
-    "name": "MinimizeWindow",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseClick",
-    "parameters": [["point", "System.Drawing.Point"], ["button", "System.String"], ["down", "System.Boolean"], ["up", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseClick",
-    "parameters": [["pt", "System.Drawing.Point"], ["btn", "System.Windows.Forms.MouseButtons"], ["down", "System.Boolean"], ["up", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseClickXY",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"], ["button", "System.String"], ["down", "System.Boolean"], ["up", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseMove",
-    "parameters": [["point", "System.Drawing.Point"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseMoveXY",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseRestrictActive",
-    "parameters": [],
-    "returnType": "Boolean"
-  }, {
-    "name": "MouseRestrictClear",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "MouseRestrictToRectangle",
-    "parameters": [["rectangle", "System.Drawing.Rectangle"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseWheel",
-    "parameters": [["point", "System.Drawing.Point"], ["horizontal", "System.Boolean"], ["delta", "System.Object"]],
-    "returnType": "Void"
-  }, {
-    "name": "MouseWheelXY",
-    "parameters": [["X", "System.Int32"], ["Y", "System.Int32"], ["horizontal", "System.Boolean"], ["delta", "System.Object"]],
-    "returnType": "Void"
-  }, {
-    "name": "MoveWindowToNextScreen",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Screen"
-  }, {
-    "name": "MoveWindowToPreviousScreen",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Screen"
-  }, {
-    "name": "MoveWindowToScreen",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["screenNumber", "System.Object"]],
-    "returnType": "Screen"
-  }, {
-    "name": "Multiply",
-    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
-    "returnType": "Decimal"
-  }, {
-    "name": "NativeDelegate",
-    "parameters": [["functionName", "System.String"], ["parameterTypes", "System.Object"], ["returnType", "System.Type"]],
-    "returnType": "IntPtr"
-  }, {
-    "name": "NativeDelegateList",
-    "parameters": [["delegateList", "System.Object"]],
-    "returnType": "List`1"
-  }, {
-    "name": "NativeModule",
-    "parameters": [["moduleName", "System.String"]],
-    "returnType": "ModuleBuilder"
-  }, {
-    "name": "NextApplication",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "OpenProcess",
-    "parameters": [["dwDesiredAccess", "System.UInt32"], ["bInheritHandle", "System.Boolean"], ["dwProcessId", "System.UInt32"]],
-    "returnType": "IntPtr"
-  }, {
-    "name": "OpenSettings",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "OpenURL",
-    "parameters": [["url", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "Pause",
-    "parameters": [["seconds", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "PlaySavedMacro",
-    "parameters": [["macroName", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "PlaySound",
-    "parameters": [["filePath", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "PlayTemporaryMacro",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "ReadProcessMemory",
-    "parameters": [["hProcess", "System.IntPtr"], ["lpBaseAddress", "System.IntPtr"], ["lpBuffer", "System.IntPtr"], ["nSize", "System.Int32"], ["vNumberOfBytesRead", "System.UInt32"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "RecordTemporaryMacro",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "RefreshNativeModules",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "RegistryDelete",
-    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "RegistryDeleteSubKey",
-    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["showErrors", "System.Boolean"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "RegistryReadMultiString",
-    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
-    "returnType": "String[]"
-  }, {
-    "name": "RegistryReadNumber",
-    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
-    "returnType": "Int32"
-  }, {
-    "name": "RegistryReadString",
-    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["subKey", "System.String"], ["keyName", "System.String"], ["showErrors", "System.Boolean"]],
-    "returnType": "String"
-  }, {
-    "name": "RegistryWrite",
-    "parameters": [["baseKey", "Microsoft.Win32.RegistryKey"], ["keyName", "System.String"], ["keyValue", "System.String"], ["value", "System.Object"], ["kind", "System.String"], ["showErrors", "System.Boolean"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "RelayGesture",
-    "parameters": [["points", "System.Drawing.Point[]"], ["button", "System.Windows.Forms.MouseButtons"]],
-    "returnType": "Void"
-  }, {
-    "name": "Reload",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "ReloadScriptEnginePool",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "RemoveItemsFromStack",
-    "parameters": [["numberOfItems", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "ReplaceText",
-    "parameters": [["sourceText", "System.String"], ["oldText", "System.String"], ["newText", "System.String"]],
-    "returnType": "String"
-  }, {
-    "name": "RestoreWindow",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Void"
-  }, {
-    "name": "Run",
-    "parameters": [["command", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "RunOrActivate",
-    "parameters": [["exeName", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "RunProgram",
-    "parameters": [["fileName", "System.String"], ["arguments", "System.String"], ["verb", "System.String"], ["windowStyle", "System.String"], ["useShellExecute", "System.Boolean"], ["noWindow", "System.Boolean"], ["waitForExit", "System.Boolean"]],
-    "returnType": "Int32"
-  }, {
-    "name": "RunStoreApp",
-    "parameters": [["packageName", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendAltDown",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "SendAltUp",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "SendAppCommand",
-    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "SendCharacter",
-    "parameters": [["ch", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendControlDown",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "SendControlUp",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "SendHotKey",
-    "parameters": [["hotkey", "StrokesPlus.net.Engine.ActionFunctions+StepHotkey"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendKeyDown",
-    "parameters": [["ch", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendKeys",
-    "parameters": [["sendKeysString", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendKeyUp",
-    "parameters": [["ch", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendMessage",
-    "parameters": [["hWnd", "System.IntPtr"], ["Msg", "System.UInt32"], ["wParam", "System.Int32"], ["lParam", "System.Int32"]],
-    "returnType": "Int32"
-  }, {
-    "name": "SendModifiedVKeys",
-    "parameters": [["Modifiers", "System.Object"], ["Keys", "System.Object"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendShiftDown",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "SendShiftUp",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "SendString",
-    "parameters": [["characters", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendUnicodeString",
-    "parameters": [["str", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendVKey",
-    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendVKeyDown",
-    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendVKeyUp",
-    "parameters": [["virtualKey", "WindowsInput.Native.VirtualKeyCode"]],
-    "returnType": "Void"
-  }, {
-    "name": "SendWinDown",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "SendWinUp",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "set_KeyboardCaptureEnabled",
-    "parameters": [["value", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "set_ManualCaptureOnly",
-    "parameters": [["value", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "set_MouseCaptureEnabled",
-    "parameters": [["value", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "set_PopupMenuInfo",
-    "parameters": [["value", "StrokesPlus.net.Engine.PopupMenuInfo"]],
-    "returnType": "Void"
-  }, {
-    "name": "set_PopupMenuInfoEx",
-    "parameters": [["value", "StrokesPlus.net.Engine.PopupMenuInfoEx"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetClipboardText",
-    "parameters": [["text", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetCommunicationsVolume",
-    "parameters": [["newVolumeLevel", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetForegroundWindow",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetMouseCursor",
-    "parameters": [["cursorType", "System.String"], ["fileName", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetObjectPropertyByName",
-    "parameters": [["sourceObject", "System.Object"], ["propertyName", "System.String"], ["value", "System.Object"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetPlaybackVolume",
-    "parameters": [["newVolumeLevel", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetWindowAlwaysOnTop",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["newValue", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetWindowHeight",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["height", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetWindowLocation",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["point", "System.Drawing.Point"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetWindowLocationXY",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["X", "System.Int32"], ["Y", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetWindowSize",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["width", "System.Int32"], ["height", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "SetWindowWidth",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"], ["width", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "SHGetFileInfo",
-    "parameters": [["pszPath", "System.String"], ["dwFileAttributes", "System.UInt32"], ["psfi", "StrokesPlus.net.Engine.ActionFunctions+SHFILEINFO"], ["cbSizeFileInfo", "System.UInt32"], ["uFlags", "System.UInt32"]],
-    "returnType": "IntPtr"
-  }, {
-    "name": "ShowBalloonTip",
-    "parameters": [["title", "System.String"], ["text", "System.String"], ["icon", "System.String"], ["timeout", "System.Object"]],
-    "returnType": "Void"
-  }, {
-    "name": "ShowMouseCursor",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "ShowPopupMenu",
-    "parameters": [["info", "StrokesPlus.net.Engine.PopupMenuInfo"]],
-    "returnType": "Void"
-  }, {
-    "name": "ShowPopupMenuEx",
-    "parameters": [["info", "StrokesPlus.net.Engine.PopupMenuInfoEx"]],
-    "returnType": "Void"
-  }, {
-    "name": "Sleep",
-    "parameters": [["milliseconds", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "StartManualCapture",
-    "parameters": [["useSecondaryStrokeButton", "System.Boolean"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "Stop",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "StopAllActionSteps",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "StopAllScripts",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "StopManualCapture",
-    "parameters": [],
-    "returnType": "Boolean"
-  }, {
-    "name": "StoreBool",
-    "parameters": [["name", "System.String"], ["value", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "StoreHandle",
-    "parameters": [["name", "System.String"], ["value", "System.IntPtr"]],
-    "returnType": "Void"
-  }, {
-    "name": "StoreHistoryScript",
-    "parameters": [["name", "System.String"], ["value", "StrokesPlus.net.Engine.HistoryScript"]],
-    "returnType": "Void"
-  }, {
-    "name": "StoreNumber",
-    "parameters": [["name", "System.String"], ["value", "System.Int64"]],
-    "returnType": "Void"
-  }, {
-    "name": "StoreObject",
-    "parameters": [["name", "System.String"], ["value", "System.Object"]],
-    "returnType": "Void"
-  }, {
-    "name": "StorePoint",
-    "parameters": [["name", "System.String"], ["value", "System.Drawing.Point"]],
-    "returnType": "Void"
-  }, {
-    "name": "StoreRectangle",
-    "parameters": [["name", "System.String"], ["value", "System.Drawing.Rectangle"]],
-    "returnType": "Void"
-  }, {
-    "name": "StoreString",
-    "parameters": [["name", "System.String"], ["value", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "Subtract",
-    "parameters": [["number1", "System.Decimal"], ["number2", "System.Decimal"]],
-    "returnType": "Decimal"
-  }, {
-    "name": "ToggleCommunicationsMute",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "TogglePlaybackMute",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "ToggleTrayIcon",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "ToggleWindowAlwaysOnTop",
-    "parameters": [["window", "ManagedWinapi.Windows.SystemWindow"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterCloseCustomFloater",
-    "parameters": [["floaterName", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterHide",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterIsCustomFloaterLoaded",
-    "parameters": [["floaterName", "System.String"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "TouchFloaterIsShown",
-    "parameters": [],
-    "returnType": "Boolean"
-  }, {
-    "name": "TouchFloaterLoadCustomFloater",
-    "parameters": [["floaterName", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterLoadLayout",
-    "parameters": [["layoutName", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterSetCustomFloaterKeyMode",
-    "parameters": [["floaterName", "System.String"], ["enabled", "System.Boolean"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterSetCustomFloaterLocation",
-    "parameters": [["floaterName", "System.String"], ["point", "System.Drawing.Point"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterSetCustomFloaterOpacity",
-    "parameters": [["floaterName", "System.String"], ["opacity", "System.Single"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterSetCustomFloaterSize",
-    "parameters": [["floaterName", "System.String"], ["size", "System.Int32"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterSetCustomFloaterText",
-    "parameters": [["floaterName", "System.String"], ["text", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterSetCustomFloaterTextColor",
-    "parameters": [["floaterName", "System.String"], ["color", "System.Drawing.Color"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterSetLocation",
-    "parameters": [["point", "System.Drawing.Point"]],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterShow",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloatersReset",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterToggle",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "TouchFloaterToggleOthers",
-    "parameters": [],
-    "returnType": "Void"
-  }, {
-    "name": "TraceLogEntry",
-    "parameters": [["message", "System.String"]],
-    "returnType": "Void"
-  }, {
-    "name": "VirtualAllocEx",
-    "parameters": [["hProcess", "System.IntPtr"], ["lpAddress", "System.IntPtr"], ["dwSize", "System.UInt32"], ["flAllocationType", "System.UInt32"], ["flProtect", "System.UInt32"]],
-    "returnType": "IntPtr"
-  }, {
-    "name": "VirtualFreeEx",
-    "parameters": [["hProcess", "System.IntPtr"], ["lpAddress", "System.IntPtr"], ["dwSize", "System.UInt32"], ["dwFreeType", "System.UInt32"]],
-    "returnType": "Boolean"
-  }, {
-    "name": "WindowFromClassOrTitle",
-    "parameters": [["className", "System.String"], ["windowTitle", "System.String"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "WindowFromHandle",
-    "parameters": [["handle", "System.IntPtr"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "WindowFromPoint",
-    "parameters": [["pt", "System.Drawing.Point"], ["topLevelOnly", "System.Boolean"]],
-    "returnType": "SystemWindow"
-  }, {
-    "name": "WindowsFromTitlePartial",
-    "parameters": [["partialTitle", "System.String"]],
-    "returnType": "SystemWindow[]"
-  }, {
-    "name": "WindowsFromTitleRegex",
-    "parameters": [["regexTitle", "System.String"]],
-    "returnType": "SystemWindow[]"
-  }, {
-    "name": "WriteProcessMemory",
-    "parameters": [["hProcess", "System.IntPtr"], ["lpBaseAddress", "System.IntPtr"], ["lpBuffer", "System.IntPtr"], ["nSize", "System.Int32"], ["vNumberOfBytesRead", "System.UInt32"]],
-    "returnType": "Boolean"
-  }]
-};
-},{}],"help.json":[function(require,module,exports) {
+},{"./..\\fonts\\materialdesignicons-webfont.eot":[["materialdesignicons-webfont.b1550160.eot","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.eot"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.eot"],"./..\\fonts\\materialdesignicons-webfont.woff2":[["materialdesignicons-webfont.e82b46ec.woff2","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"],"./..\\fonts\\materialdesignicons-webfont.woff":[["materialdesignicons-webfont.c7629758.woff","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff"],"./..\\fonts\\materialdesignicons-webfont.ttf":[["materialdesignicons-webfont.9507192e.ttf","../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.ttf"],"../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.ttf"],"_css_loader":"../../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"help.json":[function(require,module,exports) {
 module.exports = {
   "SectionScriptObjects": {
     "Name": "Script Objects",
@@ -58905,7 +57693,293 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"js/App.vue":[function(require,module,exports) {
+},{}],"js/HelpEntry.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "HelpEntry",
+  props: {
+    entry: Object
+  },
+  methods: {
+    mounted: function mounted() {
+      console.log("Mounted ".concat(this.entry.Name));
+    }
+  } // Parameters: {
+  //   cultureName: {
+  //     Name: "cultureName",
+  //     InternalName: "cultureName",
+  //     Description:
+  //       "The name of the language culture to make the current culture. Examples: 'en-US', 'pl-PL', 'zh-CN'.",
+  //     Type: "string",
+  //     Order: 1,
+  //   },
+  // },
+
+};
+exports.default = _default;
+        var $fc06a7 = exports.default || module.exports;
+      
+      if (typeof $fc06a7 === 'function') {
+        $fc06a7 = $fc06a7.options;
+      }
+    
+        /* template */
+        Object.assign($fc06a7, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-card",
+    { staticClass: "mb-10" },
+    [
+      _c("v-card-title", [
+        _c("p", { staticClass: "font-weight-black text-h5" }, [
+          _c("span", { staticClass: "font-italic font-weight-thin" }, [
+            _vm._v("sp.")
+          ]),
+          _vm._v(_vm._s(_vm.entry.Name) + "()\n    ")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("v-card-subtitle", [
+        _c("span", { staticClass: "text--primary font-weight-bold" }, [
+          _vm._v("Returns:"),
+          _c("span", { staticClass: "blue--text font-weight-thin" }, [
+            _vm._v(" " + _vm._s(_vm.entry.Returns))
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-card-text",
+        { staticClass: "text--primary" },
+        [
+          _c("div", { staticClass: "mb-2" }, [
+            _vm._v("\n      " + _vm._s(_vm.entry.Description) + "\n    ")
+          ]),
+          _vm._v(" "),
+          [
+            _c("p", { staticClass: "text-h6 mt-8 mb-n2" }, [
+              _vm._v("Parameters")
+            ]),
+            _vm._v(" "),
+            _vm.entry.Parameters
+              ? _c(
+                  "v-sheet",
+                  {
+                    staticClass: "my-2 pa-2",
+                    attrs: { elevation: "1", rounded: "" }
+                  },
+                  [
+                    _c("v-simple-table", {
+                      attrs: { dense: "" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function() {
+                              return [
+                                _c("thead", [
+                                  _c("tr", [
+                                    _c("th", { staticClass: "text-left" }, [
+                                      _vm._v("Name")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("th", { staticClass: "text-left" }, [
+                                      _vm._v("Type")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("th", { staticClass: "text-left" }, [
+                                      _vm._v("Description")
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "tbody",
+                                  _vm._l(_vm.entry.Parameters, function(item) {
+                                    return _c("tr", { key: item.name }, [
+                                      _c("td", [_vm._v(_vm._s(item.Name))]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(item.Type))]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(item.Description))
+                                      ])
+                                    ])
+                                  }),
+                                  0
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        false,
+                        1937934557
+                      )
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
+          ],
+          _vm._v(" "),
+          _c("p", { staticClass: "text-h6 mt-8 mb-n2" }, [
+            _vm._v("Simple Example")
+          ]),
+          _vm._v(" "),
+          _c(
+            "v-sheet",
+            {
+              staticClass: "my-2 pa-2",
+              attrs: { elevation: "1", rounded: "", color: "grey lighten-3" }
+            },
+            [
+              _c("code", { staticClass: "grey lighten-3" }, [
+                _c("pre", [_vm._v(_vm._s(_vm.entry.SimpleExample))])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm.entry.FullExample
+            ? [
+                _c("p", { staticClass: "text-h6 mt-8 mb-n2" }, [
+                  _vm._v("Full Example")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "v-sheet",
+                  {
+                    staticClass: "my-2 pa-2",
+                    attrs: {
+                      elevation: "1",
+                      rounded: "",
+                      color: "grey lighten-3"
+                    }
+                  },
+                  [
+                    _c("code", { staticClass: "grey lighten-3" }, [
+                      _c("pre", [_vm._v(_vm._s(_vm.entry.FullExample))])
+                    ])
+                  ]
+                )
+              ]
+            : _vm._e()
+        ],
+        2
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$fc06a7', $fc06a7);
+          } else {
+            api.reload('$fc06a7', $fc06a7);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../node_modules/vue/dist/vue.runtime.esm.js"}],"js/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -58913,11 +57987,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _output = require("../output.json");
-
 var _help = _interopRequireDefault(require("../help.json"));
 
+var _HelpEntry = _interopRequireDefault(require("./HelpEntry.vue"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -58933,13 +58013,25 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var _default = {
   name: "app",
+  components: {
+    HelpEntry: _HelpEntry.default
+  },
   data: function data() {
     return {
-      methods: _output.methods,
       drawer: false,
-      leftCol: 4,
-      rightCol: 8
+      selection: [],
+      leftCol: 3,
+      centerCol: 9,
+      rightCol: 2,
+      open: [3],
+      search: null,
+      caseSensitive: false
     };
+  },
+  methods: {
+    selectItem: function selectItem(item) {
+      console.log(item);
+    }
   },
   computed: {
     items: function items() {
@@ -58953,13 +58045,11 @@ var _default = {
 
         if (_help.default[key].Methods) {
           var sectionMethods = Object.keys(_help.default[key].Methods);
-          console.log(sectionMethods);
           children = sectionMethods.map(function (methodName) {
-            return {
+            return _objectSpread({
               id: id++,
-              name: methodName,
-              children: []
-            };
+              name: methodName
+            }, _help.default[key].Methods[methodName]);
           });
         }
 
@@ -58969,8 +58059,12 @@ var _default = {
           children: children
         };
       });
-      console.log(sections);
       return sections;
+    },
+    filter: function filter() {
+      return this.caseSensitive ? function (item, search, textKey) {
+        return item[textKey].indexOf(search) > -1;
+      } : undefined;
     }
   }
 };
@@ -58993,27 +58087,36 @@ exports.default = _default;
     [
       _c("div", { attrs: { id: "background" } }),
       _vm._v(" "),
-      _c("v-navigation-drawer", { attrs: { app: "", clipped: "" } }, [
-        _c(
-          "ul",
-          _vm._l(_vm.methods, function(m, i) {
-            return _c("li", { key: i }, [_vm._v(_vm._s(m.name))])
-          }),
-          0
-        )
-      ]),
+      _c("v-navigation-drawer", {
+        attrs: { app: "", clipped: "", temporary: "" },
+        model: {
+          value: _vm.drawer,
+          callback: function($$v) {
+            _vm.drawer = $$v
+          },
+          expression: "drawer"
+        }
+      }),
       _vm._v(" "),
       _c(
         "v-app-bar",
         { attrs: { app: "", color: "indigo", dark: "", "clipped-left": "" } },
         [
-          _c("v-toolbar-title", [_vm._v("StrokesPlus Docs")]),
+          _c("v-app-bar-nav-icon", {
+            on: {
+              click: function($event) {
+                _vm.drawer = true
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("v-toolbar-title", [_vm._v("Script Help")]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
           _c(
             "v-btn",
-            { attrs: { icon: "" }, on: { click: _vm.logout } },
+            { attrs: { icon: "" } },
             [_c("v-icon", [_vm._v("cloud")])],
             1
           )
@@ -59037,12 +58140,35 @@ exports.default = _default;
                     [
                       _c("v-treeview", {
                         attrs: {
-                          items: _vm.items,
-                          activatable: "",
+                          dense: "",
                           hoverable: "",
+                          activatable: "",
+                          "active-class": "LB",
                           "open-on-click": "",
-                          dense: ""
-                        }
+                          "return-object": "",
+                          items: _vm.items
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "label",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return [
+                                _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.selectItem(item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(item.name))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
                       })
                     ],
                     1
@@ -59050,69 +58176,26 @@ exports.default = _default;
                   _vm._v(" "),
                   _c(
                     "v-col",
-                    { attrs: { cols: _vm.rightCol } },
-                    _vm._l(_vm.methods, function(m, i) {
-                      return _c(
-                        "v-card",
-                        {
-                          key: i,
-                          staticClass: "mx-auto my-5",
-                          attrs: { "max-width": "500" }
-                        },
-                        [
-                          _c("v-card-text", [
-                            _c("div", [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "text--primary font-weight-black"
-                                },
-                                [
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "font-italic font-weight-thin"
-                                    },
-                                    [_vm._v("sp.")]
-                                  ),
-                                  _vm._v(
-                                    _vm._s(m.name) + "():\n                  "
-                                  ),
-                                  _c(
-                                    "span",
-                                    { staticClass: "blue--text body-2" },
-                                    [_vm._v(_vm._s(m.returnType))]
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "text--primary" }, [
-                              _c(
-                                "ul",
-                                _vm._l(m.parameters, function(p) {
-                                  return _c("li", { key: p }, [
-                                    _c(
-                                      "span",
-                                      { staticClass: "grey--text body-2" },
-                                      [_vm._v(_vm._s(p[0]))]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      { staticClass: "blue--text body-2" },
-                                      [_vm._v(_vm._s(p[1]))]
-                                    )
-                                  ])
-                                }),
-                                0
-                              )
-                            ])
-                          ])
-                        ],
-                        1
-                      )
+                    { attrs: { cols: _vm.centerCol } },
+                    _vm._l(_vm.items, function(item) {
+                      return _c("v-container", { key: item.id }, [
+                        _c("p", { staticClass: "text-h4 ml-n4" }, [
+                          _vm._v(_vm._s(item.name))
+                        ]),
+                        _vm._v(" "),
+                        item.children.length > 0
+                          ? _c(
+                              "div",
+                              _vm._l(item.children, function(entry) {
+                                return _c("HelpEntry", {
+                                  key: entry.id,
+                                  attrs: { entry: entry }
+                                })
+                              }),
+                              1
+                            )
+                          : _vm._e()
+                      ])
                     }),
                     1
                   )
@@ -59128,7 +58211,7 @@ exports.default = _default;
       _vm._v(" "),
       _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
         _c("span", { staticClass: "white--text body-2" }, [
-          _vm._v("Made by\n      "),
+          _vm._v("Made by\n        "),
           _c(
             "a",
             {
@@ -59170,9 +58253,13 @@ render._withStripped = true
         }
 
         
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
       }
     })();
-},{"../output.json":"output.json","../help.json":"help.json","vue-hot-reload-api":"../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../node_modules/vue/dist/vue.runtime.esm.js"}],"js/index.js":[function(require,module,exports) {
+},{"../help.json":"help.json","./HelpEntry.vue":"js/HelpEntry.vue","_css_loader":"../../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../node_modules/vue/dist/vue.runtime.esm.js"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -59226,7 +58313,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2596" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2178" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
