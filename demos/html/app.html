@@ -1,0 +1,132 @@
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><% navbarHeading %></a>
+  <input id="search" class="form-control form-control-dark w-100" type="text" placeholder="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a id="closeWindow" class="nav-link" href="#">Close Window</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Reports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Integrations</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            This week
+          </button>
+        </div>
+      </div>
+
+      <div class="container mt-2">
+          <p>Test</p>
+          <button id="buttonSubmit" class="btn btn-primary">Submit Search</button>
+          <button id="buttonString" class="btn btn-secondary">Test String</button>
+      </div>
+      
+      <h2>Section title</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>Lorem</td>
+              <td>ipsum</td>
+              <td>dolor</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>1,002</td>
+              <td>amet</td>
+              <td>consectetur</td>
+              <td>adipiscing</td>
+              <td>elit</td>
+            </tr>
+            <tr>
+              <td>1,005</td>
+              <td>Nulla</td>
+              <td>quis</td>
+              <td>sem</td>
+              <td>at</td>
+            </tr>
+            <tr>
+              <td>1,006</td>
+              <td>nibh</td>
+              <td>elementum</td>
+              <td>imperdiet</td>
+              <td>Duis</td>
+            </tr>
+            <tr>
+              <td>1,007</td>
+              <td>sagittis</td>
+              <td>ipsum</td>
+              <td>Praesent</td>
+              <td>mauris</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+// Global this
+const { postMessage } = window.chrome.webview;
+
+// Our jQuery Plugin!
+(function($) {
+  $.fn.sp = function(){};  
+  $.fn.sp.OnClickCloseWindow = function() {
+    $(this).click(function() { postMessage({ action: "close" }) }); 
+  };
+}(jQuery));
+</script>
+
+<script>
+  const postAction = (action, data) => postMessage({ action, data });
+          
+  $('#buttonString').click(() => postMessage("Test String"));
+  
+  $('#closeWindow').sp.OnClickCloseWindow();
+  
+  $('#buttonSubmit').click(function() {
+    const value = $("#search").val();
+    
+    postAction("search", value);
+  });
+</script>
