@@ -35,6 +35,7 @@
         "forms": "readonly",
         "host": "readonly",
         "http": "readonly",
+        "IntPtr": "readonly",
         "MouseButtons": "readonly",
         "Point": "readonly",
         "PopupMenuInfoEx": "readonly",
