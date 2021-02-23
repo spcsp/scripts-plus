@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div class="container mt-2">
+      <div class="container mt-4">
           <p>Test</p>
           <button id="buttonSubmit" class="btn btn-primary">Submit Search</button>
           <button id="buttonString" class="btn btn-secondary">Test String</button>
@@ -105,28 +105,21 @@
 </div>
 
 <script>
-// Global this
-const { postMessage } = window.chrome.webview;
+// Make it shorter
+window["postMessage"] = window.chrome.webview.postMessage;
 
 // Our jQuery Plugin!
 (function($) {
-  $.fn.sp = function(){};  
-  $.fn.sp.OnClickCloseWindow = function() {
-    $(this).click(function() { postMessage({ action: "close" }) }); 
+  $.fn.sp = function(){};
+  
+  $.fn.sp.PostMessageOnClick = function(o) {
+    $(this).click(() => postMessage(o);
   };
 }(jQuery));
 </script>
 
 <script>
-  const postAction = (action, data) => postMessage({ action, data });
-          
   $('#buttonString').click(() => postMessage("Test String"));
-  
-  $('#closeWindow').sp.OnClickCloseWindow();
-  
-  $('#buttonSubmit').click(function() {
-    const value = $("#search").val();
-    
-    postAction("search", value);
-  });
+  $('#closeWindow').click(() => postMessage({ action: "close" }));
+  $('#buttonSubmit').click(() => postMessage({ action: "search", data: $("#search").val( )}));
 </script>
