@@ -3,7 +3,7 @@
   <input id="search" class="form-control form-control-dark w-100" type="text" placeholder="Search">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a id="closeWindow" class="nav-link" href="#">Close Window</a>
+      <a id="close" class="nav-link" href="#">Close Window</a>
     </li>
   </ul>
 </nav>
@@ -44,9 +44,10 @@
       </div>
 
       <div class="container mt-4">
-          <p>Test</p>
-          <button id="buttonSubmit" class="btn btn-primary">Submit Search</button>
-          <button id="buttonString" class="btn btn-secondary">Test String</button>
+          <p>Cool App Title</p>
+          <button id="test" class="btn btn-secondary">Test String</button>
+          <button id="mute" class="btn btn-success">Toggle Playback Mute</button>
+          <button id="submit" class="btn btn-primary">Submit Search</button>
       </div>
       
       <h2>Section title</h2>
@@ -105,21 +106,28 @@
 </div>
 
 <script>
-// Make it shorter
-window["postMessage"] = window.chrome.webview.postMessage;
+  // Our jQuery Plugin!
+  (function($, window, document) {
+    $.fn._init = $.fn.init;
+    $.fn.init = function(selector, context, root) {
+      return (typeof selector === 'string')
+        ? new $.fn._init(selector, context, root).data('selector', selector)
+        : new $.fn._init(selector, context, root );
+    };
+    $.fn.getSelector = function() {
+      return $(this).data('selector');
+    };
+    $.fn.PostMessageOnClick = function(input) {
+      var selector = $(this).getSelector();
+      
+      $(selector).click(() => window.chrome.webview.postMessage(input));
+    };    
+  }(jQuery, window, document));
 
-// Our jQuery Plugin!
-(function($) {
-  $.fn.sp = function(){};
-  
-  $.fn.sp.PostMessageOnClick = function(o) {
-    $(this).click(() => postMessage(o);
-  };
-}(jQuery));
-</script>
-
-<script>
-  $('#buttonString').click(() => postMessage("Test String"));
-  $('#closeWindow').click(() => postMessage({ action: "close" }));
-  $('#buttonSubmit').click(() => postMessage({ action: "search", data: $("#search").val( )}));
+  $(document).ready(function() {
+    $('#test').PostMessageOnClick("Test String");
+    $('#mute').PostMessageOnClick({ action: "mute" });
+    $('#close').PostMessageOnClick({ action: "close" });
+    $('#submit').PostMessageOnClick({ action: "search", data: $("#search").val( )});
+  });
 </script>
