@@ -31,18 +31,7 @@
       </div>
     </nav>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-      <div class="chartjs-size-monitor"
-        style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-        <div class="chartjs-size-monitor-expand"
-          style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-          <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
-        </div>
-        <div class="chartjs-size-monitor-shrink"
-          style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-          <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
-        </div>
-      </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 pl-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -57,62 +46,64 @@
       </div>
 
       <div class="container mt-4">
-        <p>Cool App Title</p>
-        <button id="test" class="btn btn-secondary">Test String</button>
-        <button id="mute" class="btn btn-success">Toggle Playback Mute</button>
+        <p>Cool App</p>
+        <button id="test" class="btn btn-secondary">Send String</button>
         <button id="submit" class="btn btn-primary">Submit Search</button>
+        <button id="expand" class="btn btn-success">Expand %COMPUTERNAME%</button>
       </div>
 
-      <h2>Section title</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>amet</td>
-              <td>consectetur</td>
-              <td>adipiscing</td>
-              <td>elit</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>Nulla</td>
-              <td>quis</td>
-              <td>sem</td>
-              <td>at</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>nibh</td>
-              <td>elementum</td>
-              <td>imperdiet</td>
-              <td>Duis</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>sagittis</td>
-              <td>ipsum</td>
-              <td>Praesent</td>
-              <td>mauris</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="container mt-4">
+        <h2>Section title</h2>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1,001</td>
+                <td>Lorem</td>
+                <td>ipsum</td>
+                <td>dolor</td>
+                <td>sit</td>
+              </tr>
+              <tr>
+                <td>1,002</td>
+                <td>amet</td>
+                <td>consectetur</td>
+                <td>adipiscing</td>
+                <td>elit</td>
+              </tr>
+              <tr>
+                <td>1,005</td>
+                <td>Nulla</td>
+                <td>quis</td>
+                <td>sem</td>
+                <td>at</td>
+              </tr>
+              <tr>
+                <td>1,006</td>
+                <td>nibh</td>
+                <td>elementum</td>
+                <td>imperdiet</td>
+                <td>Duis</td>
+              </tr>
+              <tr>
+                <td>1,007</td>
+                <td>sagittis</td>
+                <td>ipsum</td>
+                <td>Praesent</td>
+                <td>mauris</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
   </div>
@@ -120,20 +111,24 @@
 
 <script>
   // Our jQuery Plugin!
-  (function($, window, document) {    
-    $.fn.postOnClick = function (input) {
-      $(this).click(() => window.chrome.webview.postMessage(input));
+  (function($, window, document) {
+    $.spMessage = window.chrome.webview.postMessage;
+    $.spAction = (action, data) => $.spMessage({ action, data });
+    
+    $.StrokesPlus = function() {
+      $("a[data-sp-link]").each(function() {      
+        $(this).click(() => $.spAction("link", $(this).attr("href")));
+      });
     };
   }(jQuery, window, document));
 
   $(document).ready(function () {
-    $("a[data-sp-link]").each(function() {      
-      $(this).postOnClick({ action: "link", data: $(this).attr("href") });
-    });
+    $.StrokesPlus();
     
-    $('#test').postOnClick("Test String");
-    $('#mute').postOnClick({ action: "mute" });
-    $('#close').postOnClick({ action: "close" });
-    $('#submit').postOnClick({ action: "search", data: $("#search").val() });
+    // Send simple strings
+    $('#test').click(() => $.spMessage("Test String"));
+    $('#close').click(() => $.spAction("close"));
+    $('#expand').click(() => $.spAction("expand", "%COMPUTERNAME%"));
+    $('#submit').click(() => $.spAction("search", $("#search").val()));
   });
 </script>
