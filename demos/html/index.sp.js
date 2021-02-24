@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 function processMessage(val) {
   const config = {
     maximizeOnOpen: false,
@@ -61,28 +60,24 @@ function processMessage(val) {
   }
 }
 
-function template(templatePath, data) {
-  return File.ReadAllText(templatePath).replace(/<%([^%]+)%>/g, match => {
-    const trimmed = match.slice(2, -2).trim();
-    const value = data[trimmed];
-    return typeof value !== "undefined" ? value : `<% ${trimmed} %>`;
-  });
+function HtmlWindow({ windowTitle, messageHandler, template, templateData, windowOnLoadScript }) {
+    const interpolated = template.replace(/<%([^%]+)%>/g, match => {
+        const trimmed = match.slice(2, -2).trim();
+        const value = templateData[trimmed];
+        return typeof value !== "undefined" ? value : `<% ${trimmed} %>`;
+    });
+
+    sp.HTMLWindow(windowTitle, html, messageHandler, windowOnLoadScript || "", "" /*GID*/, true/*BS+JQ*/);
 }
 
-function HtmlWindow(title, html, msgBusHandler, windowOnLoadScript = "") {
-  if (typeof this[msgBusHandler] !== "function") {
-    throw Error(`"${msgBusHandler}" is not a function`);
-  }
-
-  // Forcing bootstrap and jquery since we're depending on it :)
-  sp.HTMLWindow(title, html, msgBusHandler, windowOnLoadScript, "", true);
-}
-
-var html = template(__dirname + `/index.html`, {
-  navbarHeading: "Harris & Bruno",
+HtmlWindow({
+    windowTitle: "Ephemeral App Title",
+    messageHandler: "processMessage",
+    template: File.ReadAllText(String.raw`C:\Users\Public\shop\automation\demos\html\index.html`),
+    templateData: {
+      navbarHeading: "Harris & Bruno",
+    }
 });
-
-HtmlWindow("Frame Title", html, "processMessage");
 
 // Assumes you are using the Example from HTMLWindow
 //sp.HTMLWindowExecuteScriptAsync(sp.GetStoredHandle("testWindowHandle"), "alert('Hello!');");
