@@ -12,7 +12,6 @@ function exit(reason) {
 }
 
 (async () => {
-    
   match(firstParam) (
     'reload', _ => sp.reload(),
     fileExtRegex, f => {
@@ -21,5 +20,4 @@ function exit(reason) {
     },
     otherwise => exit("+ Strokes Plus CLI +\nThis tool can be used to run script files through the StrokesPlus Script Engine,\nAs well as a few other goodies thrown in.\nTry `cli.cmd reload`")
   );
-
 })();
