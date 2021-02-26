@@ -3,11 +3,13 @@
     <% navbarHeading %>
   </a>
   <input id="search" class="form-control form-control-dark w-100" type="text" placeholder="Search">
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a id="close" class="nav-link" href="#">Close Window</a>
-    </li>
-  </ul>
+  <div class="navbar-nav px-1">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button data-sp-action="min" class="<% navBarBtnClasses %>" type="button">Min</button>
+      <button data-sp-action="max" class="<% navBarBtnClasses %>" type="button">Max</button>
+      <button data-sp-action="close" class="<% navBarBtnClasses %>" type="button">Close</button>
+    </div>
+  </div>
 </nav>
 
 <div class="container-fluid">
@@ -119,12 +121,14 @@
       $("a[data-sp-link]").each(function() {      
         $(this).click(() => $.spAction("link", $(this).attr("href")));
       });
+
+      $("[data-sp-action]").each(function() {      
+        $(this).click(() => $.spAction($(this).data("sp-action")));
+      });
     };
   }(jQuery, window, document));
 
   $(document).ready(function () {
-    $.StrokesPlus();
-    
     // Send simple strings
     $('#test').click(() => $.spMessage("Test String"));
     $('#close').click(() => $.spAction("close"));

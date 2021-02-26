@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function processMessage(val) {
   // https://github.com/gvergnaud/ts-pattern
   // Webpack-ed for use here in V8!
@@ -8,10 +9,16 @@ function processMessage(val) {
   const handleId = "appWindowHandle";
   const getHandle = () => sp.GetStoredHandle(handleId);
   const setHandle = h => sp.StoreHandle(handleId, new IntPtr(parseInt(h)));
-  const popup =  (msg, title) => sp.MessageBox(msg, title);
+  const popup = (msg, title) => sp.MessageBox(msg, title);
   const getWindow = () => sp.WindowFromHandle(getHandle());
-  const expand = (envvar) => sp.ExpandEnvironmentVariables(envvar);
-  const debug = obj => sp.ShowBalloonTip(Object.keys(obj)[0], `${JSON.stringify(Object.values(obj)[0])}`, "Info", 5000);
+  const expand = envvar => sp.ExpandEnvironmentVariables(envvar);
+  const debug = obj =>
+    sp.ShowBalloonTip(
+      Object.keys(obj)[0],
+      `${JSON.stringify(Object.values(obj)[0])}`,
+      "Info",
+      5000
+    );
 
   try {
     const msg = JSON.parse(val);
@@ -19,14 +26,16 @@ function processMessage(val) {
     debug({ PostedMessage: msg });
 
     match(msg)
-      .with({ StrokesPlusHTMLWindow: {}}, ({ StrokesPlusHTMLWindow }) => {
+      .with({ StrokesPlusHTMLWindow: {} }, ({ StrokesPlusHTMLWindow }) => {
         setHandle(StrokesPlusHTMLWindow.Handle);
         //getWindow().Maximize();
       })
       .with({ action: "close" }, () => getWindow().SendClose())
       .with({ action: "link" }, ({ data }) => popup(data, "A link!"))
       .with({ action: "search" }, ({ data }) => popup(data, "searching..."))
-      .with({ action: "expand" }, ({ data }) => popup(expand(data), "Expanded!"))
+      .with({ action: "expand" }, ({ data }) =>
+        popup(expand(data), "Expanded!")
+      )
       .with(__.number, num => popup(num, "A Number!"))
       .with(__.string, str => popup(str, "A String!"))
       .with(__, any => popup(any, "catch all"))
@@ -36,26 +45,40 @@ function processMessage(val) {
   }
 }
 
-function HtmlWindow({ messageHandler, templateFile, templateData, windowTitle, windowOnLoad }) {
-    const template = File.ReadAllText(templateFile);
-    const interpolated = template.replace(/<%([^%]+)%>/g, match => {
-        const trimmed = match.slice(2, -2).trim();
-        const value = templateData[trimmed];
-        return typeof value !== "undefined" ? value : `<% ${trimmed} %>`;
-    });
+function HtmlWindow({
+  messageHandler,
+  templateFile,
+  templateData,
+  windowTitle,
+  windowOnCreate,
+}) {
+  const template = File.ReadAllText(templateFile);
+  const interpolated = template.replace(/<%([^%]+)%>/g, match => {
+    const trimmed = match.slice(2, -2).trim();
+    const value = templateData[trimmed];
+    return typeof value !== "undefined" ? value : `<% ${trimmed} %>`;
+  });
 
-    sp.HTMLWindow(windowTitle, interpolated, messageHandler, windowOnLoad || "", "", true);
-    //sp.HTMLWindowExecuteScriptAsync(getHandle(), "alert('Hello!');");
+  sp.HTMLWindow(
+    windowTitle,
+    interpolated,
+    messageHandler,
+    windowOnCreate || "",
+    "",
+    true
+  );
+  //sp.HTMLWindowExecuteScriptAsync(getHandle(), "alert('Hello!');");
 }
 
 HtmlWindow({
-    messageHandler: "processMessage",
-    windowTitle: "Ephemeral App",
-    windowOnLoad: "//alert('Window Loaded');", // In context of the window, not here
-    templateFile: String.raw`C:\Users\Public\shop\automation\demos\html\index.html`,
-    templateData: {
-      navbarHeading: "Harris & Bruno",
-    }
+  messageHandler: "processMessage",
+  windowTitle: "Ephemeral App",
+  windowOnCreate: "", // embedded jQuery plugin here
+  templateFile: String.raw`C:\Users\kevin\projects\scripts-plus-plugin\demos\html\index.html`,
+  templateData: {
+    navbarHeading: "Harris & Bruno",
+    navBarBtnClasses: "btn btn-sm btn-outline-secondary"
+  },
 });
 
 //var files = sp.GetSelectedFilesInExplorer(sp.ForegroundWindow().HWnd);
