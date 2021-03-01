@@ -2,11 +2,11 @@
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
     <% navbarHeading %>
   </a>
-  <input id="search" class="form-control form-control-dark w-100" type="text" placeholder="Search">
   <div class="navbar-nav px-1">
     <div class="btn-group" role="group" aria-label="Basic example">
       <button data-sp-action="min" class="<% navBarBtnClasses %>" type="button">Min</button>
       <button data-sp-action="max" class="<% navBarBtnClasses %>" type="button">Max</button>
+      <button data-sp-action="center" class="<% navBarBtnClasses %>" type="button">Center</button>
       <button data-sp-action="close" class="<% navBarBtnClasses %>" type="button">Close</button>
     </div>
   </div>
@@ -48,63 +48,43 @@
       </div>
 
       <div class="container mt-4">
-        <p>Cool App</p>
-        <button id="test" class="btn btn-secondary">Send String</button>
-        <button id="submit" class="btn btn-primary">Submit Search</button>
-        <button id="expand" class="btn btn-success">Expand %COMPUTERNAME%</button>
-      </div>
+        <h3>Examples</h3>
+        <br>
+        <div class="form-group">
+          <label for="expandVal">Expand Environment Variables</label>
+          <div class="input-group">
+            <select class="form-control" id="expandVal">
+              <option>%SystemDrive%</option>
+              <option>%SystemRoot%</option>
+              <option>%WINDIR%</option>
+              <option>%HOMEDRIVE%</option>
+              <option>%HOMEPATH%</option>
+              <option>%USERPROFILE%</option>
+              <option>%APPDATA%</option>
+              <option>%ALLUSERSPROFILE%</option>
+              <option>%PROGRAMFILES%</option>
+              <option>%PROGRAMFILES(X86)%</option>
+              <option>%PROGRAMDATA%</option>
+              <option>%TEMP%</option>
+              <option>%LOCALAPPDATA%</option>
+              <option>%PUBLIC%</option>
+              <option>%COMMONPROGRAMFILES%</option>
+              <option>%COMMONPROGRAMFILES(x86)%</option>
+            </select>
+            <div class="input-group-append">
+              <button data-sp-action="expand" class="btn btn-success">Expand</button>
+            </div>
+          </div>
+        </div>
 
-      <div class="container mt-4">
-        <h2>Section title</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
-                <td>sit</td>
-              </tr>
-              <tr>
-                <td>1,002</td>
-                <td>amet</td>
-                <td>consectetur</td>
-                <td>adipiscing</td>
-                <td>elit</td>
-              </tr>
-              <tr>
-                <td>1,005</td>
-                <td>Nulla</td>
-                <td>quis</td>
-                <td>sem</td>
-                <td>at</td>
-              </tr>
-              <tr>
-                <td>1,006</td>
-                <td>nibh</td>
-                <td>elementum</td>
-                <td>imperdiet</td>
-                <td>Duis</td>
-              </tr>
-              <tr>
-                <td>1,007</td>
-                <td>sagittis</td>
-                <td>ipsum</td>
-                <td>Praesent</td>
-                <td>mauris</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="form-group">
+          <label class="form-label" for="envvar">Change Window Alpha</label>
+          <div class="input-group">
+            <input type="number" id="alphaVal" class="form-control" value="255" />
+            <div class="input-group-append">
+              <button data-sp-action="alpha" class="btn btn-info">Set Alpha</button>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -113,26 +93,32 @@
 
 <script>
   // Our jQuery Plugin!
-  (function($, window, document) {
+  (function ($, window, document) {
+    // Aliases
     $.spMessage = window.chrome.webview.postMessage;
     $.spAction = (action, data) => $.spMessage({ action, data });
-    
-    $.StrokesPlus = function() {
-      $("a[data-sp-link]").each(function() {      
+
+    $.StrokesPlus = function () {
+      this.each(function () {
+        //
+      });
+
+      $("a[data-sp-link]").each(function () {
         $(this).click(() => $.spAction("link", $(this).attr("href")));
       });
 
-      $("[data-sp-action]").each(function() {      
-        $(this).click(() => $.spAction($(this).data("sp-action")));
+      $("[data-sp-action]").each(function () {
+        $(this).click(() => {
+          const action = $(this).data("sp-action");
+          const data = $("#" + action + "Val").val();
+
+          $.spAction(action, data);
+        });
       });
     };
   }(jQuery, window, document));
 
-  $(document).ready(function () {
-    // Send simple strings
-    $('#test').click(() => $.spMessage("Test String"));
-    $('#close').click(() => $.spAction("close"));
-    $('#expand').click(() => $.spAction("expand", "%COMPUTERNAME%"));
-    $('#submit').click(() => $.spAction("search", $("#search").val()));
+  jQuery(document).ready($ => {
+    $.StrokesPlus();
   });
 </script>
