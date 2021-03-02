@@ -1,0 +1,3 @@
+icon: fa fa-github
+name: ScriptsPlus, a StrokesPlus.net Plugin
+description: Inspired by jQuery, this plugin wraps many of the `sp.xxx` methods with a simplified API.
