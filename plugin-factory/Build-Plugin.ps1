@@ -13,7 +13,7 @@
           
       Description
       -----------
-      Installs the function as a menu item.
+      Builds the plugin.
   .NOTES
       FunctionName    : Build-Plugin
       Created by      : Kevin Hill
