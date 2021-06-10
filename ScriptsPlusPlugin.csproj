@@ -31,17 +31,10 @@
     <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClearScript.Core">
-      <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ClearScript.V8">
-      <HintPath>C:\Program Files\StrokesPlus.net\ClearScript.V8.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ScriptsPlusPlugin.cs" />

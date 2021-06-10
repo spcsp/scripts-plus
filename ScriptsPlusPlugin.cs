@@ -1,5 +1,4 @@
-﻿using Microsoft.ClearScript.V8;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ScriptsPlusPlugin
 {
@@ -7,7 +6,7 @@ namespace ScriptsPlusPlugin
   {
     public static string BundleSrc { get; } = Properties.Resources.ScriptsPlus_js;
 
-    public static void StrokesPlusInitStaticPlugin(V8ScriptEngine e)
+    public static void StrokesPlusInitStaticPlugin(dynamic e)
     {
       try
       {
@@ -20,4 +19,3 @@ namespace ScriptsPlusPlugin
     }
   }
 }
-
