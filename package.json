@@ -1,6 +1,7 @@
 {
   "name": "@spcsp/scripts-plus",
   "version": "0.1.0",
+  "private": false,
   "keywords": [
     "ScriptsPlus",
     "Plugin",
