@@ -1588,7 +1588,7 @@ function toast(message, opts = {}) {
   if (typeof opts === "string") {
     info.Title = opts;
   } else {
-    info.Title = typeof opts.title === "string" ? opts.title : "ScriptyStrokes";
+    info.Title = typeof opts.title === "string" ? opts.title : "Scripts Plus";
   }
 
   info.ForeColor = opts.textColor || "cyan";
