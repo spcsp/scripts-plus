@@ -1,23 +1,34 @@
-## ScriptsPlus, a StrokesPlus.net Plugin
+# @spcsp/scripts-plus
 
-### Enhance the scripting capabilities of S+ with a rich module library.
+Enhance the scripting capabilities of S+ with a rich module library.
+
 Inspired by the simplicity of jQuery, there are 40+ modules that extend and enhance the scripting capabilities within action scripts.
 Many common `sp.xxxx` methods are wrapped to simplify their use and some wrapped together to create new tools.
 
 # Install
-Download `ScriptsPlusPlugin.dll` from here and place it in `C:\Program Files\StrokesPlus.net\Plug-Ins` to be automatically picked up by S+
-You can also add it manually, or place it in your own plugins folder and add that path.
 
-# Loading
- - Head to `Global Actions`
- - Open the `Load/Unload` tab
- - Check the box to enable the load script
- - Paste in this snippet: `var $ = ScriptsPlus();`
- - Profit!
+Open the S+ console and in the `script` tab & paste this command
+
+```javascript
+SPPM.Install("@spcsp/scripts-plus");
+```
+
+and click <kbd>&#9654;&nbsp;Execute</kbd>
+
+# Usage
+
+Open the main interface of StrokesPlus
+
+- Head to `Global Actions`
+- Open the `Load/Unload` tab
+- Check the box to enable the load script
+- Paste in this snippet: `var $ = ScriptsPlus();`
+- Now `$.xxx` methods are available in any script context
 
 # Examples
 
 ### Wrapped Methods
+
 ```javascript
 // wraps `sp.MessageBox()`
 $.alert("Hello World!");
@@ -30,6 +41,7 @@ $.balloon("Hello World!");
 ```
 
 ### Dialogs
+
 ```javascript
 function getUserInput() {
   var modal = $.dialog.create("Text Input Demo");
@@ -41,6 +53,7 @@ getUserInput();
 ```
 
 ### Popup Menus
+
 ```javascript
 var { addToMenu, addToSubMenu, menuItem, show } = $.popup;
 

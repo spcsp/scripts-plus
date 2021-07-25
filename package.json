@@ -1,11 +1,5 @@
 {
-  "name": "strokesplus-plugin-scriptsplus",
-  "main": "./src/index.js",
-  "browser": "./Properties/ScriptsPlus.js",
-  "bin": {
-    "splus": "./tools/spe.js"
-  },
-  "license": "MIT",
+  "name": "@spcsp/scripts-plus",
   "version": "0.1.0",
   "keywords": [
     "ScriptsPlus",
@@ -14,31 +8,29 @@
     "StrokesPlus",
     "StrokesPlus.net"
   ],
+  "homepage": "https://github.com/kevinkhill/scripts-plus",
+  "license": "MIT",
   "author": {
     "name": "Kevin Hill",
     "email": "kevinkhill@gmail.com",
     "website": "https://kevinhill.codes"
   },
-  "homepage": "https://github.com/kevinkhill/scripts-plus",
+  "main": "./dist/scripts-plus.js",
+  "bin": {
+    "splus": "./tools/spe.js"
+  },
   "scripts": {
-    "tasks": "ntl",
-    "dev": "webpack --progress --watch",
-    "lint": "eslint --ext=.js ./src ./tools",
-    "fix": "yarn lint --fix",
     "build": "webpack --progress",
-    "clean": "npm run precompile",
-    "reload-sp": "node tools/reload_sp.js",
-    "hello": "node tools/say_hello.js",
-    "precompile": "dotnet msbuild -nologo -t:Clean ScriptsPlusPlugin.sln",
-    "compile": "dotnet msbuild -nologo -p:Configuration=Release ScriptsPlusPlugin.sln",
+    "dev": "webpack --progress --watch",
     "docs": "parcel",
-    "repl": "local-repl",
-    "pfr": "yarn plugin-factory:run",
-    "plugin-factory:run": "pwsh ./plugin-factory/BuildAll.ps1",
     "dts:dev": "cd ./tools/DtsGenerator && nodemon DtsGenerator.js",
     "dts:make": "cd ./tools/DtsGenerator && node DtsGenerator.js",
+    "fix": "yarn lint --fix",
+    "hello": "node tools/say_hello.js",
     "json:dev": "cd ./tools/JsonGenerator && nodemon JsonGenerator.js",
-    "json:make": "cd ./tools/JsonGenerator && node JsonGenerator.js"
+    "json:make": "cd ./tools/JsonGenerator && node JsonGenerator.js",
+    "lint": "eslint --ext=.js ./src ./tools",
+    "reload-sp": "node tools/reload_sp.js"
   },
   "dependencies": {
     "json-stringify-safe": "^5.0.1"
@@ -59,21 +51,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "execa": "^5.0.0",
     "express": "^4.17.1",
-    "grunt": "^1.3.0",
-    "grunt-cli": "^1.3.2",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-eslint": "^23.0.0",
-    "grunt-msbuild": "^1.1.1",
-    "grunt-prettier": "^2.1.0",
-    "grunt-prompt": "^1.3.3",
-    "grunt-shell": "^3.0.1",
-    "load-grunt-tasks": "^5.1.0",
-    "local-repl": "^4.0.0",
-    "minimist": "^1.2.5",
-    "minta": "^3.1.7",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
-    "ntl": "^5.1.0",
     "parcel-bundler": "^1.12.4",
     "parse-json": "^5.2.0",
     "prettier": "^2.2.1",
