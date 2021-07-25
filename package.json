@@ -64,5 +64,8 @@
     "vuetify": "^2.4.4",
     "webpack": "^5.19.0",
     "webpack-cli": "^4.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
