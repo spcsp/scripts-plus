@@ -1,7 +1,10 @@
 .vs/
 .vscode/
+src/
 tools/
+tools/*
 
+.gitfolio.yml
 .editorconfig
 .eslintignore
 .eslintrc.json
